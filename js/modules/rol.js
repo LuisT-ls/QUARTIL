@@ -59,8 +59,6 @@ function processarRol() {
   const rolInput = document.getElementById('rolInput')
   const rolResult = document.getElementById('rolResult')
 
-  console.log('Processando rol...')
-
   // Remover espaços extras e dividir pelos delimitadores (vírgula ou espaço)
   const inputValue = rolInput.value.trim()
 
@@ -90,10 +88,8 @@ function processarRol() {
   appState.currentData = rol
   appState.isCalculated = true
 
-  console.log('Rol calculado:', rol)
-
   rolResult.style.display = 'block'
-
+  rolResult.classList.add('active')
   // Exibir o rol ordenado
   rolResult.innerHTML = `
     <div class="result-card">
@@ -115,8 +111,6 @@ function processarRol() {
   calculateMedidasDispersao(rol)
   calculateQuartis(rol)
   updateGraficos(rol)
-
-  console.log('Rol HTML atualizado:', rolResult.innerHTML)
 }
 
 // Função para limpar o rol e os resultados
