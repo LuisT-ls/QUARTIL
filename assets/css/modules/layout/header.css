@@ -73,8 +73,3 @@
   animation: fadeIn var(--transition-normal) 0.3s forwards,
     slideInUp var(--transition-normal) 0.3s forwards;
 }
-
-/* Responsividade */
-@media (max-width: 768px) {
-
-}
