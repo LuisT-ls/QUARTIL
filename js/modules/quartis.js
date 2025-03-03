@@ -17,12 +17,15 @@ export function calculateQuartis(data) {
   const q1Result = document.getElementById('q1Result')
   const q2Result = document.getElementById('q2Result')
   const q3Result = document.getElementById('q3Result')
+  const iqrResult = document.getElementById('iqrResult')
+  const mediaJuntasResult = document.getElementById('mediaJuntasResult')
 
   // Calcular quartis
   const q1 = calcularQuartil(data, 0.25)
   const q2 = calcularMediana(data) // Q2 é a mediana
   const q3 = calcularQuartil(data, 0.75)
   const iqr = q3 - q1
+  const mediaJuntas = (q1 + q2 + q3) / 3
 
   // Exibir Q1
   q1Result.innerHTML = `
@@ -59,13 +62,45 @@ export function calculateQuartis(data) {
       </p>
       <div class="result-steps">
         <p>Posição aproximada: ${(data.length * 0.75).toFixed(2)}</p>
-        <p>Intervalo Interquartil (IQR): ${iqr.toFixed(2)}</p>
+      </div>
+    </div>
+  `
+
+  // Exibir Amplitude do Interquartil (IQR)
+  iqrResult.innerHTML = `
+    <div class="result-card">
+      <p class="result-value">${iqr.toFixed(2)}</p>
+      <p class="result-formula">
+        <strong>Fórmula:</strong> IQR = Q3 - Q1
+      </p>
+      <div class="result-steps">
+        <p>Q3 = ${q3.toFixed(2)}</p>
+        <p>Q1 = ${q1.toFixed(2)}</p>
+        <p>IQR = ${q3.toFixed(2)} - ${q1.toFixed(2)} = ${iqr.toFixed(2)}</p>
+      </div>
+    </div>
+  `
+
+  // Exibir Média das Juntas (Q1, Mediana, Q3)
+  mediaJuntasResult.innerHTML = `
+    <div class="result-card">
+      <p class="result-value">${mediaJuntas.toFixed(2)}</p>
+      <p class="result-formula">
+        <strong>Fórmula:</strong> Média das Juntas = (Q1 + Q2 + Q3) / 3
+      </p>
+      <div class="result-steps">
+        <p>Q1 = ${q1.toFixed(2)}</p>
+        <p>Q2 = ${q2.toFixed(2)}</p>
+        <p>Q3 = ${q3.toFixed(2)}</p>
+        <p>Média = (${q1.toFixed(2)} + ${q2.toFixed(2)} + ${q3.toFixed(
+    2
+  )}) / 3 = ${mediaJuntas.toFixed(2)}</p>
       </div>
     </div>
   `
 
   // Retornar os valores calculados para uso em outros módulos
-  return { q1, q2, q3, iqr }
+  return { q1, q2, q3, iqr, mediaJuntas }
 }
 
 // Função para calcular um quartil específico
