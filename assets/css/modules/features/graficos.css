@@ -114,6 +114,10 @@
   opacity: 1;
 }
 
+#boxplotChart {
+  max-height: 300px !important;
+}
+
 .dark-mode .graficos-tabs {
   border-bottom-color: var(--gray-700);
 }

@@ -243,6 +243,7 @@ function criarHistograma(data, canvas) {
 // Função para criar um boxplot personalizado usando Chart.js
 function criarBoxplot(data, canvas) {
   const ctx = canvas.getContext('2d')
+  canvas.height = 300
 
   // Calcular estatísticas para o boxplot
   const min = Math.min(...data)
@@ -330,7 +331,8 @@ function criarBoxplot(data, canvas) {
     options: {
       indexAxis: 'y',
       responsive: true,
-      maintainAspectRatio: false,
+      maintainAspectRatio: true,
+      aspectRatio: 2,
       scales: {
         x: {
           position: 'top',
