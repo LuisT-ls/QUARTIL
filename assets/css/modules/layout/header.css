@@ -1,0 +1,16 @@
+.header {
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+  padding: 20px 0;
+  text-align: center;
+}
+
+.header-title {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.header-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}

@@ -1,0 +1,24 @@
+#tabelaFrequenciaInput {
+  border: 2px solid #28a745;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+#calcularTabelaFrequencia {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#calcularTabelaFrequencia:hover {
+  background-color: #218838;
+}
+
+#tabelaFrequenciaResult {
+  margin-top: 20px;
+  font-size: 1.2em;
+  color: #333;
+}

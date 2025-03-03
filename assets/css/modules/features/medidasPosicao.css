@@ -1,0 +1,67 @@
+/* Seção de Medidas de Posição */
+.position-measures {
+  background: #f9fafb;
+  padding: 50px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.position-measures h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #374151;
+  margin-bottom: 30px;
+}
+
+.position-box {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.position-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+.position-box h3 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #4f46e5;
+  margin-bottom: 15px;
+}
+
+.position-result {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #1f2937;
+  padding: 15px;
+  border-radius: 8px;
+  background: #eef2ff;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .position-measures {
+    padding: 35px;
+  }
+
+  .position-box {
+    margin-bottom: 20px;
+  }
+
+  .position-box h3 {
+    font-size: 1.4rem;
+  }
+
+  .position-result {
+    font-size: 1.2rem;
+    padding: 12px;
+  }
+}

@@ -1,0 +1,52 @@
+:root {
+  /* Cores Primárias */
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #17a2b8;
+  --light-color: #f8f9fa;
+  --dark-color: #343a40;
+
+  /* Cores de Texto */
+  --text-color-light: #ffffff;
+  --text-color-dark: #212529;
+
+  /* Cores de Fundo */
+  --background-light: #ffffff;
+  --background-dark: #343a40;
+
+  /* Cores de Botões */
+  --button-primary-bg: var(--primary-color);
+  --button-primary-text: var(--text-color-light);
+  --button-secondary-bg: var(--secondary-color);
+  --button-secondary-text: var(--text-color-light);
+  --button-success-bg: var(--success-color);
+  --button-success-text: var(--text-color-light);
+  --button-danger-bg: var(--danger-color);
+  --button-danger-text: var(--text-color-light);
+  --button-warning-bg: var(--warning-color);
+  --button-warning-text: var(--text-color-dark);
+  --button-info-bg: var(--info-color);
+  --button-info-text: var(--text-color-light);
+
+  /* Cores de Links */
+  --link-color: var(--primary-color);
+  --link-hover-color: #0056b3;
+
+  /* Cores de Tabelas */
+  --table-header-bg: var(--primary-color);
+  --table-header-text: var(--text-color-light);
+  --table-row-bg: var(--background-light);
+  --table-row-text: var(--text-color-dark);
+  --table-row-hover-bg: #f1f1f1;
+
+  /* Cores de Gráficos */
+  --chart-primary-color: var(--primary-color);
+  --chart-secondary-color: var(--secondary-color);
+  --chart-success-color: var(--success-color);
+  --chart-danger-color: var(--danger-color);
+  --chart-warning-color: var(--warning-color);
+  --chart-info-color: var(--info-color);
+}

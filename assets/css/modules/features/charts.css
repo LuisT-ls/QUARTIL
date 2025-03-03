@@ -1,0 +1,7 @@
+#histogramaChart,
+#boxplotChart {
+  background-color: var(--background-light);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}

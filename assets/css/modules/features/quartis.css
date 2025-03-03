@@ -1,0 +1,10 @@
+#q1Result,
+#q2Result,
+#q3Result {
+  background-color: #dee2e6;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-size: 1.1em;
+  color: #333;
+}

@@ -1,0 +1,23 @@
+.dark-mode {
+  background-color: var(--background-dark);
+  color: var(--text-color-light);
+}
+
+.dark-mode .header {
+  background-color: var(--dark-color);
+  color: var(--text-color-light);
+}
+
+.dark-mode .footer {
+  background-color: var(--dark-color);
+  color: var(--text-color-light);
+}
+
+.dark-mode .btn-primary {
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+}
+
+.dark-mode .btn-primary:hover {
+  background-color: #0b5ed7;
+}

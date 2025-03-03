@@ -1,0 +1,88 @@
+/* Seção de Entrada */
+.input-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 45px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+/* Input Estilizado */
+.rol-input {
+  width: 100%;
+  max-width: 650px;
+  padding: 20px;
+  font-size: 1.4rem;
+  border: 2px solid #d1d5db;
+  border-radius: 12px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+  background: #f9fafb;
+  text-align: center;
+  font-weight: 500;
+  color: #333;
+}
+
+.rol-input::placeholder {
+  color: #9ca3af;
+  font-size: 1.2rem;
+}
+
+.rol-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 14px rgba(99, 102, 241, 0.4);
+  background: #ffffff;
+}
+
+/* Botões */
+.button-group {
+  display: flex;
+  gap: 14px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 24px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, #4f46e5, #6366f1);
+  border: none;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(45deg, #4338ca, #4f46e5);
+}
+
+.btn-secondary {
+  background: #6b7280;
+  border: none;
+  color: #ffffff;
+}
+
+.btn-secondary:hover {
+  background: #4b5563;
+}
+
+.btn-success {
+  background: linear-gradient(45deg, #10b981, #34d399);
+  border: none;
+  color: #ffffff;
+}
+
+.btn-success:hover {
+  background: linear-gradient(45deg, #059669, #10b981);
+}
