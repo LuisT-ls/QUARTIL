@@ -93,7 +93,7 @@ function processarRol() {
   // Exibir o rol ordenado
   rolResult.innerHTML = `
     <div class="result-card">
-      <h3>Rol Ordenado</h3>
+      <h3 class="rol-title">Rol Ordenado</h3>
       <p>${rol.join(' - ')}</p>
       <div class="result-info">
         <span><strong>n =</strong> ${rol.length}</span>

@@ -79,6 +79,7 @@
   --dark-bg: #f8f9fa;
   --light-text: #212529;
   --dark-text: #f8f9fa;
+  --placeholder-color: #808080;
   --gray-100: #212529;
   --gray-200: #343a40;
   --gray-300: #495057;
@@ -91,6 +92,7 @@
 
   /* Ajuste de cores para modo escuro */
   --primary-light: #3a0ca3;
+  --primary-intermediate: #4361ee;
   --primary-dark: #4cc9f0;
 
   /* Sombras para modo escuro */
