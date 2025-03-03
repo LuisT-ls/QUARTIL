@@ -17,12 +17,16 @@ export function calculateMedidasDispersao(data) {
   const desvioPadraoResult = document.getElementById('desvioPadraoResult')
   const varianciaResult = document.getElementById('varianciaResult')
   const cvResult = document.getElementById('cvResult')
+  const assimetriaResult = document.getElementById('assimetriaResult')
+  const curtoseResult = document.getElementById('curtoseResult')
 
   // Calcular desvio padrão
   const media = calcularMedia(data)
   const variancia = calcularVariancia(data, media)
   const desvioPadrao = Math.sqrt(variancia)
   const cv = (desvioPadrao / media) * 100
+  const assimetria = calcularAssimetria(data, media, desvioPadrao)
+  const curtose = calcularCurtose(data, media, desvioPadrao)
 
   // Exibir desvio padrão
   desvioPadraoResult.innerHTML = `
@@ -62,6 +66,32 @@ export function calculateMedidasDispersao(data) {
         <p>σ (desvio padrão) = ${desvioPadrao.toFixed(2)}</p>
         <p>μ (média) = ${media.toFixed(2)}</p>
         <p>Interpretação: ${interpretarCV(cv)}</p>
+      </div>
+    </div>
+  `
+
+  // Exibir assimetria
+  assimetriaResult.innerHTML = `
+    <div class="result-card">
+      <p class="result-value">${assimetria.toFixed(2)}</p>
+      <p class="result-formula">
+        <strong>Fórmula:</strong> Assimetria = [n / ((n-1)(n-2))] * ∑[(x - μ)/σ]³
+      </p>
+      <div class="result-steps">
+        <p>Interpretação: ${interpretarAssimetria(assimetria)}</p>
+      </div>
+    </div>
+  `
+
+  // Exibir curtose
+  curtoseResult.innerHTML = `
+    <div class="result-card">
+      <p class="result-value">${curtose.toFixed(2)}</p>
+      <p class="result-formula">
+        <strong>Fórmula:</strong> Curtose = [n(n+1)/((n-1)(n-2)(n-3))] * ∑[(x - μ)/σ]⁴ - [3(n-1)²/((n-2)(n-3))]
+      </p>
+      <div class="result-steps">
+        <p>Interpretação: ${interpretarCurtose(curtose)}</p>
       </div>
     </div>
   `
@@ -110,5 +140,70 @@ function interpretarCV(cv) {
     return 'Média dispersão'
   } else {
     return 'Alta dispersão (dados heterogêneos)'
+  }
+}
+
+// Função para calcular a assimetria
+export function calcularAssimetria(array, media = null, desvioPadrao = null) {
+  if (!array || array.length === 0) return 0
+
+  if (media === null) {
+    media = calcularMedia(array)
+  }
+
+  if (desvioPadrao === null) {
+    desvioPadrao = calcularDesvioPadrao(array, media)
+  }
+
+  const n = array.length
+  const somaCubosDasDiferencas = array.reduce((sum, val) => {
+    return sum + Math.pow((val - media) / desvioPadrao, 3)
+  }, 0)
+
+  return (n / ((n - 1) * (n - 2))) * somaCubosDasDiferencas
+}
+
+// Função para interpretar a assimetria
+function interpretarAssimetria(assimetria) {
+  if (assimetria === 0) {
+    return 'Distribuição simétrica'
+  } else if (assimetria > 0) {
+    return 'Assimetria positiva (cauda à direita)'
+  } else {
+    return 'Assimetria negativa (cauda à esquerda)'
+  }
+}
+
+// Função para calcular a curtose
+export function calcularCurtose(array, media = null, desvioPadrao = null) {
+  if (!array || array.length === 0) return 0
+
+  if (media === null) {
+    media = calcularMedia(array)
+  }
+
+  if (desvioPadrao === null) {
+    desvioPadrao = calcularDesvioPadrao(array, media)
+  }
+
+  const n = array.length
+  const somaQuartasPotenciaDasDiferencas = array.reduce((sum, val) => {
+    return sum + Math.pow((val - media) / desvioPadrao, 4)
+  }, 0)
+
+  const curtose =
+    ((n * (n + 1)) / ((n - 1) * (n - 2) * (n - 3))) *
+    somaQuartasPotenciaDasDiferencas
+  return curtose - (3 * Math.pow(n - 1, 2)) / ((n - 2) * (n - 3))
+}
+
+// Função para interpretar a curtose
+function interpretarCurtose(curtose) {
+  if (curtose === 0) {
+    return 'Curtose normal (mesocúrtica)'
+  } else if (curtose > 0) {
+    return 'Curtose alta (leptocúrtica)'
+  } else {
+    return 'Curtose baixa (platicúrtica)'
   }
 }
