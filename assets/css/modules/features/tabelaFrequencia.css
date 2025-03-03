@@ -62,6 +62,87 @@
   background-color: var(--gray-200);
 }
 
+/* Estilos para a seção de estatísticas e legenda */
+.tabela-stats {
+  background-color: var(--gray-100);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-md);
+  margin-top: var(--spacing-lg);
+}
+
+.tabela-stats h4 {
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-md);
+}
+
+.stats-container {
+  display: flex;
+  gap: var(--spacing-xl);
+  align-items: flex-start;
+}
+
+.stats-card {
+  flex: 1;
+  background-color: white;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+}
+
+.stats-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.stats-card h4 {
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-md);
+}
+
+.stats-card p {
+  margin-bottom: var(--spacing-sm);
+  color: var(--gray-700);
+}
+
+.stats-card ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.stats-card li {
+  margin-bottom: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--gray-700);
+}
+
+.stats-card li strong {
+  color: var(--primary-color);
+}
+
+/* Estilos para o modo escuro */
+.dark-mode .tabela-stats {
+  background-color: var(--gray-800);
+}
+
+.dark-mode .stats-card {
+  background-color: var(--gray-700);
+}
+
+.dark-mode .stats-card p,
+.dark-mode .stats-card li {
+  color: var(--gray-300);
+}
+
+.dark-mode .stats-card h4 {
+  color: var(--primary-dark);
+}
+
+.dark-mode .stats-card li strong {
+  color: var(--primary-dark);
+}
+
 .dark-mode .tabela-frequencia-wrapper {
   background-color: var(--gray-800);
 }
