@@ -260,13 +260,19 @@ function calcularTabelaCompleta() {
   // Completar dados ausentes onde possível
   completarDados(totalFrequencia)
 
-  // Mostrar estatísticas se tivermos frequências
+  // Limpar o conteúdo atual
+  const tabelaManualResult = document.getElementById(
+    'tabelaFrequenciaManualResult'
+  )
+  tabelaManualResult.innerHTML = ''
+
+  // ALTERAÇÃO AQUI: Primeiro criamos a visualização da tabela final
+  criarVisualizacaoTabela(totalFrequencia)
+
+  // ALTERAÇÃO AQUI: Depois mostramos as estatísticas se tivermos frequências
   if (totalFrequencia > 0) {
     mostrarEstatisticasTabela(totalFrequencia)
   }
-
-  // Criar visualização da tabela final
-  criarVisualizacaoTabela(totalFrequencia)
 }
 
 // Função para derivar frequências absolutas a partir de frequências acumuladas
@@ -417,110 +423,6 @@ function completarDados(totalFrequencia) {
   }
 }
 
-// Função para mostrar estatísticas da tabela
-function mostrarEstatisticasTabela(totalFrequencia) {
-  const tabelaBody = document.getElementById('tabelaManualBody')
-  const linhas = tabelaBody.querySelectorAll('tr')
-
-  // Coletar dados para cálculos
-  const dados = []
-  let amplitudeTotal = 0
-  let h = 0
-
-  // Extrair limites para calcular amplitude total
-  if (linhas.length > 0) {
-    const primeiraLinha = linhas[0]
-    const ultimaLinha = linhas[linhas.length - 1]
-
-    if (
-      primeiraLinha.querySelector('.limite-inferior').value &&
-      ultimaLinha.querySelector('.limite-superior').value
-    ) {
-      const limiteInferiorPrimeiro = parseFloat(
-        primeiraLinha.querySelector('.limite-inferior').value
-      )
-      const limiteSuperiorUltimo = parseFloat(
-        ultimaLinha.querySelector('.limite-superior').value
-      )
-
-      amplitudeTotal = limiteSuperiorUltimo - limiteInferiorPrimeiro
-    }
-
-    // Obter h (largura da classe) do primeiro input se disponível
-    if (primeiraLinha.querySelector('.h-classe').value) {
-      h = parseFloat(primeiraLinha.querySelector('.h-classe').value)
-    }
-  }
-
-  // Extrair valores expandidos baseados na frequência para calcular estatísticas
-  let dadosValidos = false
-
-  linhas.forEach(linha => {
-    const pontoMedioInput = linha.querySelector('.ponto-medio')
-    const frequenciaInput = linha.querySelector('.frequencia')
-
-    if (pontoMedioInput.value && frequenciaInput.value) {
-      const pontoMedio = parseFloat(pontoMedioInput.value)
-      const frequencia = parseInt(frequenciaInput.value)
-
-      // Adicionar o ponto médio 'frequencia' vezes ao array de dados
-      for (let i = 0; i < frequencia; i++) {
-        dados.push(pontoMedio)
-      }
-
-      dadosValidos = true
-    }
-  })
-
-  // Se não tivermos dados suficientes para estatísticas, retornar
-  if (!dadosValidos) {
-    return
-  }
-
-  // Calcular estatísticas usando as funções existentes
-  const media = calcularMedia(dados)
-  const mediana = calcularMediana(dados)
-  const moda = calcularModa(dados)
-
-  // Criar e exibir as estatísticas
-  const tabelaManualResult = document.getElementById(
-    'tabelaFrequenciaManualResult'
-  )
-
-  let estatisticasHTML = `
-    <div class="tabela-stats mt-3">
-      <h4>Estatísticas da Tabela:</h4>
-      <div class="stats-container">
-        <!-- Legenda à esquerda -->
-        <div class="stats-card">
-          <h4>Legenda:</h4>
-          <ul>
-            <li><strong>h:</strong> Largura da classe (h = Amplitude Total / Número de Classes).</li>
-            <li><strong>fi:</strong> Frequência absoluta (número de observações na classe).</li>
-            <li><strong>fri:</strong> Frequência relativa (fi / Total de Observações).</li>
-            <li><strong>fri (%):</strong> Frequência relativa em porcentagem (fri * 100).</li>
-            <li><strong>Fi:</strong> Frequência acumulada (soma das frequências até a classe atual).</li>
-            <li><strong>Fri:</strong> Frequência relativa acumulada (Fi / Total de Observações).</li>
-          </ul>
-        </div>
-        <!-- Estatísticas à direita -->
-        <div class="stats-card">
-          <p><strong>Número de classes:</strong> ${linhas.length}</p>
-          <p><strong>Amplitude total:</strong> ${amplitudeTotal.toFixed(2)}</p>
-          <p><strong>Largura das classes (h):</strong> ${h.toFixed(2)}</p>
-          <p><strong>Média:</strong> ${media.toFixed(2)}</p>
-          <p><strong>Mediana:</strong> ${mediana.toFixed(2)}</p>
-          <p><strong>Moda:</strong> ${
-            Array.isArray(moda) ? moda.join(', ') : moda
-          }</p>
-        </div>
-      </div>
-    </div>
-  `
-
-  tabelaManualResult.innerHTML = estatisticasHTML
-}
-
 // Função para criar a visualização final da tabela
 function criarVisualizacaoTabela(totalFrequencia) {
   const tabelaBody = document.getElementById('tabelaManualBody')
@@ -537,7 +439,7 @@ function criarVisualizacaoTabela(totalFrequencia) {
 
   // Criar tabela de visualização
   let tabelaVisualizacaoHTML = `
-    <div class="table-responsive mt-4">
+    <div class="table-responsive">
       <h4>Tabela de Frequência Final:</h4>
       <table class="table table-striped table-hover">
         <thead>
@@ -638,12 +540,112 @@ function criarVisualizacaoTabela(totalFrequencia) {
     `
   }
 
-  // Se já temos estatísticas, adicionar a tabela abaixo delas, caso contrário, substituir o conteúdo
-  if (tabelaManualResult.innerHTML.includes('Estatísticas da Tabela')) {
-    tabelaManualResult.innerHTML += tabelaVisualizacaoHTML
-  } else {
-    tabelaManualResult.innerHTML = tabelaVisualizacaoHTML
+  // Adicionar a tabela de visualização
+  tabelaManualResult.innerHTML = tabelaVisualizacaoHTML
+}
+
+// Função para mostrar estatísticas da tabela
+function mostrarEstatisticasTabela(totalFrequencia) {
+  const tabelaBody = document.getElementById('tabelaManualBody')
+  const linhas = tabelaBody.querySelectorAll('tr')
+  const tabelaManualResult = document.getElementById(
+    'tabelaFrequenciaManualResult'
+  )
+
+  // Coletar dados para cálculos
+  const dados = []
+  let amplitudeTotal = 0
+  let h = 0
+
+  // Extrair limites para calcular amplitude total
+  if (linhas.length > 0) {
+    const primeiraLinha = linhas[0]
+    const ultimaLinha = linhas[linhas.length - 1]
+
+    if (
+      primeiraLinha.querySelector('.limite-inferior').value &&
+      ultimaLinha.querySelector('.limite-superior').value
+    ) {
+      const limiteInferiorPrimeiro = parseFloat(
+        primeiraLinha.querySelector('.limite-inferior').value
+      )
+      const limiteSuperiorUltimo = parseFloat(
+        ultimaLinha.querySelector('.limite-superior').value
+      )
+
+      amplitudeTotal = limiteSuperiorUltimo - limiteInferiorPrimeiro
+    }
+
+    // Obter h (largura da classe) do primeiro input se disponível
+    if (primeiraLinha.querySelector('.h-classe').value) {
+      h = parseFloat(primeiraLinha.querySelector('.h-classe').value)
+    }
   }
+
+  // Extrair valores expandidos baseados na frequência para calcular estatísticas
+  let dadosValidos = false
+
+  linhas.forEach(linha => {
+    const pontoMedioInput = linha.querySelector('.ponto-medio')
+    const frequenciaInput = linha.querySelector('.frequencia')
+
+    if (pontoMedioInput.value && frequenciaInput.value) {
+      const pontoMedio = parseFloat(pontoMedioInput.value)
+      const frequencia = parseInt(frequenciaInput.value)
+
+      // Adicionar o ponto médio 'frequencia' vezes ao array de dados
+      for (let i = 0; i < frequencia; i++) {
+        dados.push(pontoMedio)
+      }
+
+      dadosValidos = true
+    }
+  })
+
+  // Se não tivermos dados suficientes para estatísticas, retornar
+  if (!dadosValidos) {
+    return
+  }
+
+  // Calcular estatísticas usando as funções existentes
+  const media = calcularMedia(dados)
+  const mediana = calcularMediana(dados)
+  const moda = calcularModa(dados)
+
+  // Criar e exibir as estatísticas
+  let estatisticasHTML = `
+    <div class="tabela-stats mt-4">
+      <h4>Estatísticas da Tabela:</h4>
+      <div class="stats-container">
+        <!-- Legenda à esquerda -->
+        <div class="stats-card">
+          <h4>Legenda:</h4>
+          <ul>
+            <li><strong>h:</strong> Largura da classe (h = Amplitude Total / Número de Classes).</li>
+            <li><strong>fi:</strong> Frequência absoluta (número de observações na classe).</li>
+            <li><strong>fri:</strong> Frequência relativa (fi / Total de Observações).</li>
+            <li><strong>fri (%):</strong> Frequência relativa em porcentagem (fri * 100).</li>
+            <li><strong>Fi:</strong> Frequência acumulada (soma das frequências até a classe atual).</li>
+            <li><strong>Fri:</strong> Frequência relativa acumulada (Fi / Total de Observações).</li>
+          </ul>
+        </div>
+        <!-- Estatísticas à direita -->
+        <div class="stats-card">
+          <p><strong>Número de classes:</strong> ${linhas.length}</p>
+          <p><strong>Amplitude total:</strong> ${amplitudeTotal.toFixed(2)}</p>
+          <p><strong>Largura das classes (h):</strong> ${h.toFixed(2)}</p>
+          <p><strong>Média:</strong> ${media.toFixed(2)}</p>
+          <p><strong>Mediana:</strong> ${mediana.toFixed(2)}</p>
+          <p><strong>Moda:</strong> ${
+            Array.isArray(moda) ? moda.join(', ') : moda
+          }</p>
+        </div>
+      </div>
+    </div>
+  `
+
+  // Adicionar as estatísticas abaixo da tabela de visualização
+  tabelaManualResult.innerHTML += estatisticasHTML
 }
 
 // Função para limpar a tabela manual
