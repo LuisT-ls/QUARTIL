@@ -44,6 +44,22 @@
     padding: 0 var(--spacing-lg);
   }
 
+  .header-title {
+    font-size: var(
+      --font-size-2xl
+    );
+  }
+
+  .header-logo {
+    width: 30px;
+  }
+
+  .header-subtitle {
+    font-size: var(
+      --font-size-md
+    );
+  }
+
   .col-md-4,
   .col-md-6 {
     width: 100%;
