@@ -4,6 +4,7 @@ import { initializeMedidasPosicao } from './modules/medidasPosicao.js'
 import { initializeMedidasDispersao } from './modules/medidasDispersao.js'
 import { initializeQuartis } from './modules/quartis.js'
 import { initializeTabelaFrequencia } from './modules/tabelaFrequencia.js'
+import { initializeTabelaFrequenciaManual } from './modules/tabelaFrequenciaManual.js'
 import { initializeGraficos } from './modules/graficos.js'
 
 // Dados compartilhados entre módulos
@@ -64,5 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeMedidasDispersao()
   initializeQuartis()
   initializeTabelaFrequencia()
+  initializeTabelaFrequenciaManual()
   initializeGraficos()
 })
