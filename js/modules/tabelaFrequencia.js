@@ -176,32 +176,34 @@ export function criarTabelaFrequencia(data) {
 
   // Adicionar estatísticas e legenda
   tabelaHTML += `
-    <div class="tabela-stats mt-3">
-      <h4>Estatísticas da Tabela:</h4>
-      <div class="stats-container">
-        <div class="stats-card">
-          <p><strong>Número de classes:</strong> ${numClasses}</p>
-          <p><strong>Amplitude total:</strong> ${amplitudeTotal.toFixed(2)}</p>
-          <p><strong>Largura das classes (h):</strong> ${h.toFixed(2)}</p>
-          <p><strong>Média:</strong> ${media.toFixed(2)}</p>
-          <p><strong>Mediana:</strong> ${mediana.toFixed(2)}</p>
-          <p><strong>Moda:</strong> ${
-            Array.isArray(moda) ? moda.join(', ') : moda
-          }</p>
-        </div>
-        <div class="stats-card">
-          <h4>Legenda:</h4>
-          <ul>
-            <li><strong>h:</strong> Largura da classe (h = Amplitude Total / Número de Classes).</li>
-            <li><strong>fi:</strong> Frequência absoluta (número de observações na classe).</li>
-            <li><strong>fri:</strong> Frequência relativa (fi / Total de Observações).</li>
-            <li><strong>fri (%):</strong> Frequência relativa em porcentagem (fri * 100).</li>
-            <li><strong>Fi:</strong> Frequência acumulada (soma das frequências até a classe atual).</li>
-            <li><strong>Fri:</strong> Frequência relativa acumulada (Fi / Total de Observações).</li>
-          </ul>
-        </div>
-      </div>
+<div class="tabela-stats mt-3">
+  <h4>Estatísticas da Tabela:</h4>
+  <div class="stats-container">
+    <!-- Legenda à esquerda -->
+    <div class="stats-card">
+      <h4>Legenda:</h4>
+      <ul>
+        <li><strong>h:</strong> Largura da classe (h = Amplitude Total / Número de Classes).</li>
+        <li><strong>fi:</strong> Frequência absoluta (número de observações na classe).</li>
+        <li><strong>fri:</strong> Frequência relativa (fi / Total de Observações).</li>
+        <li><strong>fri (%):</strong> Frequência relativa em porcentagem (fri * 100).</li>
+        <li><strong>Fi:</strong> Frequência acumulada (soma das frequências até a classe atual).</li>
+        <li><strong>Fri:</strong> Frequência relativa acumulada (Fi / Total de Observações).</li>
+      </ul>
     </div>
+    <!-- Estatísticas à direita -->
+    <div class="stats-card">
+      <p><strong>Número de classes:</strong> ${numClasses}</p>
+      <p><strong>Amplitude total:</strong> ${amplitudeTotal.toFixed(2)}</p>
+      <p><strong>Largura das classes (h):</strong> ${h.toFixed(2)}</p>
+      <p><strong>Média:</strong> ${media.toFixed(2)}</p>
+      <p><strong>Mediana:</strong> ${mediana.toFixed(2)}</p>
+      <p><strong>Moda:</strong> ${
+        Array.isArray(moda) ? moda.join(', ') : moda
+      }</p>
+    </div>
+  </div>
+</div>
   `
 
   tabelaFrequenciaResult.innerHTML = tabelaHTML
