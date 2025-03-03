@@ -12,7 +12,11 @@ export function initializeTabelaFrequencia() {
   const calcularTabelaFrequenciaBtn = document.getElementById(
     'calcularTabelaFrequencia'
   )
+  const limparTabelaFrequenciaBtn = document.getElementById(
+    'limparTabelaFrequencia'
+  )
 
+  // Evento para calcular a tabela de frequência
   calcularTabelaFrequenciaBtn.addEventListener('click', () => {
     const inputValue = tabelaFrequenciaInput.value.trim()
 
@@ -40,6 +44,9 @@ export function initializeTabelaFrequencia() {
     // Criar e exibir a tabela de frequência
     criarTabelaFrequencia(numeros)
   })
+
+  // Evento para limpar a tabela de frequência
+  limparTabelaFrequenciaBtn.addEventListener('click', limparTabelaFrequencia)
 
   // Permitir cálculo ao pressionar Enter
   tabelaFrequenciaInput.addEventListener('keyup', event => {
@@ -282,4 +289,17 @@ export function criarTabelaFrequenciaAgrupada(data, numClasses = null) {
     numClasses,
     totalFrequencia: data.length
   }
+}
+
+// Função para limpar a tabela de frequência
+function limparTabelaFrequencia() {
+  // Limpar o campo de entrada
+  document.getElementById('tabelaFrequenciaInput').value = ''
+
+  // Limpar os resultados da tabela de frequência
+  document.getElementById('tabelaFrequenciaResult').innerHTML = ''
+
+  // Limpar o estado da aplicação (se necessário)
+  appState.currentData = []
+  appState.isCalculated = false
 }
