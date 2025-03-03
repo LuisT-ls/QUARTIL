@@ -125,10 +125,14 @@ function limparRol() {
     'modaResult',
     'desvioPadraoResult',
     'varianciaResult',
+    'assimetriaResult',
+    'curtoseResult',
     'cvResult',
     'q1Result',
     'q2Result',
-    'q3Result'
+    'q3Result',
+    'iqrResult',
+    'mediaJuntasResult'
   ]
 
   resultDivs.forEach(div => {
