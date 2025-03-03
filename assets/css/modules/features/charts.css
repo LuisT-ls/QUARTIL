@@ -1,7 +1,79 @@
-#histogramaChart,
-#boxplotChart {
-  background-color: var(--background-light);
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 20px;
+.chart-container {
+  position: relative;
+  margin: var(--spacing-lg) 0;
+  padding: var(--spacing-lg);
+  background-color: white;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal);
+  height: 300px;
+}
+
+.chart-container:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.chart-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+  color: var(--primary-dark);
+}
+
+.chart-placeholder {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-500);
+  font-style: italic;
+}
+
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: var(--spacing-md);
+  gap: var(--spacing-md);
+}
+
+.chart-legend-item {
+  display: flex;
+  align-items: center;
+}
+
+.chart-legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--border-radius-sm);
+  margin-right: var(--spacing-xs);
+}
+
+.chart-tooltip {
+  background-color: var(--dark-text);
+  color: white;
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+  box-shadow: var(--shadow-md);
+  pointer-events: none;
+}
+
+.dark-mode .chart-container {
+  background-color: var(--gray-800);
+}
+
+.dark-mode .chart-title {
+  color: var(--primary-light);
+}
+
+.dark-mode .chart-placeholder {
+  color: var(--gray-500);
+}
+
+.dark-mode .chart-tooltip {
+  background-color: var(--gray-900);
+  color: var(--light-text);
 }

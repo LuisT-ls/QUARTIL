@@ -1,23 +1,86 @@
-.dark-mode {
-  background-color: var(--background-dark);
-  color: var(--text-color-light);
-}
-
-.dark-mode .header {
-  background-color: var(--dark-color);
-  color: var(--text-color-light);
-}
-
-.dark-mode .footer {
-  background-color: var(--dark-color);
-  color: var(--text-color-light);
-}
-
-.dark-mode .btn-primary {
+.dark-mode-toggle {
+  position: fixed;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+  width: 40px;
+  height: 40px;
   background-color: var(--primary-color);
-  color: var(--text-color-light);
+  color: white;
+  border-radius: var(--border-radius-circle);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: var(--z-index-fixed);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal);
 }
 
-.dark-mode .btn-primary:hover {
-  background-color: #0b5ed7;
+.dark-mode-toggle:hover {
+  transform: scale(1.1);
+  background-color: var(--primary-dark);
+}
+
+.dark-mode-toggle i {
+  font-size: var(--font-size-lg);
+  transition: transform var(--transition-normal);
+}
+
+.dark-mode body {
+  background-color: var(--dark-bg);
+  color: var(--light-text);
+}
+
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3,
+.dark-mode h4,
+.dark-mode h5,
+.dark-mode h6 {
+  color: var(--light-text);
+}
+
+.dark-mode a {
+  color: var(--primary-light);
+}
+
+.dark-mode a:hover {
+  color: var(--primary-color);
+}
+
+.dark-mode .btn {
+  box-shadow: var(--shadow-md);
+}
+
+.dark-mode .card {
+  background-color: var(--gray-800);
+  box-shadow: var(--shadow-md);
+}
+
+.dark-mode input,
+.dark-mode select,
+.dark-mode textarea {
+  background-color: var(--gray-800);
+  color: var(--light-text);
+  border-color: var(--gray-700);
+}
+
+.dark-mode input:focus,
+.dark-mode select:focus,
+.dark-mode textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+}
+
+.dark-mode table {
+  color: var(--light-text);
+}
+
+.dark-mode table th,
+.dark-mode table td {
+  border-color: var(--gray-700);
+}
+
+.dark-mode .table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: rgba(255, 255, 255, 0.05);
 }

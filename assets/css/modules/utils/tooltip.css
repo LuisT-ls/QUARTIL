@@ -1,0 +1,110 @@
+.tooltip {
+  position: absolute;
+  background-color: var(--dark-text);
+  color: white;
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+  box-shadow: var(--shadow-md);
+  pointer-events: none;
+  z-index: var(--z-index-tooltip);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.tooltip.visible {
+  opacity: 1;
+}
+
+.dark-mode .tooltip {
+  background-color: var(--gray-900);
+  color: var(--light-text);
+}
+
+/* Animações para entrada e saída */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity var(--transition-normal);
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.slide-enter {
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+.slide-enter-active {
+  transform: translateY(0);
+  opacity: 1;
+  transition: all var(--transition-normal);
+}
+
+.slide-exit {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.slide-exit-active {
+  transform: translateY(-20px);
+  opacity: 0;
+  transition: all var(--transition-normal);
+}
+
+/* Efeitos de foco para acessibilidade */
+.focus-ring {
+  outline: none;
+  transition: box-shadow var(--transition-fast);
+}
+
+.focus-ring:focus-visible {
+  box-shadow: 0 0 0 2px white, 0 0 0 4px var(--primary-color);
+}
+
+/* Notificações */
+.notification {
+  position: fixed;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--border-radius-md);
+  color: white;
+  box-shadow: var(--shadow-lg);
+  max-width: 300px;
+  animation: slideInRight var(--transition-normal), fadeOut 0.5s 3s forwards;
+  z-index: var(--z-index-tooltip);
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.notification-success {
+  background-color: #28a745;
+}
+
+.notification-error {
+  background-color: #dc3545;
+}
+
+.notification-info {
+  background-color: var(--primary-color);
+}
+
+.notification-icon {
+  margin-right: var(--spacing-sm);
+}

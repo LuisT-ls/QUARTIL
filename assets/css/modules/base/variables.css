@@ -1,52 +1,101 @@
 :root {
-  /* Cores Primárias */
-  --primary-color: #007bff;
-  --secondary-color: #6c757d;
-  --success-color: #28a745;
-  --danger-color: #dc3545;
-  --warning-color: #ffc107;
-  --info-color: #17a2b8;
-  --light-color: #f8f9fa;
-  --dark-color: #343a40;
+  /* Cores principais */
+  --primary-color: #4361ee;
+  --primary-light: #4cc9f0;
+  --primary-dark: #3a0ca3;
+  --secondary-color: #7209b7;
+  --accent-color: #f72585;
 
-  /* Cores de Texto */
-  --text-color-light: #ffffff;
-  --text-color-dark: #212529;
+  /* Cores neutras */
+  --light-bg: #f8f9fa;
+  --dark-bg: #121212;
+  --light-text: #f8f9fa;
+  --dark-text: #212529;
+  --gray-100: #f8f9fa;
+  --gray-200: #e9ecef;
+  --gray-300: #dee2e6;
+  --gray-400: #ced4da;
+  --gray-500: #adb5bd;
+  --gray-600: #6c757d;
+  --gray-700: #495057;
+  --gray-800: #343a40;
+  --gray-900: #212529;
 
-  /* Cores de Fundo */
-  --background-light: #ffffff;
-  --background-dark: #343a40;
+  /* Sombras */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
 
-  /* Cores de Botões */
-  --button-primary-bg: var(--primary-color);
-  --button-primary-text: var(--text-color-light);
-  --button-secondary-bg: var(--secondary-color);
-  --button-secondary-text: var(--text-color-light);
-  --button-success-bg: var(--success-color);
-  --button-success-text: var(--text-color-light);
-  --button-danger-bg: var(--danger-color);
-  --button-danger-text: var(--text-color-light);
-  --button-warning-bg: var(--warning-color);
-  --button-warning-text: var(--text-color-dark);
-  --button-info-bg: var(--info-color);
-  --button-info-text: var(--text-color-light);
+  /* Bordas */
+  --border-radius-sm: 0.25rem;
+  --border-radius-md: 0.5rem;
+  --border-radius-lg: 1rem;
+  --border-radius-xl: 1.5rem;
+  --border-radius-circle: 50%;
 
-  /* Cores de Links */
-  --link-color: var(--primary-color);
-  --link-hover-color: #0056b3;
+  /* Transições */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
 
-  /* Cores de Tabelas */
-  --table-header-bg: var(--primary-color);
-  --table-header-text: var(--text-color-light);
-  --table-row-bg: var(--background-light);
-  --table-row-text: var(--text-color-dark);
-  --table-row-hover-bg: #f1f1f1;
+  /* Espaçamento */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
 
-  /* Cores de Gráficos */
-  --chart-primary-color: var(--primary-color);
-  --chart-secondary-color: var(--secondary-color);
-  --chart-success-color: var(--success-color);
-  --chart-danger-color: var(--danger-color);
-  --chart-warning-color: var(--warning-color);
-  --chart-info-color: var(--info-color);
+  /* Fontes */
+  --font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 2.5rem;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Z-index */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
+}
+
+/* Variáveis de tema escuro */
+.dark-mode {
+  --light-bg: #121212;
+  --dark-bg: #f8f9fa;
+  --light-text: #212529;
+  --dark-text: #f8f9fa;
+  --gray-100: #212529;
+  --gray-200: #343a40;
+  --gray-300: #495057;
+  --gray-400: #6c757d;
+  --gray-500: #adb5bd;
+  --gray-600: #ced4da;
+  --gray-700: #dee2e6;
+  --gray-800: #e9ecef;
+  --gray-900: #f8f9fa;
+
+  /* Ajuste de cores para modo escuro */
+  --primary-light: #3a0ca3;
+  --primary-dark: #4cc9f0;
+
+  /* Sombras para modo escuro */
+  --shadow-sm: 0 2px 4px rgba(255, 255, 255, 0.05);
+  --shadow-md: 0 4px 6px rgba(255, 255, 255, 0.07);
+  --shadow-lg: 0 10px 15px rgba(255, 255, 255, 0.08);
+  --shadow-xl: 0 20px 25px rgba(255, 255, 255, 0.1);
 }

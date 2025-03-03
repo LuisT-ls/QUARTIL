@@ -1,8 +1,25 @@
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--gray-200);
+  border-radius: var(--border-radius-md);
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #007bff;
-  border-radius: 4px;
+  background: var(--primary-color);
+  border-radius: var(--border-radius-md);
+  transition: background var(--transition-fast);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--gray-200);
 }

@@ -1,33 +1,71 @@
-@media (max-width: 768px) {
-  .container {
-    padding: 0 1rem;
+/* Extra small devices (phones, 576px and down) */
+@media (max-width: 576px) {
+  html {
+    font-size: 14px;
   }
 
-  .header {
-    padding: 60px 15px;
-    border-radius: 0 0 30px 30px;
+  .container {
+    padding: 0 var(--spacing-md);
   }
 
   .header-title {
-    font-size: 2.5rem;
+    font-size: var(--font-size-2xl);
   }
 
-  .header-subtitle {
-    font-size: 1.2rem;
+  .row {
+    flex-direction: column;
   }
 
-  .input-section {
-    padding: 30px;
+  .col-md-4,
+  .col-md-6 {
+    width: 100%;
+    margin-bottom: var(--spacing-lg);
   }
 
-  .rol-input {
-    font-size: 1.2rem;
-    padding: 16px;
-    max-width: 100%;
+  .button-group {
+    flex-direction: column;
+    align-items: stretch;
   }
 
-  .btn {
-    font-size: 1rem;
-    padding: 14px 20px;
+  .button-group .btn {
+    margin-bottom: var(--spacing-sm);
+    margin-right: 0;
+  }
+
+  .dark-mode-toggle {
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+  }
+}
+
+/* Small devices (tablets, 576px and up) */
+@media (min-width: 576px) and (max-width: 768px) {
+  .container {
+    padding: 0 var(--spacing-lg);
+  }
+
+  .col-md-4,
+  .col-md-6 {
+    width: 100%;
+    margin-bottom: var(--spacing-lg);
+  }
+}
+
+/* Medium devices (desktops, 768px and up) */
+@media (min-width: 768px) and (max-width: 992px) {
+  .container {
+    padding: 0 var(--spacing-xl);
+  }
+
+  .col-md-4 {
+    width: 50%;
+  }
+}
+
+/* Large devices (large desktops, 992px and up) */
+@media (min-width: 992px) {
+  .container {
+    padding: 0 var(--spacing-2xl);
+    max-width: 1200px;
   }
 }

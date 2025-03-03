@@ -1,7 +1,144 @@
-#histogramaChart,
-#boxplotChart {
-  background-color: #f8f9fa;
-  border-radius: 5px;
-  padding: 15px;
-  margin-top: 10px;
+.graficos-section {
+  margin-bottom: var(--spacing-2xl);
+  animation: fadeIn var(--transition-normal) 0.6s forwards;
+}
+
+.graficos-tabs {
+  display: flex;
+  margin-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--gray-300);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.graficos-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.grafico-tab {
+  padding: var(--spacing-md) var(--spacing-lg);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+  color: var(--gray-600);
+  transition: all var(--transition-normal);
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+}
+
+.grafico-tab:hover {
+  color: var(--primary-color);
+}
+
+.grafico-tab.active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+}
+
+.grafico-container {
+  display: none;
+  margin-top: var(--spacing-lg);
+}
+
+.grafico-container.active {
+  display: block;
+  animation: fadeIn var(--transition-normal);
+}
+
+.grafico-wrapper {
+  background-color: white;
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal);
+  min-height: 300px;
+  position: relative;
+}
+
+.grafico-wrapper:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.grafico-title {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  color: var(--dark-text);
+  font-weight: var(--font-weight-bold);
+}
+
+.grafico-content {
+  position: relative;
+  height: 300px;
+}
+
+.grafico-options {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: var(--spacing-lg);
+  gap: var(--spacing-sm);
+}
+
+.grafico-option {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--gray-200);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.grafico-option:hover {
+  background-color: var(--gray-300);
+}
+
+.grafico-option.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.grafico-value-label {
+  position: absolute;
+  background-color: var(--dark-text);
+  color: white;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-xs);
+  transform: translateX(-50%);
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.grafico-value-label.visible {
+  opacity: 1;
+}
+
+.dark-mode .graficos-tabs {
+  border-bottom-color: var(--gray-700);
+}
+
+.dark-mode .grafico-tab {
+  color: var(--gray-400);
+}
+
+.dark-mode .grafico-wrapper {
+  background-color: var(--gray-800);
+}
+
+.dark-mode .grafico-title {
+  color: var(--light-text);
+}
+
+.dark-mode .grafico-option {
+  background-color: var(--gray-700);
+  color: var(--light-text);
+}
+
+.dark-mode .grafico-option:hover {
+  background-color: var(--gray-600);
+}
+
+.dark-mode .grafico-value-label {
+  background-color: var(--gray-900);
 }

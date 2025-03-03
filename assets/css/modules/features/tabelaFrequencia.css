@@ -1,24 +1,88 @@
-#tabelaFrequenciaInput {
-  border: 2px solid #28a745;
-  border-radius: 5px;
-  padding: 10px;
+.tabela-frequencia-section {
+  margin-bottom: var(--spacing-2xl);
+  animation: fadeIn var(--transition-normal) 0.5s forwards;
 }
 
-#calcularTabelaFrequencia {
-  background-color: #28a745;
+.tabela-frequencia-wrapper {
+  background-color: white;
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+  overflow-x: auto;
+  transition: all var(--transition-normal);
+}
+
+.tabela-frequencia-wrapper:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.tabela-frequencia {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela-frequencia th,
+.tabela-frequencia td {
+  padding: var(--spacing-md);
+  text-align: center;
+  border-bottom: 1px solid var(--gray-300);
+}
+
+.tabela-frequencia th {
+  background-color: var(--primary-color);
   color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
+  font-weight: var(--font-weight-semibold);
+  position: sticky;
+  top: 0;
 }
 
-#calcularTabelaFrequencia:hover {
-  background-color: #218838;
+.tabela-frequencia th:first-child {
+  border-top-left-radius: var(--border-radius-sm);
 }
 
-#tabelaFrequenciaResult {
-  margin-top: 20px;
-  font-size: 1.2em;
-  color: #333;
+.tabela-frequencia th:last-child {
+  border-top-right-radius: var(--border-radius-sm);
+}
+
+.tabela-frequencia tbody tr:nth-child(even) {
+  background-color: var(--gray-100);
+}
+
+.tabela-frequencia tbody tr:hover {
+  background-color: var(--gray-200);
+  transition: background-color var(--transition-fast);
+}
+
+.tabela-frequencia tfoot {
+  font-weight: var(--font-weight-bold);
+}
+
+.tabela-frequencia tfoot td {
+  border-top: 2px solid var(--primary-color);
+  background-color: var(--gray-200);
+}
+
+.dark-mode .tabela-frequencia-wrapper {
+  background-color: var(--gray-800);
+}
+
+.dark-mode .tabela-frequencia th {
+  background-color: var(--primary-dark);
+}
+
+.dark-mode .tabela-frequencia td {
+  border-bottom-color: var(--gray-700);
+}
+
+.dark-mode .tabela-frequencia tbody tr:nth-child(even) {
+  background-color: var(--gray-800);
+}
+
+.dark-mode .tabela-frequencia tbody tr:hover {
+  background-color: var(--gray-700);
+}
+
+.dark-mode .tabela-frequencia tfoot td {
+  border-top-color: var(--primary-color);
+  background-color: var(--gray-700);
 }
