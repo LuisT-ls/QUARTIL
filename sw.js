@@ -1,9 +1,10 @@
-const CACHE_NAME = 'calculadora-estatistica-v1'
+const CACHE_NAME = 'quartil-v1'
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
   '/assets/css/main.css',
   '/assets/img/logo/logo.svg',
+  '/assets/img/favicon/site.webmanifest',
   '/js/app.js',
   '/js/modules/graficos.js',
   '/js/modules/medidasDispersao.js',
@@ -27,7 +28,22 @@ self.addEventListener('install', event => {
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(response => {
-      return response || fetch(event.request)
+      // Retorna o recurso do cache se estiver disponível
+      if (response) {
+        return response
+      }
+      // Caso contrário, busca na rede
+      return fetch(event.request).then(response => {
+        // Se a resposta for válida, adiciona ao cache
+        if (!response || response.status !== 200 || response.type !== 'basic') {
+          return response
+        }
+        const responseToCache = response.clone()
+        caches.open(CACHE_NAME).then(cache => {
+          cache.put(event.request, responseToCache)
+        })
+        return response
+      })
     })
   )
 })
