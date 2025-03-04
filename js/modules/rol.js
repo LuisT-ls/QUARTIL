@@ -11,8 +11,18 @@ export function initializeRol() {
   const calcularRolBtn = document.getElementById('calcularRol')
   const limparRolBtn = document.getElementById('limparRol')
   const exportarRolBtn = document.getElementById('exportarRol')
+  const gerarDadosBtn = document.getElementById('gerarDados')
   const exportPopup = document.getElementById('exportPopup')
+  const randomPopup = document.getElementById('randomPopup')
   const closePopup = document.querySelector('.close-popup')
+  const closeRandomPopup = randomPopup.querySelector('.close-popup')
+  const confirmarGeracaoBtn = document.getElementById('confirmarGeracao')
+
+  // Inputs do popup de geração aleatória
+  const quantidadeNumerosInput = document.getElementById('quantidadeNumeros')
+  const valorMinimoInput = document.getElementById('valorMinimo')
+  const valorMaximoInput = document.getElementById('valorMaximo')
+  const numerosInteirosCheck = document.getElementById('numerosInteiros')
 
   // Botões de exportação
   const exportPDFBtn = document.getElementById('exportPDF')
@@ -39,6 +49,9 @@ export function initializeRol() {
     if (event.target === exportPopup) {
       exportPopup.style.display = 'none'
     }
+    if (event.target === randomPopup) {
+      randomPopup.style.display = 'none'
+    }
   })
 
   // Event listeners para exportação
@@ -52,10 +65,21 @@ export function initializeRol() {
       processarRol()
     }
   })
+
+  // Eventos para geração de dados aleatórios
+  gerarDadosBtn.addEventListener('click', () => {
+    randomPopup.style.display = 'flex'
+  })
+
+  closeRandomPopup.addEventListener('click', () => {
+    randomPopup.style.display = 'none'
+  })
+
+  confirmarGeracaoBtn.addEventListener('click', gerarDadosAleatorios)
 }
 
 // Função para processar o rol inserido
-function processarRol() {
+export function processarRol() {
   const rolInput = document.getElementById('rolInput')
   const rolResult = document.getElementById('rolResult')
 
@@ -111,6 +135,61 @@ function processarRol() {
   calculateMedidasDispersao(rol)
   calculateQuartis(rol)
   updateGraficos(rol)
+}
+
+// Função para gerar dados aleatórios
+function gerarDadosAleatorios() {
+  // Obter os valores dos inputs
+  const quantidade = parseInt(
+    document.getElementById('quantidadeNumeros').value
+  )
+  const min = parseFloat(document.getElementById('valorMinimo').value)
+  const max = parseFloat(document.getElementById('valorMaximo').value)
+  const apenasInteiros = document.getElementById('numerosInteiros').checked
+
+  // Validar os valores
+  if (isNaN(quantidade) || isNaN(min) || isNaN(max)) {
+    alert('Por favor, preencha todos os campos com valores numéricos.')
+    return
+  }
+
+  if (quantidade < 5 || quantidade > 100) {
+    alert('A quantidade de números deve estar entre 5 e 100.')
+    return
+  }
+
+  if (min >= max) {
+    alert('O valor mínimo deve ser menor que o valor máximo.')
+    return
+  }
+
+  // Gerar os números aleatórios
+  const numeros = []
+  for (let i = 0; i < quantidade; i++) {
+    let numero
+    if (apenasInteiros) {
+      // Gerar número inteiro aleatório entre min e max (inclusive)
+      numero = Math.floor(Math.random() * (max - min + 1)) + min
+    } else {
+      // Gerar número decimal aleatório entre min e max
+      numero = Math.random() * (max - min) + min
+      // Arredondar para 2 casas decimais
+      numero = Math.round(numero * 100) / 100
+    }
+    numeros.push(numero)
+  }
+
+  // Formatar os números como string
+  const numerosFormatados = numeros.join(', ')
+
+  // Preencher o input com os números gerados
+  document.getElementById('rolInput').value = numerosFormatados
+
+  // Fechar o popup
+  document.getElementById('randomPopup').style.display = 'none'
+
+  // Calcular automaticamente o rol
+  processarRol()
 }
 
 // Função para limpar o rol e os resultados

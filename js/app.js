@@ -6,6 +6,7 @@ import { initializeQuartis } from './modules/quartis.js'
 import { initializeTabelaFrequencia } from './modules/tabelaFrequencia.js'
 import { initializeTabelaFrequenciaManual } from './modules/tabelaFrequenciaManual.js'
 import { initializeGraficos } from './modules/graficos.js'
+import { inicializarGeradorAleatorio } from './modules/geradorAleatorio.js'
 
 // Dados compartilhados entre módulos
 export const appState = {
@@ -83,4 +84,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeTabelaFrequencia()
   initializeTabelaFrequenciaManual()
   initializeGraficos()
+  inicializarGeradorAleatorio()
 })
