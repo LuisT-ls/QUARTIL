@@ -22,6 +22,7 @@ Uma calculadora estatística online completa, rápida e fácil de usar para aná
 - Bootstrap 5
 - Chart.js
 - FontAwesome
+- Service Worker (PWA)
 
 ## 📋 Pré-requisitos
 
