@@ -20,6 +20,9 @@ export function calculateQuartis(data) {
   const iqrResult = document.getElementById('iqrResult')
   const mediaJuntasResult = document.getElementById('mediaJuntasResult')
 
+  // Ordenar os dados para exibição
+  const dadosOrdenados = [...data].sort((a, b) => a - b)
+
   // Calcular quartis
   const q1 = calcularQuartil(data, 0.25)
   const q2 = calcularMediana(data) // Q2 é a mediana
@@ -27,15 +30,22 @@ export function calculateQuartis(data) {
   const iqr = q3 - q1
   const mediaJuntas = (q1 + q2 + q3) / 3
 
+  // Calcular posições para exibição
+  const posicaoQ1 = (data.length * 0.25).toFixed(2)
+  const posicaoQ3 = (data.length * 0.75).toFixed(2)
+
   // Exibir Q1
   q1Result.innerHTML = `
     <div class="result-card">
       <p class="result-value">${q1.toFixed(2)}</p>
       <p class="result-formula">
-        <strong>Fórmula:</strong> Q1 = Valor na posição 25% dos dados
+        <strong>Fórmula:</strong> Q<sub>1</sub> = valor na posição <span class="fraction"><span class="numerator">n</span><span class="denominator">4</span></span> dos dados ordenados
       </p>
       <div class="result-steps">
-        <p>Posição aproximada: ${(data.length * 0.25).toFixed(2)}</p>
+        <p>Dados ordenados: [${dadosOrdenados.join(', ')}]</p>
+        <p>n (tamanho da amostra) = ${data.length}</p>
+        <p>Posição de Q<sub>1</sub> = ${data.length} × 0,25 = ${posicaoQ1}</p>
+        <p>Q<sub>1</sub> = ${q1.toFixed(2)}</p>
       </div>
     </div>
   `
@@ -45,10 +55,17 @@ export function calculateQuartis(data) {
     <div class="result-card">
       <p class="result-value">${q2.toFixed(2)}</p>
       <p class="result-formula">
-        <strong>Fórmula:</strong> Q2 = Mediana
+        <strong>Fórmula:</strong> Q<sub>2</sub> = Mediana = valor na posição <span class="fraction"><span class="numerator">n</span><span class="denominator">2</span></span> dos dados ordenados
       </p>
       <div class="result-steps">
-        <p>Posição central dos dados</p>
+        <p>Dados ordenados: [${dadosOrdenados.join(', ')}]</p>
+        <p>n (tamanho da amostra) = ${data.length}</p>
+        <p>Posição de Q<sub>2</sub> = ${
+          data.length % 2 === 0
+            ? `${data.length / 2} e ${data.length / 2 + 1}`
+            : `${(data.length + 1) / 2}`
+        }</p>
+        <p>Q<sub>2</sub> = ${q2.toFixed(2)}</p>
       </div>
     </div>
   `
@@ -58,10 +75,13 @@ export function calculateQuartis(data) {
     <div class="result-card">
       <p class="result-value">${q3.toFixed(2)}</p>
       <p class="result-formula">
-        <strong>Fórmula:</strong> Q3 = Valor na posição 75% dos dados
+        <strong>Fórmula:</strong> Q<sub>3</sub> = valor na posição <span class="fraction"><span class="numerator">3n</span><span class="denominator">4</span></span> dos dados ordenados
       </p>
       <div class="result-steps">
-        <p>Posição aproximada: ${(data.length * 0.75).toFixed(2)}</p>
+        <p>Dados ordenados: [${dadosOrdenados.join(', ')}]</p>
+        <p>n (tamanho da amostra) = ${data.length}</p>
+        <p>Posição de Q<sub>3</sub> = ${data.length} × 0,75 = ${posicaoQ3}</p>
+        <p>Q<sub>3</sub> = ${q3.toFixed(2)}</p>
       </div>
     </div>
   `
@@ -71,12 +91,13 @@ export function calculateQuartis(data) {
     <div class="result-card">
       <p class="result-value">${iqr.toFixed(2)}</p>
       <p class="result-formula">
-        <strong>Fórmula:</strong> IQR = Q3 - Q1
+        <strong>Fórmula:</strong> IQR = Q<sub>3</sub> - Q<sub>1</sub>
       </p>
       <div class="result-steps">
-        <p>Q3 = ${q3.toFixed(2)}</p>
-        <p>Q1 = ${q1.toFixed(2)}</p>
+        <p>Q<sub>3</sub> = ${q3.toFixed(2)}</p>
+        <p>Q<sub>1</sub> = ${q1.toFixed(2)}</p>
         <p>IQR = ${q3.toFixed(2)} - ${q1.toFixed(2)} = ${iqr.toFixed(2)}</p>
+        <p>Interpretação: O IQR representa a dispersão central de 50% dos dados.</p>
       </div>
     </div>
   `
@@ -86,15 +107,19 @@ export function calculateQuartis(data) {
     <div class="result-card">
       <p class="result-value">${mediaJuntas.toFixed(2)}</p>
       <p class="result-formula">
-        <strong>Fórmula:</strong> Média das Juntas = (Q1 + Q2 + Q3) / 3
+        <strong>Fórmula:</strong> Média das Juntas = <span class="fraction"><span class="numerator">Q<sub>1</sub> + Q<sub>2</sub> + Q<sub>3</sub></span><span class="denominator">3</span></span>
       </p>
       <div class="result-steps">
-        <p>Q1 = ${q1.toFixed(2)}</p>
-        <p>Q2 = ${q2.toFixed(2)}</p>
-        <p>Q3 = ${q3.toFixed(2)}</p>
-        <p>Média = (${q1.toFixed(2)} + ${q2.toFixed(2)} + ${q3.toFixed(
+        <p>Q<sub>1</sub> = ${q1.toFixed(2)}</p>
+        <p>Q<sub>2</sub> = ${q2.toFixed(2)}</p>
+        <p>Q<sub>3</sub> = ${q3.toFixed(2)}</p>
+        <p>Média das Juntas = <span class="fraction"><span class="numerator">${q1.toFixed(
+          2
+        )} + ${q2.toFixed(2)} + ${q3.toFixed(
     2
-  )}) / 3 = ${mediaJuntas.toFixed(2)}</p>
+  )}</span><span class="denominator">3</span></span> = ${mediaJuntas.toFixed(
+    2
+  )}</p>
       </div>
     </div>
   `

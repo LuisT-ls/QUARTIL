@@ -19,56 +19,79 @@ export function calculateMedidasPosicao(data) {
 
   // Calcular média
   const media = calcularMedia(data)
+  const somaTotal = data.reduce((a, b) => a + b, 0).toFixed(2)
+  const tamanhoAmostra = data.length
+
   mediaResult.innerHTML = `
     <div class="result-card">
       <p class="result-value">${media.toFixed(2)}</p>
       <p class="result-formula">
-        <strong>Fórmula:</strong> μ = (∑x) / n
+        <strong>Fórmula:</strong> μ = <span class="fraction"><span class="numerator">∑x</span><span class="denominator">n</span></span>
       </p>
       <div class="result-steps">
-        <p>∑x = ${data.reduce((a, b) => a + b, 0).toFixed(2)}</p>
-        <p>n = ${data.length}</p>
+        <p>∑x = ${somaTotal} (soma dos valores)</p>
+        <p>n = ${tamanhoAmostra} (quantidade de valores)</p>
+        <p>μ = <span class="fraction"><span class="numerator">${somaTotal}</span><span class="denominator">${tamanhoAmostra}</span></span> = ${media.toFixed(
+    2
+  )}</p>
       </div>
     </div>
   `
 
   // Calcular mediana
   const mediana = calcularMediana(data)
+  const isPar = data.length % 2 === 0
+  let posicaoMediana
+  let formulaMediana
+
+  if (isPar) {
+    const pos1 = data.length / 2
+    const pos2 = data.length / 2 + 1
+    posicaoMediana = `${pos1} e ${pos2}`
+    formulaMediana = `Md = <span class="fraction"><span class="numerator">X<sub>${pos1}</sub> + X<sub>${pos2}</sub></span><span class="denominator">2</span></span>`
+  } else {
+    const pos = (data.length + 1) / 2
+    posicaoMediana = pos
+    formulaMediana = `Md = X<sub>${pos}</sub>`
+  }
+
   medianaResult.innerHTML = `
     <div class="result-card">
       <p class="result-value">${mediana.toFixed(2)}</p>
       <p class="result-formula">
-        <strong>Fórmula:</strong> ${
-          data.length % 2 === 0
-            ? 'Md = (X(n/2) + X(n/2+1)) / 2'
-            : 'Md = X((n+1)/2)'
-        }
+        <strong>Fórmula:</strong> ${formulaMediana}
       </p>
       <div class="result-steps">
-        <p>Posição: ${
-          data.length % 2 === 0
-            ? `${data.length / 2} e ${data.length / 2 + 1}`
-            : `${(data.length + 1) / 2}`
-        }</p>
+        <p>Dados ordenados: [${[...data].sort((a, b) => a - b).join(', ')}]</p>
+        <p>Posição: ${posicaoMediana}</p>
+        <p>Mediana = ${mediana.toFixed(2)}</p>
       </div>
     </div>
   `
 
   // Calcular moda
   const moda = calcularModa(data)
+  let tipoDistribuicao
+
+  if (typeof moda === 'object' && moda.length > 1) {
+    tipoDistribuicao = 'Distribuição multimodal'
+  } else if (typeof moda === 'string') {
+    tipoDistribuicao = 'Distribuição amodal'
+  } else {
+    tipoDistribuicao = 'Distribuição unimodal'
+  }
+
+  const valorModa = typeof moda === 'object' ? moda.join(', ') : moda
+
   modaResult.innerHTML = `
     <div class="result-card">
-      <p class="result-value">${
-        typeof moda === 'object' ? moda.join(', ') : moda
-      }</p>
+      <p class="result-value">${valorModa}</p>
+      <p class="result-formula">
+        <strong>Fórmula:</strong> Mo = valor(es) com maior frequência
+      </p>
       <div class="result-steps">
-        <p>${
-          typeof moda === 'object' && moda.length > 1
-            ? 'Distribuição multimodal'
-            : typeof moda === 'string'
-            ? 'Distribuição amodal'
-            : 'Distribuição unimodal'
-        }</p>
+        <p>${tipoDistribuicao}</p>
+        <p>Valor(es) mais frequente(s): ${valorModa}</p>
       </div>
     </div>
   `

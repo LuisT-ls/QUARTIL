@@ -20,7 +20,7 @@ export function calculateMedidasDispersao(data) {
   const assimetriaResult = document.getElementById('assimetriaResult')
   const curtoseResult = document.getElementById('curtoseResult')
 
-  // Calcular desvio padrão
+  // Calcular medidas
   const media = calcularMedia(data)
   const variancia = calcularVariancia(data, media)
   const desvioPadrao = Math.sqrt(variancia)
@@ -33,11 +33,13 @@ export function calculateMedidasDispersao(data) {
     <div class="result-card">
       <p class="result-value">${desvioPadrao.toFixed(2)}</p>
       <p class="result-formula">
-        <strong>Fórmula:</strong> σ = √(∑(x - μ)² / n)
+        <strong>Fórmula:</strong> σ = √<span class="fraction"><span class="numerator">∑(x<sub>i</sub> - μ)²</span><span class="denominator">n</span></span>
       </p>
       <div class="result-steps">
         <p>μ (média) = ${media.toFixed(2)}</p>
-        <p>n = ${data.length}</p>
+        <p>n (tamanho da amostra) = ${data.length}</p>
+        <p>∑(x<sub>i</sub> - μ)² = ${(variancia * data.length).toFixed(2)}</p>
+        <p>σ = √${variancia.toFixed(2)} = ${desvioPadrao.toFixed(2)}</p>
       </div>
     </div>
   `
@@ -47,10 +49,13 @@ export function calculateMedidasDispersao(data) {
     <div class="result-card">
       <p class="result-value">${variancia.toFixed(2)}</p>
       <p class="result-formula">
-        <strong>Fórmula:</strong> σ² = ∑(x - μ)² / n
+        <strong>Fórmula:</strong> σ² = <span class="fraction"><span class="numerator">∑(x<sub>i</sub> - μ)²</span><span class="denominator">n</span></span>
       </p>
       <div class="result-steps">
-        <p>σ² = ${desvioPadrao.toFixed(2)}² = ${variancia.toFixed(2)}</p>
+        <p>μ (média) = ${media.toFixed(2)}</p>
+        <p>n (tamanho da amostra) = ${data.length}</p>
+        <p>∑(x<sub>i</sub> - μ)² = ${(variancia * data.length).toFixed(2)}</p>
+        <p>σ² = ${variancia.toFixed(2)}</p>
       </div>
     </div>
   `
@@ -60,11 +65,16 @@ export function calculateMedidasDispersao(data) {
     <div class="result-card">
       <p class="result-value">${cv.toFixed(2)}%</p>
       <p class="result-formula">
-        <strong>Fórmula:</strong> CV = (σ / μ) × 100%
+        <strong>Fórmula:</strong> CV = <span class="fraction"><span class="numerator">σ</span><span class="denominator">μ</span></span> × 100%
       </p>
       <div class="result-steps">
         <p>σ (desvio padrão) = ${desvioPadrao.toFixed(2)}</p>
         <p>μ (média) = ${media.toFixed(2)}</p>
+        <p>CV = <span class="fraction"><span class="numerator">${desvioPadrao.toFixed(
+          2
+        )}</span><span class="denominator">${media.toFixed(
+    2
+  )}</span></span> × 100% = ${cv.toFixed(2)}%</p>
         <p>Interpretação: ${interpretarCV(cv)}</p>
       </div>
     </div>
@@ -75,9 +85,13 @@ export function calculateMedidasDispersao(data) {
     <div class="result-card">
       <p class="result-value">${assimetria.toFixed(2)}</p>
       <p class="result-formula">
-        <strong>Fórmula:</strong> Assimetria = [n / ((n-1)(n-2))] * ∑[(x - μ)/σ]³
+        <strong>Fórmula:</strong> As = <span class="fraction"><span class="numerator">n</span><span class="denominator">(n-1)(n-2)</span></span> × ∑[<span class="fraction"><span class="numerator">x<sub>i</sub> - μ</span><span class="denominator">σ</span></span>]³
       </p>
       <div class="result-steps">
+        <p>n (tamanho da amostra) = ${data.length}</p>
+        <p>μ (média) = ${media.toFixed(2)}</p>
+        <p>σ (desvio padrão) = ${desvioPadrao.toFixed(2)}</p>
+        <p>As = ${assimetria.toFixed(2)}</p>
         <p>Interpretação: ${interpretarAssimetria(assimetria)}</p>
       </div>
     </div>
@@ -88,9 +102,13 @@ export function calculateMedidasDispersao(data) {
     <div class="result-card">
       <p class="result-value">${curtose.toFixed(2)}</p>
       <p class="result-formula">
-        <strong>Fórmula:</strong> Curtose = [n(n+1)/((n-1)(n-2)(n-3))] * ∑[(x - μ)/σ]⁴ - [3(n-1)²/((n-2)(n-3))]
+        <strong>Fórmula:</strong> K = <span class="fraction"><span class="numerator">n(n+1)</span><span class="denominator">(n-1)(n-2)(n-3)</span></span> × ∑[<span class="fraction"><span class="numerator">x<sub>i</sub> - μ</span><span class="denominator">σ</span></span>]⁴ - <span class="fraction"><span class="numerator">3(n-1)²</span><span class="denominator">(n-2)(n-3)</span></span>
       </p>
       <div class="result-steps">
+        <p>n (tamanho da amostra) = ${data.length}</p>
+        <p>μ (média) = ${media.toFixed(2)}</p>
+        <p>σ (desvio padrão) = ${desvioPadrao.toFixed(2)}</p>
+        <p>K = ${curtose.toFixed(2)}</p>
         <p>Interpretação: ${interpretarCurtose(curtose)}</p>
       </div>
     </div>
