@@ -179,15 +179,14 @@ function criarHistograma(data, canvas) {
   const maxFrequencia = Math.max(...classes.map(classe => classe.frequencia))
 
   // Função para gerar cores gradientes baseadas na frequência
-  const gerarCor = frequencia => {
-    // Interpolação entre azul claro (baixa frequência) e azul escuro (alta frequência)
+  const gerarCor = (frequencia, type = 'background') => {
     const intensidade = frequencia / maxFrequencia
     const r = Math.floor(52 + 54 * (1 - intensidade)) // 52-106
     const g = Math.floor(162 + 0 * (1 - intensidade)) // mantém constante
     const b = Math.floor(235 - 135 * (1 - intensidade)) // 235-100
 
-    // Opacidade varia de 0.4 a 1
-    const alpha = 0.4 + 0.6 * intensidade
+    // Opacidade varia de 0.4 a 1 para background, 1 para border
+    const alpha = type === 'background' ? 0.4 + 0.6 * intensidade : 1
 
     return `rgba(${r}, ${g}, ${b}, ${alpha})`
   }
@@ -196,7 +195,12 @@ function criarHistograma(data, canvas) {
   const frequencias = classes.map(classe => classe.frequencia)
 
   // Gerar cores baseadas nas frequências
-  const cores = classes.map(classe => gerarCor(classe.frequencia))
+  const backgroundCores = classes.map(classe =>
+    gerarCor(classe.frequencia, 'background')
+  )
+  const borderCores = classes.map(classe =>
+    gerarCor(classe.frequencia, 'border')
+  )
 
   // Destruir gráfico anterior se existir
   if (histogramaChart) {
@@ -212,8 +216,8 @@ function criarHistograma(data, canvas) {
         {
           label: 'Frequência',
           data: frequencias,
-          backgroundColor: cores,
-          borderColor: cores.map(cor => cor.replace(/[\d.]+\)$/, '1)')), // Bordas com opacidade total
+          backgroundColor: backgroundCores,
+          borderColor: borderCores,
           borderWidth: 1
         }
       ]
@@ -232,6 +236,11 @@ function criarHistograma(data, canvas) {
           title: {
             display: true,
             text: 'Classes'
+          },
+          ticks: {
+            autoSkip: true,
+            maxRotation: 45,
+            minRotation: 45
           }
         }
       },
@@ -244,7 +253,12 @@ function criarHistograma(data, canvas) {
               return `Classe: ${labels[index]}`
             },
             label: function (context) {
-              return `Frequência: ${context.raw}`
+              const classInfo = classes[context.dataIndex]
+              return [
+                `Frequência: ${context.raw}`,
+                `Limite Inferior: ${classInfo.limiteInferior.toFixed(2)}`,
+                `Limite Superior: ${classInfo.limiteSuperior.toFixed(2)}`
+              ]
             }
           }
         },
@@ -253,11 +267,147 @@ function criarHistograma(data, canvas) {
           text: 'Histograma'
         },
         legend: {
-          display: false
+          display: true,
+          position: 'bottom',
+          labels: {
+            generateLabels: chart => {
+              return [
+                {
+                  text: 'Legenda do Histograma',
+                  fillStyle: 'rgba(0,0,0,0.8)',
+                  hidden: false,
+                  index: -1
+                }
+              ]
+            }
+          }
         }
       }
     }
   })
+
+  // Criar legenda personalizada abaixo do gráfico
+  const legendaContainer = document.createElement('div')
+  legendaContainer.className = 'histograma-legenda'
+  legendaContainer.innerHTML = `
+    <div class="legenda-container">
+      <h4>Detalhes do Histograma</h4>
+      <div class="legenda-stats">
+        <div class="legenda-item">
+          <span class="legenda-label">Número de Classes:</span>
+          <span class="legenda-value">${numClasses}</span>
+        </div>
+        <div class="legenda-item">
+          <span class="legenda-label">Valor Mínimo:</span>
+          <span class="legenda-value">${min.toFixed(2)}</span>
+        </div>
+        <div class="legenda-item">
+          <span class="legenda-label">Valor Máximo:</span>
+          <span class="legenda-value">${max.toFixed(2)}</span>
+        </div>
+        <div class="legenda-item">
+          <span class="legenda-label">Amplitude Total:</span>
+          <span class="legenda-value">${amplitude.toFixed(2)}</span>
+        </div>
+        <div class="legenda-item">
+          <span class="legenda-label">Largura da Classe:</span>
+          <span class="legenda-value">${larguraClasse.toFixed(2)}</span>
+        </div>
+      </div>
+      <div class="legenda-classes">
+        <h5>Distribuição das Classes</h5>
+        ${classes
+          .map(
+            (classe, index) => `
+          <div class="classe-item" style="background-color: ${
+            backgroundCores[index]
+          };">
+            <span class="classe-label">
+              Classe ${index + 1}: 
+              ${classe.limiteInferior.toFixed(
+                2
+              )} - ${classe.limiteSuperior.toFixed(2)}
+            </span>
+            <span class="classe-frequencia">
+              Frequência: ${classe.frequencia}
+            </span>
+          </div>
+        `
+          )
+          .join('')}
+      </div>
+    </div>
+  `
+
+  // Adicionar CSS para a legenda
+  const style = document.createElement('style')
+  style.textContent = `
+    .histograma-legenda {
+      margin-top: 15px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .legenda-container h4 {
+      color: #333;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
+    .legenda-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .legenda-item {
+      background-color: white;
+      border-radius: 5px;
+      padding: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .legenda-label {
+      display: block;
+      color: #6c757d;
+      font-size: 0.8em;
+      margin-bottom: 5px;
+    }
+    .legenda-value {
+      font-weight: bold;
+      color: #007bff;
+    }
+    .legenda-classes {
+      background-color: white;
+      border-radius: 5px;
+      padding: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .classe-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+      padding: 8px;
+      border-radius: 4px;
+      color: white;
+    }
+    .classe-label {
+      font-size: 0.9em;
+    }
+    .classe-frequencia {
+      font-weight: bold;
+    }
+  `
+
+  // Adicionar legenda ao container do gráfico
+  const chartContainer = canvas.parentElement
+  const existingLegenda = chartContainer.querySelector('.histograma-legenda')
+  if (existingLegenda) {
+    chartContainer.removeChild(existingLegenda)
+  }
+
+  chartContainer.appendChild(style)
+  chartContainer.appendChild(legendaContainer)
 }
 
 // Função para criar um boxplot personalizado usando Chart.js
@@ -276,6 +426,16 @@ function criarBoxplot(data, canvas) {
   // Calcular outliers
   const resultado = calcularOutliers(data)
   const outliers = [...resultado.inferior, ...resultado.superior]
+
+  // Paleta de cores mais sofisticada
+  const colorPalette = {
+    whiskerLine: 'rgba(55, 126, 184, 1)', // Deep Blue
+    whiskerFill: 'rgba(55, 126, 184, 0.3)', // Light Blue
+    q1MedianBox: 'rgba(77, 175, 74, 0.5)', // Soft Green
+    medianQ3Box: 'rgba(228, 26, 28, 0.5)', // Soft Red
+    outliers: 'rgba(152, 78, 163, 0.7)', // Purple
+    boxBorder: 'rgba(0, 0, 0, 0.6)' // Dark Border
+  }
 
   // Limites para o whisker (sem incluir outliers)
   const whiskerMin =
@@ -302,8 +462,8 @@ function criarBoxplot(data, canvas) {
         {
           label: 'Whisker Inferior',
           data: [q1 - whiskerMin],
-          backgroundColor: 'rgba(0, 0, 0, 0)',
-          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: colorPalette.whiskerFill,
+          borderColor: colorPalette.whiskerLine,
           borderWidth: 2,
           base: whiskerMin
         },
@@ -311,8 +471,8 @@ function criarBoxplot(data, canvas) {
         {
           label: 'Q1 a Mediana',
           data: [mediana - q1],
-          backgroundColor: 'rgba(75, 192, 192, 0.5)',
-          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: colorPalette.q1MedianBox,
+          borderColor: colorPalette.boxBorder,
           borderWidth: 1,
           base: q1
         },
@@ -320,8 +480,8 @@ function criarBoxplot(data, canvas) {
         {
           label: 'Mediana a Q3',
           data: [q3 - mediana],
-          backgroundColor: 'rgba(75, 192, 192, 0.5)',
-          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: colorPalette.medianQ3Box,
+          borderColor: colorPalette.boxBorder,
           borderWidth: 1,
           base: mediana
         },
@@ -329,8 +489,8 @@ function criarBoxplot(data, canvas) {
         {
           label: 'Whisker Superior',
           data: [whiskerMax - q3],
-          backgroundColor: 'rgba(0, 0, 0, 0)',
-          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: colorPalette.whiskerFill,
+          borderColor: colorPalette.whiskerLine,
           borderWidth: 2,
           base: q3
         },
@@ -338,11 +498,11 @@ function criarBoxplot(data, canvas) {
         {
           label: 'Outliers',
           data: outliers.map(() => 0),
-          backgroundColor: 'rgba(255, 0, 0, 0.7)',
-          borderColor: 'rgba(255, 0, 0, 1)',
+          backgroundColor: colorPalette.outliers,
+          borderColor: colorPalette.boxBorder,
           borderWidth: 1,
-          pointRadius: 6,
-          pointStyle: 'circle',
+          pointRadius: 8,
+          pointStyle: 'diamond',
           type: 'scatter',
           xAxisID: 'x'
         }
@@ -358,10 +518,12 @@ function criarBoxplot(data, canvas) {
           position: 'top',
           title: {
             display: true,
-            text: 'Valores'
+            text: 'Valores',
+            color: colorPalette.boxBorder
           },
           grid: {
-            drawOnChartArea: true
+            drawOnChartArea: true,
+            color: 'rgba(0,0,0,0.1)'
           }
         },
         y: {
@@ -374,26 +536,40 @@ function criarBoxplot(data, canvas) {
       plugins: {
         title: {
           display: true,
-          text: 'Boxplot'
+          text: 'Boxplot',
+          color: colorPalette.boxBorder,
+          font: {
+            size: 16,
+            weight: 'bold'
+          }
         },
         tooltip: {
+          backgroundColor: 'rgba(255,255,255,0.9)',
+          titleColor: colorPalette.boxBorder,
+          bodyColor: colorPalette.boxBorder,
+          borderColor: colorPalette.boxBorder,
+          borderWidth: 1,
           callbacks: {
             title: function () {
-              return 'Boxplot'
+              return 'Boxplot Detalhado'
             },
             label: function (context) {
               const datasetLabel = context.dataset.label
               switch (datasetLabel) {
                 case 'Outliers':
-                  return `Outlier: ${outliers[context.dataIndex]}`
+                  return `Outlier: ${outliers[context.dataIndex].toFixed(2)}`
                 case 'Whisker Inferior':
-                  return `Whisker Inferior: ${whiskerMin} a ${q1}`
+                  return `Whisker Inferior: ${whiskerMin.toFixed(
+                    2
+                  )} - ${q1.toFixed(2)}`
                 case 'Q1 a Mediana':
                   return `Q1: ${q1.toFixed(2)}, Mediana: ${mediana.toFixed(2)}`
                 case 'Mediana a Q3':
                   return `Mediana: ${mediana.toFixed(2)}, Q3: ${q3.toFixed(2)}`
                 case 'Whisker Superior':
-                  return `Whisker Superior: ${q3} a ${whiskerMax}`
+                  return `Whisker Superior: ${q3.toFixed(
+                    2
+                  )} - ${whiskerMax.toFixed(2)}`
                 default:
                   return `${datasetLabel}: ${context.raw}`
               }
@@ -402,7 +578,16 @@ function criarBoxplot(data, canvas) {
         },
         legend: {
           display: false
+        },
+        hover: {
+          mode: 'nearest',
+          intersect: true
         }
+      },
+      interaction: {
+        mode: 'nearest',
+        axis: 'x',
+        intersect: false
       }
     }
   })
@@ -412,34 +597,39 @@ function criarBoxplot(data, canvas) {
   boxplotInfo.className = 'boxplot-info'
   boxplotInfo.innerHTML = `
   <div class="stats-grid">
-    <div class="stat-item">
-      <span class="stat-label">Mínimo</span>
-      <span class="stat-value">${min.toFixed(2)}</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-label">Q1</span>
-      <span class="stat-value">${q1.toFixed(2)}</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-label">Mediana</span>
-      <span class="stat-value">${mediana.toFixed(2)}</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-label">Q3</span>
-      <span class="stat-value">${q3.toFixed(2)}</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-label">Máximo</span>
-      <span class="stat-value">${max.toFixed(2)}</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-label">IQR</span>
-      <span class="stat-value">${iqr.toFixed(2)}</span>
-    </div>
+    ${[
+      { label: 'Mínimo', value: min },
+      { label: 'Q1', value: q1 },
+      { label: 'Mediana', value: mediana },
+      { label: 'Q3', value: q3 },
+      { label: 'Máximo', value: max },
+      { label: 'IQR', value: iqr }
+    ]
+      .map(
+        stat => `
+      <div class="stat-item" style="
+        border-left: 4px solid ${
+          stat.label === 'Q1'
+            ? colorPalette.q1MedianBox
+            : stat.label === 'Mediana'
+            ? colorPalette.medianQ3Box
+            : stat.label === 'Q3'
+            ? colorPalette.medianQ3Box
+            : colorPalette.whiskerLine
+        }
+      ">
+        <span class="stat-label">${stat.label}</span>
+        <span class="stat-value">${stat.value.toFixed(2)}</span>
+      </div>
+    `
+      )
+      .join('')}
   </div>
   ${
     outliers.length > 0
-      ? `<div class="outliers-info">
+      ? `<div class="outliers-info" style="border-left: 4px solid ${
+          colorPalette.outliers
+        };">
           <div class="stat-label">Outliers (${outliers.length})</div>
           <div class="stat-value">
             ${outliers.map(o => o.toFixed(2)).join(', ')}

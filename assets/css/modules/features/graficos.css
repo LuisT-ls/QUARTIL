@@ -120,13 +120,14 @@
 
 .boxplot-info {
   margin-top: var(--spacing-lg);
-  background-color: var(--gray-100);
+  background-color: var(--gray-50);
   border-radius: var(--border-radius-md);
   padding: var(--spacing-md);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: var(--spacing-sm);
+  box-shadow: var(--shadow-sm);
 }
 
 .stats-grid {
@@ -145,11 +146,13 @@
   padding: var(--spacing-sm);
   box-shadow: var(--shadow-sm);
   transition: all var(--transition-fast);
+  border-left-width: 4px;
+  border-left-style: solid;
 }
 
 .stat-item:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
+  transform: translateX(5px);
+  background-color: var(--gray-50);
 }
 
 .stat-label {
