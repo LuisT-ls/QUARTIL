@@ -172,6 +172,14 @@
   border-color: var(--gray-700);
 }
 
+.dark-mode .glossary-title {
+  color: var(--gray-800);
+}
+
+.dark-mode .glossary-toggle {
+  color: var(--gray-800);
+}
+
 .dark-mode .glossary-item {
   background-color: var(--gray-800);
 }

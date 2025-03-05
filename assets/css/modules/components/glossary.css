@@ -36,6 +36,7 @@
 }
 
 .glossary-title {
+  color: var(--gray-200);
   margin: 0;
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-medium);
