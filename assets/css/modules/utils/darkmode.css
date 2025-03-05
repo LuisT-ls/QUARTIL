@@ -115,3 +115,53 @@
 .dark-mode #rolInput.rol-input::placeholder {
   color: var(--placeholder-color);
 }
+
+/* Dark mode adjustments */
+.dark-mode .boxplot-info {
+  background-color: var(--gray-800);
+}
+
+.dark-mode .stat-item {
+  background-color: var(--gray-700);
+}
+
+.dark-mode .stat-label {
+  color: var(--gray-400);
+}
+
+.dark-mode .stat-value {
+  color: var(--light-text);
+}
+
+.dark-mode .outliers-info {
+  background-color: var(--gray-700);
+}
+
+.dark-mode .graficos-tabs {
+  border-bottom-color: var(--gray-700);
+}
+
+.dark-mode .grafico-tab {
+  color: var(--gray-400);
+}
+
+.dark-mode .grafico-wrapper {
+  background-color: var(--gray-800);
+}
+
+.dark-mode .grafico-title {
+  color: var(--light-text);
+}
+
+.dark-mode .grafico-option {
+  background-color: var(--gray-700);
+  color: var(--light-text);
+}
+
+.dark-mode .grafico-option:hover {
+  background-color: var(--gray-600);
+}
+
+.dark-mode .grafico-value-label {
+  background-color: var(--gray-900);
+}

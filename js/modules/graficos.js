@@ -389,45 +389,45 @@ function criarBoxplot(data, canvas) {
 
   // Adicionar informação sobre quartis abaixo do gráfico
   const boxplotInfo = document.createElement('div')
-  boxplotInfo.className = 'boxplot-info mt-3'
+  boxplotInfo.className = 'boxplot-info'
   boxplotInfo.innerHTML = `
-    <div class="stats-grid">
-      <div class="stat-item">
-        <span class="stat-label">Mínimo:</span>
-        <span class="stat-value">${min.toFixed(2)}</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-label">Q1:</span>
-        <span class="stat-value">${q1.toFixed(2)}</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-label">Mediana:</span>
-        <span class="stat-value">${mediana.toFixed(2)}</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-label">Q3:</span>
-        <span class="stat-value">${q3.toFixed(2)}</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-label">Máximo:</span>
-        <span class="stat-value">${max.toFixed(2)}</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-label">IQR:</span>
-        <span class="stat-value">${iqr.toFixed(2)}</span>
-      </div>
+  <div class="stats-grid">
+    <div class="stat-item">
+      <span class="stat-label">Mínimo</span>
+      <span class="stat-value">${min.toFixed(2)}</span>
     </div>
-    ${
-      outliers.length > 0
-        ? `<div class="outliers-info">
-        <span class="stat-label">Outliers (${outliers.length}):</span>
-        <span class="stat-value">${outliers
-          .map(o => o.toFixed(2))
-          .join(', ')}</span>
-      </div>`
-        : '<div class="outliers-info">Não há outliers.</div>'
-    }
-  `
+    <div class="stat-item">
+      <span class="stat-label">Q1</span>
+      <span class="stat-value">${q1.toFixed(2)}</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Mediana</span>
+      <span class="stat-value">${mediana.toFixed(2)}</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Q3</span>
+      <span class="stat-value">${q3.toFixed(2)}</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Máximo</span>
+      <span class="stat-value">${max.toFixed(2)}</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">IQR</span>
+      <span class="stat-value">${iqr.toFixed(2)}</span>
+    </div>
+  </div>
+  ${
+    outliers.length > 0
+      ? `<div class="outliers-info">
+          <div class="stat-label">Outliers (${outliers.length})</div>
+          <div class="stat-value">
+            ${outliers.map(o => o.toFixed(2)).join(', ')}
+          </div>
+        </div>`
+      : '<div class="outliers-info"><div class="stat-label">Não há outliers</div></div>'
+  }
+`
 
   // Substituir informações anteriores
   const boxplotContainer = canvas.parentElement
