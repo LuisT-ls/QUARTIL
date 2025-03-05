@@ -11,7 +11,7 @@ Uma calculadora estatística online completa, rápida e fácil de usar para aná
 - **Quartis:** Q1, Q2, Q3, Amplitude do Interquartil (IQR) e Média das Juntas
 - **Tabelas de Frequência:** Automática e Manual
 - **Gráficos:** Histograma e Boxplot
-- **Exportação:** PDF, TXT e CSV
+- **Exportação:** PDF, TXT, CSV, JSON e XLSX
 - **Modo Escuro:** Interface adaptável para melhor experiência visual
 
 ## 🚀 Tecnologias Utilizadas
