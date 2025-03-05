@@ -287,9 +287,10 @@ function exportarDados(formato) {
     return
   }
 
+  const { jsPDF } = window.jspdf
   const rol = appState.currentData
-  let conteudo = ''
   let nomeArquivo = `estatistica_${new Date().toISOString().split('T')[0]}`
+  let conteudo = ''
   let tipo = ''
 
   // Obter todas as estatísticas calculadas
@@ -304,10 +305,54 @@ function exportarDados(formato) {
 
   switch (formato) {
     case 'pdf':
-      alert(
-        'Exportação para PDF não implementada diretamente no navegador. Use a exportação TXT ou CSV.'
-      )
-      return
+      const doc = new jsPDF()
+      
+      // Título do documento
+      doc.setFontSize(18)
+      doc.text('Relatório de Estatística', 14, 22)
+      
+      // Data
+      doc.setFontSize(10)
+      doc.text(`Data: ${new Date().toLocaleString()}`, 14, 30)
+      
+      // Rol (dados)
+      doc.setFontSize(12)
+      doc.text('Rol de Dados:', 14, 40)
+      doc.setFontSize(10)
+      const rolText = rol.join(', ')
+      const splitRol = doc.splitTextToSize(rolText, 180)
+      doc.text(splitRol, 14, 47)
+      
+      // Estatísticas descritivas
+      const estatisticas = [
+        `Número de Elementos: ${rol.length}`,
+        `Média: ${media.toFixed(2)}`,
+        `Mediana: ${mediana.toFixed(2)}`,
+        `Moda: ${typeof moda === 'object' ? moda.join(', ') : moda}`,
+        `Desvio Padrão: ${desvioPadrao.toFixed(2)}`,
+        `Variância: ${variancia.toFixed(2)}`,
+        `Coeficiente de Variação: ${cv.toFixed(2)}%`,
+        `Mínimo: ${Math.min(...rol)}`,
+        `Máximo: ${Math.max(...rol)}`,
+        `Amplitude: ${Math.max(...rol) - Math.min(...rol)}`,
+        `Q1: ${q1.toFixed(2)}`,
+        `Q2 (Mediana): ${mediana.toFixed(2)}`,
+        `Q3: ${q3.toFixed(2)}`,
+        `Intervalo Interquartil (IQR): ${(q3 - q1).toFixed(2)}`
+      ]
+      
+      // Adicionar estatísticas
+      doc.setFontSize(12)
+      doc.text('Estatísticas Descritivas:', 14, 70)
+      doc.setFontSize(10)
+      estatisticas.forEach((stat, index) => {
+        doc.text(stat, 14, 77 + (index * 7))
+      })
+      
+      // Salvar o PDF
+      nomeArquivo += '.pdf'
+      doc.save(nomeArquivo)
+      break
 
     case 'txt':
       conteudo = `Calculadora de Estatística - Resultados\n`
@@ -363,16 +408,18 @@ function exportarDados(formato) {
       break
   }
 
-  // Criar e baixar o arquivo
-  const blob = new Blob([conteudo], { type: tipo })
-  const url = URL.createObjectURL(blob)
-  const a = document.createElement('a')
-  a.href = url
-  a.download = nomeArquivo
-  document.body.appendChild(a)
-  a.click()
-  document.body.removeChild(a)
-  URL.revokeObjectURL(url)
+  // Criar e baixar o arquivo (para txt e csv)
+  if (formato !== 'pdf') {
+    const blob = new Blob([conteudo], { type: tipo })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = nomeArquivo
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  }
 
   // Fechar o popup
   document.getElementById('exportPopup').style.display = 'none'
