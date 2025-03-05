@@ -81,16 +81,16 @@
 }
 
 .btn-success {
-  background-color: #0D492D;
-  border-color: #0D492D;
-  color: #FFFFFF;
+  background-color: #0d492d;
+  border-color: #0d492d;
+  color: #ffffff;
   box-shadow: var(--shadow-sm);
 }
 
 .btn-success:hover,
 .btn-success:focus {
-  background-color: #218838;
-  border-color: #1e7e34;
+  background-color: #125c38;
+  border-color: #0f5232;
   box-shadow: var(--shadow-md);
   transform: translateY(-2px);
 }
