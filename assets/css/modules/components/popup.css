@@ -82,3 +82,7 @@
 .dark-mode .close-popup:hover {
   color: var(--accent-color);
 }
+
+.dark-mode .form-check-label {
+  color: var(--light-text);
+}

@@ -175,8 +175,28 @@ function criarHistograma(data, canvas) {
     }
   })
 
+  // Encontrar a frequência máxima para normalização
+  const maxFrequencia = Math.max(...classes.map(classe => classe.frequencia))
+
+  // Função para gerar cores gradientes baseadas na frequência
+  const gerarCor = frequencia => {
+    // Interpolação entre azul claro (baixa frequência) e azul escuro (alta frequência)
+    const intensidade = frequencia / maxFrequencia
+    const r = Math.floor(52 + 54 * (1 - intensidade)) // 52-106
+    const g = Math.floor(162 + 0 * (1 - intensidade)) // mantém constante
+    const b = Math.floor(235 - 135 * (1 - intensidade)) // 235-100
+
+    // Opacidade varia de 0.4 a 1
+    const alpha = 0.4 + 0.6 * intensidade
+
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`
+  }
+
   // Extrair frequências para o gráfico
   const frequencias = classes.map(classe => classe.frequencia)
+
+  // Gerar cores baseadas nas frequências
+  const cores = classes.map(classe => gerarCor(classe.frequencia))
 
   // Destruir gráfico anterior se existir
   if (histogramaChart) {
@@ -192,8 +212,8 @@ function criarHistograma(data, canvas) {
         {
           label: 'Frequência',
           data: frequencias,
-          backgroundColor: 'rgba(54, 162, 235, 0.5)',
-          borderColor: 'rgba(54, 162, 235, 1)',
+          backgroundColor: cores,
+          borderColor: cores.map(cor => cor.replace(/[\d.]+\)$/, '1)')), // Bordas com opacidade total
           borderWidth: 1
         }
       ]
