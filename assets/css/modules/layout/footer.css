@@ -1,52 +1,104 @@
 .footer {
   background: linear-gradient(
     135deg,
-    var(--primary-dark) 0%,
-    var(--primary-color) 100%
+    var(--primary-color) 0%,
+    var(--secondary-color) 100%
   );
   color: white;
   padding: var(--spacing-2xl) 0;
   margin-top: var(--spacing-2xl);
   position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
 }
 
 .footer::before {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(
-    90deg,
-    var(--accent-color),
-    var(--primary-light),
-    var(--secondary-color)
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 70%
   );
+  transform: rotate(30deg);
+  z-index: 0;
 }
 
-.footer a {
-  color: rgba(255, 255, 255, 0.8);
-  transition: color var(--transition-fast);
+.footer-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-lg);
 }
 
-.footer a:hover {
-  color: white;
-  text-decoration: none;
+.footer-copyright {
+  font-size: var(--font-size-lg);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  opacity: 0.9;
+  text-align: center;
+  animation: fadeIn var(--transition-normal) forwards,
+    slideInUp var(--transition-normal) forwards;
 }
 
-.footer-links {
+.footer-social {
   display: flex;
   justify-content: center;
-  margin-top: var(--spacing-md);
+  align-items: center;
+  gap: var(--spacing-lg);
+  animation: fadeIn var(--transition-normal) 0.3s forwards,
+    slideInUp var(--transition-normal) 0.3s forwards;
 }
 
-.footer-links a {
-  margin: 0 var(--spacing-md);
+.footer-social a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: var(--border-radius-circle);
+  transition: color var(--transition-fast), transform var(--transition-fast),
+    background-color var(--transition-fast);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-.footer-links a i {
-  margin-right: var(--spacing-xs);
+.footer-social a:hover {
+  color: white;
+  transform: scale(1.1) rotate(360deg);
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.footer-social a i {
+  font-size: var(--font-size-xl);
+}
+
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  animation: fadeIn var(--transition-normal) 0.5s forwards,
+    slideInUp var(--transition-normal) 0.5s forwards;
+}
+
+.footer-contact a {
+  color: white;
+  text-decoration: none;
+  font-size: var(--font-size-md);
+  opacity: 0.9;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.footer-contact a:hover {
+  opacity: 1;
+  transform: scale(1.05);
+  text-decoration: underline;
 }

@@ -73,6 +73,16 @@
   .dark-mode-toggle {
     display: none;
   }
+
+  .footer-social {
+    flex-wrap: wrap;
+  }
+
+  .footer-social a {
+    margin: var(--spacing-sm);
+    width: 40px;
+    height: 40px;
+  }
 }
 
 /* Medium devices (desktops, 768px and up) */
