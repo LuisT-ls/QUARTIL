@@ -53,10 +53,8 @@
 /* Estilos para a logo */
 .header-logo {
   width: 40px;
-  height: auto;
-  filter: drop-shadow(
-    2px 2px 4px rgba(0, 0, 0, 0.3)
-  );
+  height: 40px;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
   animation: fadeIn var(--transition-normal) forwards,
     slideInUp var(--transition-normal) forwards;
 }
