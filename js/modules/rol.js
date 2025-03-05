@@ -28,6 +28,7 @@ export function initializeRol() {
   const exportPDFBtn = document.getElementById('exportPDF')
   const exportTXTBtn = document.getElementById('exportTXT')
   const exportCSVBtn = document.getElementById('exportCSV')
+  const exportJSONBtn = document.getElementById('exportJSON')
 
   // Event Listeners
   calcularRolBtn.addEventListener('click', processarRol)
@@ -58,6 +59,7 @@ export function initializeRol() {
   exportPDFBtn.addEventListener('click', () => exportarDados('pdf'))
   exportTXTBtn.addEventListener('click', () => exportarDados('txt'))
   exportCSVBtn.addEventListener('click', () => exportarDados('csv'))
+  exportJSONBtn.addEventListener('click', () => exportarDados('json'))
 
   // Permitir cálculo ao pressionar Enter
   rolInput.addEventListener('keyup', event => {
@@ -306,15 +308,15 @@ function exportarDados(formato) {
   switch (formato) {
     case 'pdf':
       const doc = new jsPDF()
-      
+
       // Título do documento
       doc.setFontSize(18)
       doc.text('Relatório de Estatística', 14, 22)
-      
+
       // Data
       doc.setFontSize(10)
       doc.text(`Data: ${new Date().toLocaleString()}`, 14, 30)
-      
+
       // Rol (dados)
       doc.setFontSize(12)
       doc.text('Rol de Dados:', 14, 40)
@@ -322,7 +324,7 @@ function exportarDados(formato) {
       const rolText = rol.join(', ')
       const splitRol = doc.splitTextToSize(rolText, 180)
       doc.text(splitRol, 14, 47)
-      
+
       // Estatísticas descritivas
       const estatisticas = [
         `Número de Elementos: ${rol.length}`,
@@ -340,15 +342,15 @@ function exportarDados(formato) {
         `Q3: ${q3.toFixed(2)}`,
         `Intervalo Interquartil (IQR): ${(q3 - q1).toFixed(2)}`
       ]
-      
+
       // Adicionar estatísticas
       doc.setFontSize(12)
       doc.text('Estatísticas Descritivas:', 14, 70)
       doc.setFontSize(10)
       estatisticas.forEach((stat, index) => {
-        doc.text(stat, 14, 77 + (index * 7))
+        doc.text(stat, 14, 77 + index * 7)
       })
-      
+
       // Salvar o PDF
       nomeArquivo += '.pdf'
       doc.save(nomeArquivo)
@@ -405,6 +407,46 @@ function exportarDados(formato) {
 
       nomeArquivo += '.csv'
       tipo = 'text/csv'
+      break
+
+    case 'json':
+      // Create a comprehensive JSON export object
+      const jsonData = {
+        metadata: {
+          date: new Date().toLocaleString(),
+          totalElements: rol.length
+        },
+        rawData: rol,
+        descriptiveStatistics: {
+          centralTendency: {
+            mean: media.toFixed(2),
+            median: mediana.toFixed(2),
+            mode: typeof moda === 'object' ? moda : [moda]
+          },
+          dispersion: {
+            standardDeviation: desvioPadrao.toFixed(2),
+            variance: variancia.toFixed(2),
+            coefficientOfVariation: cv.toFixed(2),
+            range: (Math.max(...rol) - Math.min(...rol)).toFixed(2)
+          },
+          quartiles: {
+            Q1: q1.toFixed(2),
+            Q2: mediana.toFixed(2),
+            Q3: q3.toFixed(2),
+            interQuartileRange: (q3 - q1).toFixed(2)
+          },
+          extremeValues: {
+            minimum: Math.min(...rol),
+            maximum: Math.max(...rol)
+          }
+        }
+      }
+
+      // Convert to formatted JSON
+      conteudo = JSON.stringify(jsonData, null, 2)
+
+      nomeArquivo += '.json'
+      tipo = 'application/json'
       break
   }
 
