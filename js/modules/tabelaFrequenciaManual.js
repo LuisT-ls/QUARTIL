@@ -90,9 +90,9 @@ function adicionarLinhaTabela() {
     <td><input type="number" step="any" class="form-control freq-acumulada" placeholder="Fi" data-row="${linhaIndex}"></td>
     <td><input type="number" step="any" class="form-control freq-relativa-acum" placeholder="Fri" data-row="${linhaIndex}"></td>
     <td>
-      <button class="btn btn-danger btn-sm remover-linha" data-row="${linhaIndex}">
-        <i class="fas fa-trash"></i>
-      </button>
+    <button class="btn btn-danger btn-sm remover-linha" data-row="${linhaIndex}" aria-label="Remover linha">
+      <i class="fas fa-trash"></i>
+    </button>
     </td>
   `
 
