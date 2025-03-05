@@ -7,6 +7,7 @@ import { initializeTabelaFrequencia } from './modules/tabelaFrequencia.js'
 import { initializeTabelaFrequenciaManual } from './modules/tabelaFrequenciaManual.js'
 import { initializeGraficos } from './modules/graficos.js'
 import { inicializarGeradorAleatorio } from './modules/geradorAleatorio.js'
+import Glossario from './modules/glossary.js'
 
 // Dados compartilhados entre módulos
 export const appState = {
@@ -58,6 +59,11 @@ function initializeDarkMode() {
   }
 }
 
+// Inicializar o glossário
+function initializeGlossario() {
+  const glossario = new Glossario()
+}
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker
@@ -85,4 +91,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeTabelaFrequenciaManual()
   initializeGraficos()
   inicializarGeradorAleatorio()
+  initializeGlossario()
 })

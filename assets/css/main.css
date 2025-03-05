@@ -23,6 +23,7 @@
 @import url('./modules/components/icon.css');
 @import url('./modules/components/popup.css');
 @import url('./modules/components/watermark.css');
+@import url('./modules/components/glossary.css');
 
 /* Features */
 @import url('./modules/features/charts.css');

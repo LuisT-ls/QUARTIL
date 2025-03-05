@@ -165,3 +165,42 @@
 .dark-mode .grafico-value-label {
   background-color: var(--gray-900);
 }
+
+/* Dark-mode para o glossário */
+.dark-mode .glossary-container {
+  background-color: var(--dark-bg);
+  border-color: var(--gray-700);
+}
+
+.dark-mode .glossary-item {
+  background-color: var(--gray-800);
+}
+
+.dark-mode .glossary-item-content {
+  color: var(--gray-200);
+}
+
+.dark-mode .glossary-item-category {
+  background-color: var(--gray-700);
+  color: var(--gray-300);
+}
+
+.dark-mode .glossary-search-input {
+  background-color: var(--gray-800);
+  color: var(--light-text);
+  border-color: var(--gray-700);
+}
+
+.dark-mode .glossary-category {
+  background-color: var(--gray-700);
+  color: var(--gray-200);
+}
+
+.dark-mode .glossary-category:hover {
+  background-color: var(--gray-600);
+}
+
+.dark-mode .glossary-category.active {
+  background-color: var(--primary-color);
+  color: var(--light-text);
+}
