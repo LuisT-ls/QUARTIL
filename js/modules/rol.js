@@ -222,24 +222,62 @@ function limparRol() {
   appState.currentData = []
   appState.isCalculated = false
 
-  // Limpar gráficos
+  // Limpar gráficos e restaurar estado inicial
   resetGraficos()
 }
 
 // Função para resetar os gráficos
 function resetGraficos() {
-  const histogramaChart = document.getElementById('histogramaChart')
-  const boxplotChart = document.getElementById('boxplotChart')
+  const histogramaCanvas = document.getElementById('histogramaChart')
+  const boxplotCanvas = document.getElementById('boxplotChart')
 
-  if (histogramaChart) {
-    const histogramCtx = histogramaChart.getContext('2d')
-    histogramCtx.clearRect(0, 0, histogramaChart.width, histogramaChart.height)
+  // Limpar o gráfico do histograma
+  if (histogramaCanvas) {
+    const histogramCtx = histogramaCanvas.getContext('2d')
+    histogramCtx.clearRect(
+      0,
+      0,
+      histogramaCanvas.width,
+      histogramaCanvas.height
+    )
+
+    // Destruir o gráfico se existir
+    if (window.histogramaChart) {
+      window.histogramaChart.destroy()
+      window.histogramaChart = null
+    }
+
+    // Remover legenda do histograma
+    const histogramaContainer = histogramaCanvas.parentElement
+    const histogramaLegenda = histogramaContainer.querySelector(
+      '.histograma-legenda'
+    )
+    if (histogramaLegenda) {
+      histogramaContainer.removeChild(histogramaLegenda)
+    }
   }
 
-  if (boxplotChart) {
-    const boxplotCtx = boxplotChart.getContext('2d')
-    boxplotCtx.clearRect(0, 0, boxplotChart.width, boxplotChart.height)
+  // Limpar o boxplot
+  if (boxplotCanvas) {
+    const boxplotCtx = boxplotCanvas.getContext('2d')
+    boxplotCtx.clearRect(0, 0, boxplotCanvas.width, boxplotCanvas.height)
+
+    // Destruir o gráfico se existir
+    if (window.boxplotChart) {
+      window.boxplotChart.destroy()
+      window.boxplotChart = null
+    }
+
+    // Remover informações do boxplot
+    const boxplotContainer = boxplotCanvas.parentElement
+    const boxplotInfo = boxplotContainer.querySelector('.boxplot-info')
+    if (boxplotInfo) {
+      boxplotContainer.removeChild(boxplotInfo)
+    }
   }
+
+  // Recriar gráficos vazios
+  initializeGraficos()
 }
 
 // Função para exportar dados em diferentes formatos

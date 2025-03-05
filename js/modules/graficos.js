@@ -2,8 +2,8 @@
 import { appState } from '../app.js'
 import { calcularQuartil, calcularOutliers } from './quartis.js'
 
-let histogramaChart = null
-let boxplotChart = null
+window.histogramaChart = null
+window.boxplotChart = null
 
 // Função para inicializar o módulo de gráficos
 export function initializeGraficos() {
@@ -12,7 +12,7 @@ export function initializeGraficos() {
   const boxplotCanvas = document.getElementById('boxplotChart')
 
   if (histogramaCanvas && boxplotCanvas) {
-    // Pré-configurar os gráficos vazios
+    // Criar gráficos iniciais padrão
     criarHistogramaVazio(histogramaCanvas)
     criarBoxplotVazio(boxplotCanvas)
   }
@@ -37,18 +37,20 @@ export function updateGraficos(data) {
 function criarHistogramaVazio(canvas) {
   const ctx = canvas.getContext('2d')
 
-  if (histogramaChart) {
-    histogramaChart.destroy()
+  // Destruir gráfico anterior se existir
+  if (window.histogramaChart) {
+    window.histogramaChart.destroy()
   }
 
-  histogramaChart = new Chart(ctx, {
+  // Criar novo gráfico com estilo padrão inicial
+  window.histogramaChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: [],
+      labels: ['Sem Dados'],
       datasets: [
         {
-          label: 'Aguardando Dados',
-          data: [],
+          label: 'Frequência',
+          data: [0],
           backgroundColor: 'rgba(200, 200, 200, 0.3)',
           borderColor: 'rgba(150, 150, 150, 0.5)',
           borderWidth: 1
@@ -75,7 +77,7 @@ function criarHistogramaVazio(canvas) {
       plugins: {
         title: {
           display: true,
-          text: 'Histograma (Sem Dados)'
+          text: 'Histograma'
         },
         legend: {
           display: false
@@ -83,23 +85,32 @@ function criarHistogramaVazio(canvas) {
       }
     }
   })
+
+  // Limpar legenda anterior, se existir
+  const chartContainer = canvas.parentElement
+  const existingLegenda = chartContainer.querySelector('.histograma-legenda')
+  if (existingLegenda) {
+    chartContainer.removeChild(existingLegenda)
+  }
 }
 
 // Função para criar um boxplot vazio
 function criarBoxplotVazio(canvas) {
   const ctx = canvas.getContext('2d')
 
-  if (boxplotChart) {
-    boxplotChart.destroy()
+  // Destruir gráfico anterior se existir
+  if (window.boxplotChart) {
+    window.boxplotChart.destroy()
   }
 
-  boxplotChart = new Chart(ctx, {
+  // Criar novo gráfico com estilo padrão inicial
+  window.boxplotChart = new Chart(ctx, {
     type: 'bar',
     data: {
       labels: ['Sem Dados'],
       datasets: [
         {
-          label: 'Aguardando Dados',
+          label: 'Sem Dados',
           data: [0],
           backgroundColor: 'rgba(200, 200, 200, 0.3)',
           borderColor: 'rgba(150, 150, 150, 0.5)',
@@ -121,7 +132,7 @@ function criarBoxplotVazio(canvas) {
       plugins: {
         title: {
           display: true,
-          text: 'Boxplot (Sem Dados)'
+          text: 'Boxplot'
         },
         legend: {
           display: false
@@ -129,6 +140,13 @@ function criarBoxplotVazio(canvas) {
       }
     }
   })
+
+  // Limpar informações anteriores do boxplot, se existirem
+  const boxplotContainer = canvas.parentElement
+  const existingInfo = boxplotContainer.querySelector('.boxplot-info')
+  if (existingInfo) {
+    boxplotContainer.removeChild(existingInfo)
+  }
 }
 
 // Função para criar um histograma
