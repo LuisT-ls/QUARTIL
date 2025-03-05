@@ -47,10 +47,10 @@ function criarHistogramaVazio(canvas) {
       labels: [],
       datasets: [
         {
-          label: 'Frequência',
+          label: 'Aguardando Dados',
           data: [],
-          backgroundColor: 'rgba(54, 162, 235, 0.5)',
-          borderColor: 'rgba(54, 162, 235, 1)',
+          backgroundColor: 'rgba(200, 200, 200, 0.3)',
+          borderColor: 'rgba(150, 150, 150, 0.5)',
           borderWidth: 1
         }
       ]
@@ -68,14 +68,14 @@ function criarHistogramaVazio(canvas) {
         x: {
           title: {
             display: true,
-            text: 'Valores'
+            text: 'Insira dados para visualizar'
           }
         }
       },
       plugins: {
         title: {
           display: true,
-          text: 'Histograma'
+          text: 'Histograma (Sem Dados)'
         },
         legend: {
           display: false
@@ -96,32 +96,32 @@ function criarBoxplotVazio(canvas) {
   boxplotChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Boxplot'],
+      labels: ['Sem Dados'],
       datasets: [
         {
-          label: 'Valores',
+          label: 'Aguardando Dados',
           data: [0],
-          backgroundColor: 'rgba(75, 192, 192, 0.5)',
-          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: 'rgba(200, 200, 200, 0.3)',
+          borderColor: 'rgba(150, 150, 150, 0.5)',
           borderWidth: 1
         }
       ]
     },
     options: {
+      indexAxis: 'y',
       responsive: true,
       scales: {
-        y: {
-          beginAtZero: true,
+        x: {
           title: {
             display: true,
-            text: 'Valores'
+            text: 'Insira dados para visualizar'
           }
         }
       },
       plugins: {
         title: {
           display: true,
-          text: 'Boxplot'
+          text: 'Boxplot (Sem Dados)'
         },
         legend: {
           display: false
