@@ -29,6 +29,7 @@ export function initializeRol() {
   const exportTXTBtn = document.getElementById('exportTXT')
   const exportCSVBtn = document.getElementById('exportCSV')
   const exportJSONBtn = document.getElementById('exportJSON')
+  const exportXLSXBtn = document.getElementById('exportXLSX')
 
   // Event Listeners
   calcularRolBtn.addEventListener('click', processarRol)
@@ -60,6 +61,7 @@ export function initializeRol() {
   exportTXTBtn.addEventListener('click', () => exportarDados('txt'))
   exportCSVBtn.addEventListener('click', () => exportarDados('csv'))
   exportJSONBtn.addEventListener('click', () => exportarDados('json'))
+  exportXLSXBtn.addEventListener('click', () => exportarDados('xlsx'))
 
   // Permitir cálculo ao pressionar Enter
   rolInput.addEventListener('keyup', event => {
@@ -447,6 +449,64 @@ function exportarDados(formato) {
 
       nomeArquivo += '.json'
       tipo = 'application/json'
+      break
+
+    case 'xlsx':
+      if (!window.XLSX) {
+        alert(
+          'Biblioteca XLSX não carregada. Verifique sua conexão com a internet.'
+        )
+        return
+      }
+
+      // Create workbook and worksheet
+      const wb = XLSX.utils.book_new()
+
+      // Create main statistics sheet
+      const statsData = [
+        ['Calculadora de Estatística - Resultados', ''],
+        ['Data', new Date().toLocaleString()],
+        ['', ''],
+        ['Estatística', 'Valor'],
+        ['Tamanho da Amostra', rol.length],
+        ['Mínimo', Math.min(...rol)],
+        ['Máximo', Math.max(...rol)],
+        ['Amplitude', Math.max(...rol) - Math.min(...rol)],
+        ['Média', media.toFixed(2)],
+        ['Mediana', mediana.toFixed(2)],
+        ['Moda', typeof moda === 'object' ? moda.join('; ') : moda],
+        ['Desvio Padrão', desvioPadrao.toFixed(2)],
+        ['Variância', variancia.toFixed(2)],
+        ['Coeficiente de Variação', cv.toFixed(2) + '%'],
+        ['Q1', q1.toFixed(2)],
+        ['Q2 (Mediana)', mediana.toFixed(2)],
+        ['Q3', q3.toFixed(2)],
+        ['IQR', (q3 - q1).toFixed(2)]
+      ]
+
+      // Create worksheet from data
+      const ws = XLSX.utils.aoa_to_sheet(statsData)
+
+      // Set column widths
+      const wscols = [
+        { wch: 25 }, // Column A width
+        { wch: 20 } // Column B width
+      ]
+      ws['!cols'] = wscols
+
+      // Add to workbook
+      XLSX.utils.book_append_sheet(wb, ws, 'Estatísticas')
+
+      // Create raw data sheet
+      const rawData = rol.map((value, index) => [index + 1, value])
+      rawData.unshift(['#', 'Valor']) // Add header row
+
+      const dataSheet = XLSX.utils.aoa_to_sheet(rawData)
+      XLSX.utils.book_append_sheet(wb, dataSheet, 'Dados Originais')
+
+      // Generate xlsx file
+      nomeArquivo += '.xlsx'
+      XLSX.writeFile(wb, nomeArquivo)
       break
   }
 
