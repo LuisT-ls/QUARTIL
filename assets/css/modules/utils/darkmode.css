@@ -213,6 +213,10 @@
   color: var(--dark-text);
 }
 
+.dark-mode .formula-content.katex-formula {
+  color: var(--light-text);
+}
+
 /* Dark-mode para as medidas de posição */
 .dark-mode .medida-box {
   background-color: var(--gray-800);
