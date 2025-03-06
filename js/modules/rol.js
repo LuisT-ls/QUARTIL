@@ -3,7 +3,7 @@ import { appState } from '../app.js'
 import { calculateMedidasPosicao } from './medidasPosicao.js'
 import { calculateMedidasDispersao } from './medidasDispersao.js'
 import { calculateQuartis } from './quartis.js'
-import { updateGraficos } from './graficos.js'
+import { updateGraficos, initializeGraficos } from './graficos.js'
 
 // Função para inicializar o módulo de rol
 export function initializeRol() {
