@@ -67,19 +67,3 @@
   color: var(--primary-color);
   margin-bottom: var(--spacing-md);
 }
-
-.dark-mode .medida-box {
-  background-color: var(--gray-800);
-}
-
-.dark-mode .medida-box h3 {
-  color: var(--light-text);
-}
-
-.dark-mode .medida-value {
-  color: var(--primary-light);
-}
-
-.dark-mode .medida-description {
-  color: var(--gray-400);
-}

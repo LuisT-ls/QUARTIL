@@ -210,5 +210,26 @@
 
 .dark-mode .glossary-category.active {
   background-color: var(--primary-color);
+  color: var(--dark-text);
+}
+
+/* Dark-mode para as medidas de posição */
+.dark-mode .medida-box {
+  background-color: var(--gray-800);
+}
+
+.dark-mode .medida-box h3 {
   color: var(--light-text);
+}
+
+.dark-mode .medida-value {
+  color: var(--primary-light);
+}
+
+.dark-mode .medida-description {
+  color: var(--gray-400);
+}
+
+.dark-mode .form-label {
+  color: var(--gray-600);
 }
