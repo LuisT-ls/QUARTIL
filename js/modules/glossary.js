@@ -391,8 +391,9 @@ export default class Glossario {
   }
 
   adicionarCSSMatematico() {
-    // Verificar se já existe o link para KaTeX ou MathJax
+    // Verificar se já existe o link para KaTeX
     if (!document.getElementById('katex-css')) {
+      // Adicionar KaTeX CSS
       const katexCSS = document.createElement('link')
       katexCSS.id = 'katex-css'
       katexCSS.rel = 'stylesheet'
@@ -400,38 +401,51 @@ export default class Glossario {
         'https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css'
       document.head.appendChild(katexCSS)
 
-      // Adicionar o script do KaTeX
-      const katexScript = document.createElement('script')
-      katexScript.src =
-        'https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js'
-      katexScript.defer = true
-      document.head.appendChild(katexScript)
-
-      // Adicionar o script de auto-render para fórmulas
-      const autoRenderScript = document.createElement('script')
-      autoRenderScript.src =
-        'https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js'
-      autoRenderScript.defer = true
-      autoRenderScript.onload = () => {
-        // Aguardar um pouco para garantir que os scripts foram carregados
-        setTimeout(() => this.inicializarRenderizacaoMatematica(), 300)
-      }
-      document.head.appendChild(autoRenderScript)
+      // Criar uma promessa que resolve quando KaTeX estiver carregado
+      this.katexPromise = new Promise(resolve => {
+        // Adicionar o script do KaTeX
+        const katexScript = document.createElement('script')
+        katexScript.src =
+          'https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js'
+        katexScript.onload = () => {
+          // Adicionar o script de auto-render após katex carregar
+          const autoRenderScript = document.createElement('script')
+          autoRenderScript.src =
+            'https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js'
+          autoRenderScript.onload = () => {
+            // Garantir que tanto KaTeX quanto auto-render estejam disponíveis
+            resolve()
+          }
+          document.head.appendChild(autoRenderScript)
+        }
+        document.head.appendChild(katexScript)
+      })
+    } else {
+      // Se KaTeX já foi carregado, cria uma promessa resolvida
+      this.katexPromise = Promise.resolve()
     }
   }
 
-  inicializarRenderizacaoMatematica() {
-    // Garantir que o renderMathInElement esteja disponível
+  async inicializarRenderizacaoMatematica() {
+    // Aguardar carregamento do KaTeX
+    await this.katexPromise
+
+    // Verificar se o renderMathInElement está disponível
     if (typeof renderMathInElement === 'function') {
-      // Renderizar todas as fórmulas no glossário
-      renderMathInElement(this.glossarioElement, {
-        delimiters: [
-          { left: '\\(', right: '\\)', display: false },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$$', right: '$$', display: true }
-        ],
-        throwOnError: false
-      })
+      try {
+        // Renderizar todas as fórmulas no glossário
+        renderMathInElement(this.glossarioElement, {
+          delimiters: [
+            { left: '\\(', right: '\\)', display: false },
+            { left: '\\[', right: '\\]', display: true },
+            { left: '$$', right: '$$', display: true }
+          ],
+          throwOnError: false,
+          strict: false
+        })
+      } catch (error) {
+        console.warn('Erro ao renderizar fórmulas (tentativa inicial):', error)
+      }
     }
   }
 
@@ -483,8 +497,15 @@ export default class Glossario {
       })
     })
 
-    // Depois que o conteúdo é carregado, renderizar as fórmulas matemáticas
-    this.renderizarFormulasMatematicas()
+    // Renderizar as fórmulas depois que a página estiver completamente carregada
+    window.addEventListener('load', () => {
+      this.inicializarRenderizacaoMatematica()
+    })
+
+    // Tenta renderizar as fórmulas após um breve delay para garantir que tudo esteja carregado
+    setTimeout(() => {
+      this.inicializarRenderizacaoMatematica()
+    }, 500)
   }
 
   renderizarItensGlossario(itens) {
@@ -517,19 +538,24 @@ export default class Glossario {
       .join('')
   }
 
-  recarregarFormulas() {
-    // Forçar nova renderização das fórmulas depois de alterações no DOM
-    setTimeout(() => this.renderizarFormulasMatematicas(), 100)
+  async recarregarFormulas() {
+    // Aguardar o carregamento do KaTeX e então renderizar fórmulas
+    await this.katexPromise
+    this.renderizarFormulasMatematicas()
   }
 
-  renderizarFormulasMatematicas() {
-    // Verificar se o documento foi carregado completamente
-    if (document.readyState === 'complete') {
-      // Verificar se KaTeX está disponível
-      if (typeof renderMathInElement === 'function') {
-        try {
-          const glossaryItems =
-            this.glossarioElement.querySelector('.glossary-items')
+  async renderizarFormulasMatematicas() {
+    // Aguardar o carregamento do KaTeX
+    await this.katexPromise
+
+    // Verificar se o renderMathInElement está disponível
+    if (typeof renderMathInElement === 'function') {
+      try {
+        const glossaryItems =
+          this.glossarioElement.querySelector('.glossary-items')
+
+        // Verificar se o elemento existe antes de tentar renderizar
+        if (glossaryItems) {
           renderMathInElement(glossaryItems, {
             delimiters: [
               { left: '\\(', right: '\\)', display: false },
@@ -537,20 +563,19 @@ export default class Glossario {
               { left: '$$', right: '$$', display: true }
             ],
             throwOnError: false,
-            output: 'html'
+            output: 'html',
+            trust: true // Permite que o KaTeX execute comandos que poderiam ser inseguros
           })
-        } catch (error) {
-          console.error('Erro ao renderizar fórmulas:', error)
         }
-      } else {
-        // Se KaTeX não estiver disponível, tentar novamente após um breve atraso
-        setTimeout(() => this.renderizarFormulasMatematicas(), 500)
+      } catch (error) {
+        console.warn('Erro ao renderizar fórmulas (capturado):', error)
+        // Se falhar, tentar novamente após um delay maior
+        setTimeout(() => this.renderizarFormulasMatematicas(), 1000)
       }
     } else {
-      // Se o documento não estiver completamente carregado, aguardar
-      window.addEventListener('load', () =>
-        this.renderizarFormulasMatematicas()
-      )
+      // Se KaTeX não estiver disponível, tentar novamente após um delay
+      console.warn('KaTeX ainda não disponível, tentando novamente...')
+      setTimeout(() => this.renderizarFormulasMatematicas(), 500)
     }
   }
 
@@ -559,7 +584,7 @@ export default class Glossario {
     return categoria ? categoria.nome : categoriaId
   }
 
-  filtrarTermos(termo) {
+  async filtrarTermos(termo) {
     const termoBusca = termo.toLowerCase()
     const categoriaAtiva = this.glossarioElement.querySelector(
       '.glossary-category.active'
@@ -587,11 +612,13 @@ export default class Glossario {
     const glossaryItems = this.glossarioElement.querySelector('.glossary-items')
     glossaryItems.innerHTML = this.renderizarItensGlossario(itensFiltrados)
 
-    // Após atualizar o conteúdo, renderizar as fórmulas matemáticas
-    this.renderizarFormulasMatematicas()
+    // Após atualizar o conteúdo, aguardar um momento e renderizar as fórmulas
+    setTimeout(async () => {
+      await this.recarregarFormulas()
+    }, 100)
   }
 
-  filtrarPorCategoria(categoria) {
+  async filtrarPorCategoria(categoria) {
     const termoBusca = this.glossarioElement
       .querySelector('.glossary-search-input')
       .value.toLowerCase()
@@ -618,7 +645,9 @@ export default class Glossario {
     const glossaryItems = this.glossarioElement.querySelector('.glossary-items')
     glossaryItems.innerHTML = this.renderizarItensGlossario(itensFiltrados)
 
-    // Após atualizar o conteúdo, renderizar as fórmulas matemáticas
-    this.renderizarFormulasMatematicas()
+    // Após atualizar o conteúdo, aguardar um momento e renderizar as fórmulas
+    setTimeout(async () => {
+      await this.recarregarFormulas()
+    }, 100)
   }
 }
