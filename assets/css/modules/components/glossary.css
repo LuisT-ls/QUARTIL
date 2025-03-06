@@ -167,7 +167,8 @@
   background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
 }
 
-.glossary-item-title {
+.glossary-item-title,
+h4 {
   margin-top: 0;
   margin-bottom: var(--spacing-sm);
   font-size: var(--font-size-lg);
