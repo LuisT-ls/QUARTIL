@@ -121,6 +121,24 @@
   color: var(--primary-color);
 }
 
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+#tabelaFrequenciaManualContainer,
+#tabelaFrequenciaManualResult {
+  max-width: 100%;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
 /* Estilos para o modo escuro */
 .dark-mode .tabela-stats {
   background-color: var(--gray-800);

@@ -145,6 +145,47 @@
     padding-left: 15px;
     margin-bottom: 20px;
   }
+
+  .d-flex.gap-2 {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .d-flex.gap-2 .btn {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Ajusta o tamanho dos inputs nas células */
+  .table input.form-control {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  /* Reduz o padding nas células da tabela */
+  .table td,
+  .table th {
+    padding: 0.5rem 0.25rem;
+  }
+
+  /* Ajusta o grupo de input para limite inferior/superior */
+  .input-group {
+    flex-wrap: nowrap;
+  }
+
+  /* Ajustes para ícones */
+  .btn-sm {
+    padding: 0.25rem 0.4rem;
+  }
+
+  /* Stats cards em coluna em vez de lado a lado */
+  .stats-container {
+    flex-direction: column;
+  }
+
+  .stats-card {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
 }
 
 /* Medium devices (desktops, 768px and up) */
@@ -169,6 +210,15 @@
     max-width: 50%;
     padding-right: 15px;
     padding-left: 15px;
+  }
+
+  .table {
+    font-size: 0.9rem;
+  }
+
+  .table td,
+  .table th {
+    padding: 0.6rem;
   }
 }
 

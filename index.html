@@ -346,23 +346,29 @@
                 Configure manualmente a tabela de frequência adicionando os
                 valores para cada classe.
               </p>
-              <div class="d-flex gap-2 mb-3">
+              <!-- Botões responsivos -->
+              <div class="d-flex flex-wrap gap-2 mb-3">
                 <button id="adicionarLinhaTabelaManual" class="btn btn-primary">
-                  <i class="fas fa-plus"></i> Adicionar Linha
+                  <i class="fas fa-plus"></i>
+                  <span class="d-none d-sm-inline">Adicionar Linha</span>
                 </button>
                 <button id="calcularTabelaManual" class="btn btn-success">
-                  <i class="fas fa-calculator"></i> Calcular Tabela
+                  <i class="fas fa-calculator"></i>
+                  <span class="d-none d-sm-inline">Calcular Tabela</span>
                 </button>
                 <button id="limparTabelaManual" class="btn btn-secondary">
-                  <i class="fas fa-trash"></i> Limpar Tabela
+                  <i class="fas fa-trash"></i>
+                  <span class="d-none d-sm-inline">Limpar Tabela</span>
                 </button>
               </div>
             </div>
 
-            <div id="tabelaFrequenciaManualContainer">
+            <!-- Container para tabela responsiva -->
+            <div id="tabelaFrequenciaManualContainer" class="overflow-auto">
               <!-- A tabela será gerada aqui pelo JavaScript -->
             </div>
 
+            <!-- Container para resultados responsivos -->
             <div id="tabelaFrequenciaManualResult" class="mt-4">
               <!-- Resultados e estatísticas serão exibidos aqui -->
             </div>
