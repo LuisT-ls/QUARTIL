@@ -15,8 +15,7 @@ export function setupResponsiveCharts() {
 
     if (histogramaContainer && window.histogramaChart) {
       const containerWidth = histogramaContainer.clientWidth
-      // Determinar altura baseada na largura, mas com um mínimo
-      const height = Math.max(300, containerWidth * 0.6)
+      const height = Math.max(400, containerWidth * 0.7)
 
       histogramaContainer.style.height = `${height}px`
       window.histogramaChart.resize()
@@ -24,8 +23,8 @@ export function setupResponsiveCharts() {
 
     if (boxplotContainer && window.boxplotChart) {
       const containerWidth = boxplotContainer.clientWidth
-      // Ajustando altura do boxplot
-      const height = Math.max(250, containerWidth * 0.5)
+      // Aumentar a altura mínima para evitar corte
+      const height = Math.max(350, containerWidth * 0.6)
 
       boxplotContainer.style.height = `${height}px`
       window.boxplotChart.resize()
@@ -81,10 +80,19 @@ export function setupResponsiveCharts() {
     }
   }
 
-  // Modificar as funções de criação de gráficos para considerar responsividade
-  const originalCriarHistograma = window.criarHistograma || this.criarHistograma
+  const originalCriarHistograma = criarHistograma // referência direta à função local
   if (originalCriarHistograma) {
-    window.criarHistograma = function (data, canvas) {
+    // Você pode sobrescrever a função exportada
+    criarHistograma = function (data, canvas) {
+      // Primeiro, ajuste o container
+      const container = canvas.parentElement
+      if (container) {
+        container.style.height = `${Math.max(
+          400,
+          container.clientWidth * 0.7
+        )}px`
+      }
+
       // Chama a função original
       originalCriarHistograma(data, canvas)
 
@@ -95,14 +103,35 @@ export function setupResponsiveCharts() {
         window.histogramaChart.options.scales.x.ticks.autoSkip = true
         window.histogramaChart.options.scales.x.ticks.maxRotation =
           window.innerWidth < 768 ? 90 : 45
+
+        // Ajusta as opções de layout para evitar corte
+        window.histogramaChart.options.layout = {
+          padding: {
+            left: 10,
+            right: 10,
+            top: 20,
+            bottom: 20
+          }
+        }
+
         window.histogramaChart.update()
       }
     }
   }
 
-  const originalCriarBoxplot = window.criarBoxplot || this.criarBoxplot
+  const originalCriarBoxplot = criarBoxplot // referência direta à função local
   if (originalCriarBoxplot) {
-    window.criarBoxplot = function (data, canvas) {
+    // Você pode sobrescrever a função exportada
+    criarBoxplot = function (data, canvas) {
+      // Primeiro, ajuste o container
+      const container = canvas.parentElement
+      if (container) {
+        container.style.height = `${Math.max(
+          350,
+          container.clientWidth * 0.6
+        )}px`
+      }
+
       // Chama a função original
       originalCriarBoxplot(data, canvas)
 
@@ -110,6 +139,16 @@ export function setupResponsiveCharts() {
       if (window.boxplotChart) {
         window.boxplotChart.options.responsive = true
         window.boxplotChart.options.maintainAspectRatio = false
+
+        // Ajusta as opções de layout para evitar corte
+        window.boxplotChart.options.layout = {
+          padding: {
+            left: 10,
+            right: 10,
+            top: 20,
+            bottom: 20
+          }
+        }
 
         // Em telas pequenas, ajustar a orientação para horizontal pode ser melhor
         if (window.innerWidth < 576) {
