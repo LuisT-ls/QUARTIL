@@ -563,6 +563,7 @@ export default class Glossario {
               { left: '$$', right: '$$', display: true }
             ],
             throwOnError: false,
+            strict: false,
             output: 'html',
             trust: true // Permite que o KaTeX execute comandos que poderiam ser inseguros
           })
