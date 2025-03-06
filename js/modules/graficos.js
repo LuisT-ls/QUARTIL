@@ -5,6 +5,136 @@ import { calcularQuartil, calcularOutliers } from './quartis.js'
 window.histogramaChart = null
 window.boxplotChart = null
 
+export function setupResponsiveCharts() {
+  // Função para ajustar o tamanho dos gráficos
+  function resizeCharts() {
+    const histogramaContainer =
+      document.getElementById('histogramaChart')?.parentElement
+    const boxplotContainer =
+      document.getElementById('boxplotChart')?.parentElement
+
+    if (histogramaContainer && window.histogramaChart) {
+      const containerWidth = histogramaContainer.clientWidth
+      // Determinar altura baseada na largura, mas com um mínimo
+      const height = Math.max(300, containerWidth * 0.6)
+
+      histogramaContainer.style.height = `${height}px`
+      window.histogramaChart.resize()
+    }
+
+    if (boxplotContainer && window.boxplotChart) {
+      const containerWidth = boxplotContainer.clientWidth
+      // Ajustando altura do boxplot
+      const height = Math.max(250, containerWidth * 0.5)
+
+      boxplotContainer.style.height = `${height}px`
+      window.boxplotChart.resize()
+    }
+
+    // Ajustar legendas e informações adicionais
+    adjustLegendaDisplay()
+  }
+
+  // Função para ajustar a exibição das legendas com base no tamanho da tela
+  function adjustLegendaDisplay() {
+    const histogramaLegenda = document.querySelector('.histograma-legenda')
+    const boxplotInfo = document.querySelector('.boxplot-info')
+
+    // Ajustar layout da legenda do histograma em telas menores
+    if (histogramaLegenda) {
+      const legendaStats = histogramaLegenda.querySelector('.legenda-stats')
+      if (legendaStats) {
+        if (window.innerWidth < 768) {
+          legendaStats.style.gridTemplateColumns = 'repeat(2, 1fr)'
+        } else if (window.innerWidth < 992) {
+          legendaStats.style.gridTemplateColumns = 'repeat(3, 1fr)'
+        } else {
+          legendaStats.style.gridTemplateColumns = 'repeat(3, 1fr)'
+        }
+      }
+
+      // Ajustar tamanho das classes do histograma em telas menores
+      const classeItems = histogramaLegenda.querySelectorAll('.classe-item')
+      classeItems.forEach(item => {
+        if (window.innerWidth < 576) {
+          item.style.flexDirection = 'column'
+          item.style.alignItems = 'flex-start'
+        } else {
+          item.style.flexDirection = 'row'
+          item.style.alignItems = 'center'
+        }
+      })
+    }
+
+    // Ajustar layout da informação do boxplot em telas menores
+    if (boxplotInfo) {
+      const statsGrid = boxplotInfo.querySelector('.stats-grid')
+      if (statsGrid) {
+        if (window.innerWidth < 576) {
+          statsGrid.style.gridTemplateColumns = 'repeat(2, 1fr)'
+        } else if (window.innerWidth < 992) {
+          statsGrid.style.gridTemplateColumns = 'repeat(3, 1fr)'
+        } else {
+          statsGrid.style.gridTemplateColumns = 'repeat(3, 1fr)'
+        }
+      }
+    }
+  }
+
+  // Modificar as funções de criação de gráficos para considerar responsividade
+  const originalCriarHistograma = window.criarHistograma || this.criarHistograma
+  if (originalCriarHistograma) {
+    window.criarHistograma = function (data, canvas) {
+      // Chama a função original
+      originalCriarHistograma(data, canvas)
+
+      // Adiciona ajustes específicos para responsividade
+      if (window.histogramaChart) {
+        window.histogramaChart.options.responsive = true
+        window.histogramaChart.options.maintainAspectRatio = false
+        window.histogramaChart.options.scales.x.ticks.autoSkip = true
+        window.histogramaChart.options.scales.x.ticks.maxRotation =
+          window.innerWidth < 768 ? 90 : 45
+        window.histogramaChart.update()
+      }
+    }
+  }
+
+  const originalCriarBoxplot = window.criarBoxplot || this.criarBoxplot
+  if (originalCriarBoxplot) {
+    window.criarBoxplot = function (data, canvas) {
+      // Chama a função original
+      originalCriarBoxplot(data, canvas)
+
+      // Ajustes específicos para responsividade do boxplot
+      if (window.boxplotChart) {
+        window.boxplotChart.options.responsive = true
+        window.boxplotChart.options.maintainAspectRatio = false
+
+        // Em telas pequenas, ajustar a orientação para horizontal pode ser melhor
+        if (window.innerWidth < 576) {
+          window.boxplotChart.options.indexAxis = 'x'
+        } else {
+          window.boxplotChart.options.indexAxis = 'y'
+        }
+
+        window.boxplotChart.update()
+      }
+    }
+  }
+
+  // Adicionar listener para redimensionamento da janela
+  window.addEventListener('resize', resizeCharts)
+
+  // Executar uma vez na inicialização
+  resizeCharts()
+
+  return {
+    resizeCharts,
+    adjustLegendaDisplay
+  }
+}
+
 // Função para inicializar o módulo de gráficos
 export function initializeGraficos() {
   // Inicializar os contextos dos gráficos
@@ -12,9 +142,26 @@ export function initializeGraficos() {
   const boxplotCanvas = document.getElementById('boxplotChart')
 
   if (histogramaCanvas && boxplotCanvas) {
+    // Configurar container para responsividade
+    const histogramaWrapper = histogramaCanvas.parentElement
+    const boxplotWrapper = boxplotCanvas.parentElement
+
+    if (histogramaWrapper) {
+      histogramaWrapper.classList.add('grafico-wrapper')
+      histogramaCanvas.style.width = '100%'
+    }
+
+    if (boxplotWrapper) {
+      boxplotWrapper.classList.add('grafico-wrapper')
+      boxplotCanvas.style.width = '100%'
+    }
+
     // Criar gráficos iniciais padrão
     criarHistogramaVazio(histogramaCanvas)
     criarBoxplotVazio(boxplotCanvas)
+
+    // Setup de responsividade
+    setupResponsiveCharts()
   }
 }
 

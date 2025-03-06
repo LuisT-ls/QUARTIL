@@ -35,6 +35,36 @@
   .dark-mode-toggle {
     display: none !important;
   }
+
+  .grafico-content {
+    height: 200px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .grafico-wrapper {
+    padding: var(--spacing-sm);
+    min-height: 200px;
+  }
+
+  .grafico-tab {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 0.875rem;
+  }
+
+  .graficos-tabs {
+    padding-bottom: var(--spacing-xs);
+  }
+
+  .boxplot-info {
+    padding: var(--spacing-sm);
+  }
+
+  .stat-item {
+    padding: var(--spacing-xs);
+  }
 }
 
 /* Small devices (tablets, 576px and up) */
@@ -96,6 +126,25 @@
   .glossary-category {
     width: 100%;
   }
+
+  canvas {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 250px !important;
+  }
+
+  #boxplotChart,
+  #histogramaChart {
+    max-height: 200px !important;
+  }
+
+  .col-md-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-bottom: 20px;
+  }
 }
 
 /* Medium devices (desktops, 768px and up) */
@@ -114,6 +163,13 @@
     top: var(--spacing-md);
     right: var(--spacing-md);
   }
+
+  .col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
 }
 
 /* Large devices (large desktops, 992px and up) */
@@ -128,5 +184,50 @@
     position: fixed;
     top: var(--spacing-md);
     right: var(--spacing-md);
+  }
+
+  .grafico-content {
+    height: 250px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grafico-wrapper {
+    padding: var(--spacing-md);
+  }
+}
+
+/* Fix para o Safari que pode ter problemas com altura de gráficos */
+@supports (-webkit-touch-callout: none) {
+  .grafico-content canvas {
+    height: 100% !important;
+    width: auto !important;
+    max-width: 100%;
+  }
+}
+
+/* Melhorar a acessibilidade em dispositivos touch */
+@media (hover: none) {
+  .grafico-wrapper:hover {
+    transform: none;
+    box-shadow: var(--shadow-md);
+  }
+
+  .stat-item:hover {
+    transform: none;
+    background-color: white;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (max-width: 992px) and (orientation: landscape) {
+  .grafico-content {
+    height: 180px;
+  }
+
+  canvas {
+    max-height: 180px !important;
   }
 }
