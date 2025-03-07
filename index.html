@@ -222,21 +222,25 @@
           />
         </div>
         <div class="button-group">
-          <button id="calcularRol" class="btn btn-primary">
-            <i class="fas fa-calculator"></i> Calcular
+          <button
+            id="calcularRol"
+            class="btn btn-primary"
+            aria-label="Calcular"
+          >
+            <i class="fas fa-calculator" aria-hidden="true"></i> Calcular
+          </button>
+          <button id="limparRol" class="btn btn-secondary" aria-label="Limpar">
+            <i class="fas fa-eraser" aria-hidden="true"></i> Limpar
           </button>
           <button
-            id="limparRol"
-            class="btn btn-secondary"
-            aria-label="Limpar dados"
+            id="exportarRol"
+            class="btn btn-success"
+            aria-label="Exportar"
           >
-            <i class="fas fa-eraser"></i> Limpar
+            <i class="fas fa-download" aria-hidden="true"></i> Exportar
           </button>
-          <button id="exportarRol" class="btn btn-success">
-            <i class="fas fa-download"></i> Exportar
-          </button>
-          <button id="gerarDados" class="btn btn-info">
-            <i class="fas fa-dice"></i> Gerar Dados
+          <button id="gerarDados" class="btn btn-info" aria-label="Gerar Dados">
+            <i class="fas fa-dice" aria-hidden="true"></i> Gerar Dados
           </button>
         </div>
         <div id="rolResult" class="rol-result"></div>
@@ -330,11 +334,20 @@
           />
         </div>
         <div class="button-group">
-          <button id="calcularTabelaFrequencia" class="btn btn-primary">
-            <i class="fas fa-table"></i> Calcular Tabela de Frequência
+          <button
+            id="calcularTabelaFrequencia"
+            class="btn btn-primary"
+            aria-label="Calcular Tabela de Frequência"
+          >
+            <i class="fas fa-table" aria-hidden="true"></i> Calcular Tabela de
+            Frequência
           </button>
-          <button id="limparTabelaFrequencia" class="btn btn-secondary">
-            <i class="fas fa-eraser"></i> Limpar
+          <button
+            id="limparTabelaFrequencia"
+            class="btn btn-secondary"
+            aria-label="Limpar"
+          >
+            <i class="fas fa-eraser" aria-hidden="true"></i> Limpar
           </button>
         </div>
         <div id="tabelaFrequenciaResult" class="mt-3"></div>
@@ -352,16 +365,28 @@
               </p>
               <!-- Botões responsivos -->
               <div class="d-flex flex-wrap gap-2 mb-3">
-                <button id="adicionarLinhaTabelaManual" class="btn btn-primary">
-                  <i class="fas fa-plus"></i>
+                <button
+                  id="adicionarLinhaTabelaManual"
+                  class="btn btn-primary"
+                  aria-label="Adicionar Linha"
+                >
+                  <i class="fas fa-plus" aria-hidden="true"></i>
                   <span class="d-none d-sm-inline">Adicionar Linha</span>
                 </button>
-                <button id="calcularTabelaManual" class="btn btn-success">
-                  <i class="fas fa-calculator"></i>
+                <button
+                  id="calcularTabelaManual"
+                  class="btn btn-success"
+                  aria-label="Calcular Tabela"
+                >
+                  <i class="fas fa-calculator" aria-hidden="true"></i>
                   <span class="d-none d-sm-inline">Calcular Tabela</span>
                 </button>
-                <button id="limparTabelaManual" class="btn btn-secondary">
-                  <i class="fas fa-trash"></i>
+                <button
+                  id="limparTabelaManual"
+                  class="btn btn-secondary"
+                  aria-label="Limpar Tabela"
+                >
+                  <i class="fas fa-trash" aria-hidden="true"></i>
                   <span class="d-none d-sm-inline">Limpar Tabela</span>
                 </button>
               </div>
@@ -437,23 +462,45 @@
     <!-- Popup de Exportação -->
     <div id="exportPopup" class="popup">
       <div class="popup-content">
-        <span class="close-popup">&times;</span>
-        <h3>Exportar Rol</h3>
+        <span class="close-popup" aria-label="Fechar" role="button" tabindex="0"
+          >&times;</span
+        >
+        <h3 id="export-popup-title">Exportar Rol</h3>
         <p>Escolha o formato de exportação:</p>
-        <button id="exportPDF" class="btn btn-danger">
-          <i class="fas fa-file-pdf"></i> PDF
+        <button
+          id="exportPDF"
+          class="btn btn-danger"
+          aria-label="Exportar como PDF"
+        >
+          <i class="fas fa-file-pdf" aria-hidden="true"></i> PDF
         </button>
-        <button id="exportTXT" class="btn btn-warning">
-          <i class="fas fa-file-alt"></i> TXT
+        <button
+          id="exportTXT"
+          class="btn btn-warning"
+          aria-label="Exportar como TXT"
+        >
+          <i class="fas fa-file-alt" aria-hidden="true"></i> TXT
         </button>
-        <button id="exportCSV" class="btn btn-info">
-          <i class="fas fa-file-csv"></i> CSV
+        <button
+          id="exportCSV"
+          class="btn btn-info"
+          aria-label="Exportar como CSV"
+        >
+          <i class="fas fa-file-csv" aria-hidden="true"></i> CSV
         </button>
-        <button id="exportJSON" class="btn btn-success">
-          <i class="fas fa-file-code"></i> JSON
+        <button
+          id="exportJSON"
+          class="btn btn-success"
+          aria-label="Exportar como JSON"
+        >
+          <i class="fas fa-file-code" aria-hidden="true"></i> JSON
         </button>
-        <button id="exportXLSX" class="btn btn-primary">
-          <i class="fas fa-file-excel"></i> XLSX
+        <button
+          id="exportXLSX"
+          class="btn btn-primary"
+          aria-label="Exportar como XLSX"
+        >
+          <i class="fas fa-file-excel" aria-hidden="true"></i> XLSX
         </button>
       </div>
     </div>
@@ -461,8 +508,10 @@
     <!-- Popup de Geração Aleatória -->
     <div id="randomPopup" class="popup">
       <div class="popup-content">
-        <span class="close-popup">&times;</span>
-        <h3>Gerar Números Aleatórios</h3>
+        <span class="close-popup" aria-label="Fechar" role="button" tabindex="0"
+          >&times;</span
+        >
+        <h3 id="random-popup-title">Gerar Números Aleatórios</h3>
         <div class="mb-3">
           <label for="quantidadeNumeros" class="form-label"
             >Quantidade de números:</label
@@ -507,8 +556,12 @@
             </label>
           </div>
         </div>
-        <button id="confirmarGeracao" class="btn btn-primary">
-          <i class="fas fa-random"></i> Gerar
+        <button
+          id="confirmarGeracao"
+          class="btn btn-primary"
+          aria-label="Gerar números aleatórios"
+        >
+          <i class="fas fa-random" aria-hidden="true"></i> Gerar
         </button>
       </div>
     </div>
