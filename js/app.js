@@ -8,6 +8,7 @@ import { initializeTabelaFrequenciaManual } from './modules/tabelaFrequenciaManu
 import { initializeGraficos } from './modules/graficos.js'
 import { inicializarGeradorAleatorio } from './modules/geradorAleatorio.js'
 import Glossario from './modules/glossary.js'
+import { initializeAccessibility } from './modules/accessibility.js'
 
 // Dados compartilhados entre módulos
 export const appState = {
@@ -92,4 +93,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeGraficos()
   inicializarGeradorAleatorio()
   initializeGlossario()
+  initializeAccessibility()
 })

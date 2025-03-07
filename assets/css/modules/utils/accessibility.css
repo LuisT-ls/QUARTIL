@@ -1,0 +1,151 @@
+/**
+ * accessibility.css - Estilos específicos para melhorar a acessibilidade
+ */
+
+/* Classes utilitárias para acessibilidade */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Link para pular para o conteúdo principal */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary-color);
+  color: white;
+  padding: 8px;
+  z-index: 100;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Melhor indicação visual de foco para navegação por teclado */
+*:focus {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.dark-mode *:focus {
+  outline-color: var(--primary-color-light);
+}
+
+/* Cores de alto contraste para modo escuro */
+.dark-mode {
+  --text-color: #ffffff;
+  --background-color: #121212;
+  --primary-color: #4da3ff;
+  --primary-color-light: #66b3ff;
+  --secondary-color: #ff8533;
+  --border-color: #444444;
+}
+
+/* Cores de alto contraste para modo claro */
+:root {
+  --text-color: #000000;
+  --background-color: #ffffff;
+  --primary-color: #0066cc;
+  --primary-color-light: #3399ff;
+  --secondary-color: #cc5500;
+  --border-color: #cccccc;
+}
+
+/* Melhoria de contraste para textos */
+body {
+  color: var(--text-color);
+}
+
+/* Melhorar visibilidade de links (exceto para o watermark e ícones) */
+a:not(.watermark-link):not(.footer-social a) {
+  text-decoration: underline;
+  color: var(--primary-color);
+}
+
+a:not(.watermark-link):not(.footer-social a):hover,
+a:not(.watermark-link):not(.footer-social a):focus {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+/* Melhorar a visibilidade dos botões */
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:focus::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border: 2px solid currentColor;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Adicionar um ícone para indicar links externos para leitores de tela,
+   apenas para links de texto normais */
+a[target='_blank']:not(.footer-social a):not(.watermark-link):not(
+    [class*='logo']
+  ):not([class*='icon'])::after {
+  content: '↗';
+  display: inline-block;
+  margin-left: 3px;
+}
+
+/* Melhorar a visualização de tabelas */
+table {
+  border-collapse: separate;
+  border-spacing: 2px;
+}
+
+th,
+td {
+  padding: 8px;
+  border: 1px solid var(--border-color);
+}
+
+/* Adaptar tamanho de texto para melhor legibilidade */
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  input,
+  button,
+  select {
+    font-size: 16px; /* Evita zoom automático em iOS */
+  }
+}
+
+/* Melhorar contraste de elementos desabilitados */
+button:disabled,
+input:disabled {
+  opacity: 0.7;
+  background-color: #f0f0f0;
+  color: #666666;
+}

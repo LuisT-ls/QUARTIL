@@ -12,6 +12,7 @@
 @import url('./modules/utils/tooltip.css');
 @import url('./modules/utils/loading.css');
 @import url('./modules/utils/forms.css');
+@import url('./modules/utils/accessibility.css');
 
 /* Layout */
 @import url('./modules/layout/container.css');
