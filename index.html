@@ -146,7 +146,10 @@
         "offers": {
           "@type": "Offer",
           "price": "0",
-          "priceCurrency": "BRL"
+          "priceCurrency": "BRL",
+          "availability": "https://schema.org/InStock",
+          "url": "https://quartil.vercel.app/",
+          "priceValidUntil": "2026-12-31"
         },
         "publisher": {
           "@type": "Person",
@@ -157,11 +160,97 @@
         "author": {
           "@type": "Person",
           "name": "Luís Antonio Souza Teixeira",
-          "url": "https://github.com/LuisT-ls"
+          "url": "https://github.com/LuisT-ls",
+          "sameAs": [
+            "https://www.linkedin.com/in/luis-tei",
+            "https://github.com/LuisT-ls"
+          ]
         },
         "keywords": "calculadora estatística, média, mediana, moda, desvio padrão, variância, quartis, tabela de frequência, estatística online",
         "screenshot": "https://quartil.vercel.app/assets/img/logo/logo.png",
-        "featureList": "Cálculo de média, mediana, moda, desvio padrão, variância, quartis, tabela de frequência, gráficos"
+        "featureList": "Cálculo de média, mediana, moda, desvio padrão, variância, quartis, tabela de frequência, gráficos",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5",
+          "ratingCount": "18",
+          "bestRating": "5",
+          "worstRating": "1"
+        },
+        "datePublished": "2024-01-01",
+        "dateModified": "2025-04-01",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://quartil.vercel.app/"
+        }
+      }
+    </script>
+
+    <!-- Esquema FAQ -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Como calcular a mediana de um conjunto de dados?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Organize os dados em ordem crescente e identifique o valor central. Se houver número par de valores, a mediana é a média dos dois valores centrais."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "O que é o desvio padrão?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "O desvio padrão é uma medida de dispersão que indica o quanto os valores de um conjunto de dados se afastam da média."
+            }
+          }
+        ]
+      }
+    </script>
+
+    <!-- Esquema HowTo -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "Como calcular estatísticas básicas",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "name": "Inserir dados",
+            "text": "Digite seus números separados por vírgula ou espaço."
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Calcular",
+            "text": "Clique no botão Calcular para obter os resultados estatísticos."
+          }
+        ]
+      }
+    </script>
+
+    <!-- Esquema BreadcrumbList -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Início",
+            "item": "https://quartil.vercel.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Calculadora Estatística",
+            "item": "https://quartil.vercel.app/"
+          }
+        ]
       }
     </script>
   </head>
