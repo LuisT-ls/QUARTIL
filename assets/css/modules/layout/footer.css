@@ -86,19 +86,60 @@
   gap: var(--spacing-sm);
   animation: fadeIn var(--transition-normal) 0.5s forwards,
     slideInUp var(--transition-normal) 0.5s forwards;
+  margin-top: var(--spacing-md);
 }
 
 .footer-contact a {
+  display: inline-block;
   color: white;
   text-decoration: none;
   font-size: var(--font-size-md);
-  opacity: 0.9;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.footer-contact a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.3)
+  );
+  transition: transform var(--transition-fast);
+  z-index: -1;
 }
 
 .footer-contact a:hover {
-  opacity: 1;
-  transform: scale(1.05);
-  text-decoration: underline;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-weight: normal;
+  letter-spacing: normal;
+}
+
+.footer-contact a:hover::before {
+  transform: translateX(100%);
+}
+
+.footer-contact a:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Ícone do botão */
+.footer-contact a i {
+  margin-right: 8px;
 }
