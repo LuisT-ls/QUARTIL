@@ -256,9 +256,9 @@
   </head>
   <body>
     <!-- Dark Mode Toggle -->
-    <div class="dark-mode-toggle">
+    <nav class="dark-mode-toggle" aria-label="Alternância de modo escuro/claro">
       <i class="fas fa-moon" id="darkModeIcon"></i>
-    </div>
+    </nav>
 
     <!-- Logomarca -->
     <div class="watermark-container">
@@ -286,7 +286,7 @@
         <div class="header-title-wrapper">
           <img
             src="./assets/img/logo/logo.svg"
-            alt="Logo da Calculadora de Estatística"
+            alt="Logo da Calculadora de Estatística: gráfico de barras estilizado com as letras Q e L em destaque"
             class="header-logo"
           />
           <h1 class="header-title">Calculadora de Estatística</h1>
@@ -299,9 +299,10 @@
     </header>
 
     <!-- Main Content -->
-    <main class="container" role="main">
+    <main class="container" role="main" aria-label="Conteúdo principal">
       <!-- Seção de Entrada -->
       <section class="input-section">
+        <h2 class="visually-hidden">Entrada de Dados</h2>
         <div class="input-container">
           <input
             type="text"
@@ -511,7 +512,11 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer text-center py-4" role="contentinfo">
+    <footer
+      class="footer text-center py-4"
+      role="contentinfo"
+      aria-label="Rodapé"
+    >
       <div class="container">
         <div class="footer-content">
           <div class="footer-copyright">

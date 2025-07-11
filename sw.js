@@ -2,6 +2,7 @@ const CACHE_NAME = 'quartil-v1'
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
+  '/offline.html',
   '/assets/css/main.css',
   '/assets/img/logo/logo.svg',
   '/assets/img/favicon/site.webmanifest',
@@ -24,25 +25,18 @@ self.addEventListener('install', event => {
   )
 })
 
-// Intercepta as requisições e serve do cache
+// Intercepta as requisições e serve do cache ou offline.html
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(response => {
-      // Retorna o recurso do cache se estiver disponível
       if (response) {
         return response
       }
-      // Caso contrário, busca na rede
-      return fetch(event.request).then(response => {
-        // Se a resposta for válida, adiciona ao cache
-        if (!response || response.status !== 200 || response.type !== 'basic') {
-          return response
+      return fetch(event.request).catch(() => {
+        // Se for navegação (HTML), retorna offline.html
+        if (event.request.mode === 'navigate') {
+          return caches.match('/offline.html')
         }
-        const responseToCache = response.clone()
-        caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, responseToCache)
-        })
-        return response
       })
     })
   )

@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Disallow: /js/modules/
-Disallow: /assets/css/modules/
+Disallow: /js/modules/*.js
+Disallow: /assets/css/modules/*.css
 
 Sitemap: https://quartil.vercel.app/sitemap.xml

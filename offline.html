@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Você está offline | Quartil</title>
+    <link rel="stylesheet" href="./assets/css/main.css" />
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: #f8fafc;
+        color: #222;
+        text-align: center;
+        font-family: 'Segoe UI', Arial, sans-serif;
+      }
+      .offline-icon {
+        font-size: 4rem;
+        color: var(--primary-color, #0066cc);
+        margin-bottom: 1rem;
+      }
+      .offline-title {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+      .offline-desc {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+      }
+      .offline-btn {
+        background: var(--primary-color, #0066cc);
+        color: #fff;
+        border: none;
+        border-radius: 24px;
+        padding: 12px 32px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .offline-btn:hover {
+        background: var(--secondary-color, #cc5500);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="offline-icon">🔌</div>
+    <div class="offline-title">Você está offline</div>
+    <div class="offline-desc">
+      Não foi possível conectar à internet.<br />
+      Por favor, verifique sua conexão e tente novamente.
+    </div>
+    <button class="offline-btn" onclick="window.location.reload()">
+      Tentar novamente
+    </button>
+    <footer style="margin-top: 2rem; color: #888; font-size: 0.95rem">
+      &copy; 2025 Quartil - Calculadora de Estatística
+    </footer>
+  </body>
+</html>
