@@ -199,7 +199,10 @@ function gerarDadosAleatorios() {
 // Função para limpar o rol e os resultados
 function limparRol() {
   document.getElementById('rolInput').value = ''
-  document.getElementById('rolResult').innerHTML = ''
+  const rolResult = document.getElementById('rolResult')
+  rolResult.innerHTML = ''
+  rolResult.style.display = 'none'
+  rolResult.classList.remove('active')
 
   // Limpar todas as seções de resultados
   const resultDivs = [
@@ -284,6 +287,19 @@ function resetGraficos() {
   initializeGraficos()
 }
 
+function loadScript(src) {
+  return new Promise(resolve => {
+    if (document.querySelector(`script[src="${src}"]`)) {
+      resolve()
+      return
+    }
+    const s = document.createElement('script')
+    s.src = src
+    s.onload = resolve
+    document.body.appendChild(s)
+  })
+}
+
 // Função para exportar dados em diferentes formatos
 function exportarDados(formato) {
   if (!appState.isCalculated || appState.currentData.length === 0) {
@@ -291,7 +307,6 @@ function exportarDados(formato) {
     return
   }
 
-  const { jsPDF } = window.jspdf
   const rol = appState.currentData
   let nomeArquivo = `estatistica_${new Date().toISOString().split('T')[0]}`
   let conteudo = ''
@@ -309,6 +324,13 @@ function exportarDados(formato) {
 
   switch (formato) {
     case 'pdf':
+      if (!window.jspdf) {
+        loadScript(
+          'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'
+        ).then(() => exportarDados('pdf'))
+        return
+      }
+      const { jsPDF } = window.jspdf
       const doc = new jsPDF()
 
       // Título do documento
@@ -453,12 +475,11 @@ function exportarDados(formato) {
 
     case 'xlsx':
       if (!window.XLSX) {
-        alert(
-          'Biblioteca XLSX não carregada. Verifique sua conexão com a internet.'
-        )
+        loadScript(
+          'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'
+        ).then(() => exportarDados('xlsx'))
         return
       }
-
       // Create workbook and worksheet
       const wb = XLSX.utils.book_new()
 
