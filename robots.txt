@@ -2,5 +2,20 @@ User-agent: *
 Allow: /
 Disallow: /js/modules/*.js
 Disallow: /assets/css/modules/*.css
+Disallow: /assets/img/favicon/
+Disallow: /offline.html
 
+# Permitir acesso aos recursos importantes
+Allow: /assets/img/logo/
+Allow: /assets/css/main.css
+Allow: /js/app.js
+
+# Crawl-delay para respeitar o servidor
+Crawl-delay: 1
+
+# Sitemap principal
 Sitemap: https://quartil.vercel.app/sitemap.xml
+
+# Informações adicionais para SEO
+# Este site é uma calculadora de quartil e estatística online
+# Palavras-chave principais: calculadora de quartil, calculadora de estatística

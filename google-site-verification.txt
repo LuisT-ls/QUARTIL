@@ -1,0 +1,18 @@
+# Google Search Console Verification
+# Adicione esta meta tag no seu HTML para verificar o site:
+# <meta name="google-site-verification" content="SEU_CODIGO_DE_VERIFICACAO" />
+
+# Instruções para melhorar o SEO:
+# 1. Configure o Google Search Console
+# 2. Monitore as palavras-chave: "calculadora de quartil" e "calculadora de estatística"
+# 3. Analise o desempenho das páginas
+# 4. Otimize com base nos dados de pesquisa
+
+# Palavras-chave principais para focar:
+# - calculadora de quartil
+# - calculadora de estatística
+# - quartis Q1 Q2 Q3
+# - média mediana moda
+# - desvio padrão variância
+# - tabela de frequência
+# - análise estatística online

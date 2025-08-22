@@ -6,29 +6,78 @@
 
     <!-- SEO Meta Tags -->
     <title>
-      Calculadora de Estatística Online | Análise de Dados Simplificada
+      Calculadora de Quartil e Estatística Online | Média, Mediana, Moda, Desvio
+      Padrão
     </title>
     <meta
       name="description"
-      content="Calculadora de estatística online gratuita. Calcule média, mediana, moda, desvio padrão, quartis e crie tabelas de frequência de forma rápida e precisa."
+      content="Calculadora de quartil e estatística online gratuita. Calcule quartis (Q1, Q2, Q3), média, mediana, moda, desvio padrão, variância e crie tabelas de frequência. Ferramenta completa para análise estatística."
     />
     <meta
       name="keywords"
-      content="calculadora estatística, média, mediana, moda, desvio padrão, variância, quartis, tabela de frequência, estatística online"
+      content="calculadora de quartil, calculadora de estatística, quartis Q1 Q2 Q3, média aritmética, mediana, moda, desvio padrão, variância, tabela de frequência, estatística online, análise de dados, medidas de posição, medidas de dispersão, boxplot, histograma"
+    />
+    <meta name="author" content="Luís Antonio Souza Teixeira" />
+    <meta
+      name="robots"
+      content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+    />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="bingbot" content="index, follow" />
+
+    <!-- Meta tags específicas para quartis -->
+    <meta name="subject" content="Calculadora de Quartil e Estatística" />
+    <meta name="category" content="Ferramentas de Estatística" />
+    <meta name="classification" content="Calculadora Online" />
+
+    <!-- Meta tags para redes sociais melhoradas -->
+    <meta
+      property="og:title"
+      content="Calculadora de Quartil e Estatística Online | Média, Mediana, Moda, Desvio Padrão"
+    />
+    <meta
+      property="og:description"
+      content="Calculadora de quartil e estatística online gratuita. Calcule quartis (Q1, Q2, Q3), média, mediana, moda, desvio padrão, variância e crie tabelas de frequência. Ferramenta completa para análise estatística."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://quartil.vercel.app/" />
+    <meta
+      property="og:site_name"
+      content="Quartil - Calculadora de Estatística"
+    />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Card melhorado -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:site" content="@luis_teixeira" />
+    <meta property="twitter:creator" content="@luis_teixeira" />
+    <meta
+      property="twitter:title"
+      content="Calculadora de Quartil e Estatística Online | Média, Mediana, Moda, Desvio Padrão"
+    />
+    <meta
+      property="twitter:description"
+      content="Calculadora de quartil e estatística online gratuita. Calcule quartis (Q1, Q2, Q3), média, mediana, moda, desvio padrão, variância e crie tabelas de frequência."
     />
     <meta
       property="og:image"
+      content="https://quartil.vercel.app/assets/img/logo/logo.png"
+    />
+    <meta
+      property="twitter:image"
       content="https://quartil.vercel.app/imagem-preview.jpg"
     />
-    <meta name="author" content="Luís Antonio Souza Teixeira" />
 
+    <!-- Meta tags adicionais para SEO -->
     <meta
       name="application-name"
       content="Quartil - Calculadora de Estatística"
     />
     <meta
       name="msapplication-tooltip"
-      content="Ferramenta online para análise estatística"
+      content="Ferramenta online para análise estatística e cálculo de quartis"
     />
     <meta name="rating" content="General" />
     <meta name="revisit-after" content="7 days" />
@@ -36,37 +85,10 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://quartil.vercel.app/" />
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://quartil.vercel.app/" />
-    <meta
-      property="og:title"
-      content="Calculadora de Estatística Online | Análise de Dados Simplificada"
-    />
-    <meta
-      property="og:description"
-      content="Calculadora de estatística online gratuita. Calcule média, mediana, moda, desvio padrão, quartis e crie tabelas de frequência de forma rápida e precisa."
-    />
-    <meta
-      property="og:image"
-      content="https://quartil.vercel.app/assets/img/logo/logo.png"
-    />
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://quartil.vercel.app/" />
-    <meta
-      property="twitter:title"
-      content="Calculadora de Estatística Online | Análise de Dados Simplificada"
-    />
-    <meta
-      property="twitter:description"
-      content="Calculadora de estatística online gratuita. Calcule média, mediana, moda, desvio padrão, quartis e crie tabelas de frequência de forma rápida e precisa."
-    />
-    <meta
-      property="twitter:image"
-      content="https://quartil.vercel.app/imagem-preview.jpg"
-    />
+    <!-- Preconnect para melhorar performance -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
 
     <!-- Favicon -->
     <link
@@ -138,10 +160,10 @@
       {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        "name": "Quartil - Calculadora de Estatística Online",
+        "name": "Calculadora de Quartil e Estatística Online",
         "url": "https://quartil.vercel.app/",
-        "description": "Calculadora de estatística online gratuita. Calcule média, mediana, moda, desvio padrão, quartis e crie tabelas de frequência de forma rápida e precisa.",
-        "applicationCategory": "Utility",
+        "description": "Calculadora de quartil e estatística online gratuita. Calcule quartis (Q1, Q2, Q3), média, mediana, moda, desvio padrão, variância e crie tabelas de frequência. Ferramenta completa para análise estatística.",
+        "applicationCategory": "UtilityApplication",
         "operatingSystem": "All",
         "offers": {
           "@type": "Offer",
@@ -166,9 +188,9 @@
             "https://github.com/LuisT-ls"
           ]
         },
-        "keywords": "calculadora estatística, média, mediana, moda, desvio padrão, variância, quartis, tabela de frequência, estatística online",
+        "keywords": "calculadora de quartil, calculadora de estatística, quartis Q1 Q2 Q3, média aritmética, mediana, moda, desvio padrão, variância, tabela de frequência, estatística online, análise de dados, medidas de posição, medidas de dispersão, boxplot, histograma",
         "screenshot": "https://quartil.vercel.app/assets/img/logo/logo.png",
-        "featureList": "Cálculo de média, mediana, moda, desvio padrão, variância, quartis, tabela de frequência, gráficos",
+        "featureList": "Cálculo de quartis (Q1, Q2, Q3), média, mediana, moda, desvio padrão, variância, tabela de frequência, gráficos (histograma, boxplot), medidas de posição, medidas de dispersão",
         "aggregateRating": {
           "@type": "AggregateRating",
           "ratingValue": "5",
@@ -181,7 +203,11 @@
         "mainEntityOfPage": {
           "@type": "WebPage",
           "@id": "https://quartil.vercel.app/"
-        }
+        },
+        "softwareVersion": "2.0",
+        "downloadUrl": "https://quartil.vercel.app/",
+        "installUrl": "https://quartil.vercel.app/",
+        "applicationSubCategory": "Calculadora Estatística"
       }
     </script>
 
@@ -193,10 +219,26 @@
         "mainEntity": [
           {
             "@type": "Question",
+            "name": "Como calcular quartis (Q1, Q2, Q3) de um conjunto de dados?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Para calcular quartis: Q1 (25%) - valor que separa os primeiros 25% dos dados; Q2 (50%) - mediana dos dados; Q3 (75%) - valor que separa os primeiros 75% dos dados. Use nossa calculadora online para resultados precisos."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "O que é o primeiro quartil (Q1) e terceiro quartil (Q3)?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Q1 é o valor que separa os primeiros 25% dos dados ordenados. Q3 é o valor que separa os primeiros 75% dos dados. A diferença entre Q3 e Q1 é chamada de amplitude interquartil (IQR)."
+            }
+          },
+          {
+            "@type": "Question",
             "name": "Como calcular a mediana de um conjunto de dados?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Organize os dados em ordem crescente e identifique o valor central. Se houver número par de valores, a mediana é a média dos dois valores centrais."
+              "text": "Organize os dados em ordem crescente e identifique o valor central. Se houver número par de valores, a mediana é a média dos dois valores centrais. A mediana é igual ao segundo quartil (Q2)."
             }
           },
           {
@@ -204,7 +246,15 @@
             "name": "O que é o desvio padrão?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "O desvio padrão é uma medida de dispersão que indica o quanto os valores de um conjunto de dados se afastam da média."
+              "text": "O desvio padrão é uma medida de dispersão que indica o quanto os valores de um conjunto de dados se afastam da média. Quanto maior o desvio padrão, mais dispersos estão os dados."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Para que serve uma calculadora de estatística online?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Uma calculadora de estatística online permite calcular rapidamente medidas de posição (média, mediana, moda), medidas de dispersão (desvio padrão, variância) e quartis, facilitando a análise de dados estatísticos."
             }
           }
         ]
@@ -216,17 +266,46 @@
       {
         "@context": "https://schema.org",
         "@type": "HowTo",
-        "name": "Como calcular estatísticas básicas",
+        "name": "Como calcular quartis e estatísticas básicas",
+        "description": "Aprenda a calcular quartis, média, mediana, moda e outras medidas estatísticas usando nossa calculadora online",
         "step": [
           {
             "@type": "HowToStep",
             "name": "Inserir dados",
-            "text": "Digite seus números separados por vírgula ou espaço."
+            "text": "Digite seus números separados por vírgula ou espaço no campo de entrada."
           },
           {
             "@type": "HowToStep",
-            "name": "Calcular",
-            "text": "Clique no botão Calcular para obter os resultados estatísticos."
+            "name": "Calcular estatísticas",
+            "text": "Clique no botão 'Calcular' para obter todas as medidas estatísticas incluindo quartis (Q1, Q2, Q3)."
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Visualizar quartis",
+            "text": "Os quartis serão exibidos na seção 'Quartis' mostrando Q1 (25%), Q2 (mediana/50%), Q3 (75%) e IQR."
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Analisar gráficos",
+            "text": "Visualize os dados através do histograma e boxplot para melhor compreensão da distribuição."
+          }
+        ],
+        "totalTime": "PT2M",
+        "estimatedCost": {
+          "@type": "MonetaryAmount",
+          "currency": "BRL",
+          "value": "0"
+        },
+        "supply": [
+          {
+            "@type": "HowToSupply",
+            "name": "Conjunto de dados numéricos"
+          }
+        ],
+        "tool": [
+          {
+            "@type": "HowToTool",
+            "name": "Calculadora de Quartil e Estatística Online"
           }
         ]
       }
@@ -286,14 +365,14 @@
         <div class="header-title-wrapper">
           <img
             src="./assets/img/logo/logo.svg"
-            alt="Logo da Calculadora de Estatística: gráfico de barras estilizado com as letras Q e L em destaque"
+            alt="Logo da Calculadora de Quartil e Estatística: gráfico de barras estilizado com as letras Q e L em destaque"
             class="header-logo"
           />
-          <h1 class="header-title">Calculadora de Estatística</h1>
+          <h1 class="header-title">Calculadora de Quartil e Estatística</h1>
         </div>
         <p class="header-subtitle">
-          Rápida, precisa e fácil de usar. Resolva seus cálculos estatísticos
-          sem esforço!
+          Rápida, precisa e fácil de usar. Calcule quartis (Q1, Q2, Q3), média,
+          mediana, moda, desvio padrão e muito mais!
         </p>
       </div>
     </header>
@@ -384,27 +463,84 @@
 
       <!-- Seção Quartis -->
       <section class="mb-5">
-        <h2>Quartis</h2>
+        <h2>
+          <i class="fas fa-chart-line text-primary"></i> Quartis - Análise de
+          Distribuição
+        </h2>
+        <p class="text-muted mb-4">
+          Os quartis são essenciais para entender a distribuição dos dados. Eles
+          dividem os dados em quatro partes iguais, permitindo identificar
+          outliers e analisar a dispersão dos valores.
+        </p>
         <div class="row">
           <div class="col-md-3">
-            <h3>Primeiro Quartil (Q1)</h3>
-            <div id="q1Result" class="mt-3"></div>
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="card-title text-primary">Primeiro Quartil (Q1)</h3>
+                <p class="card-text small">
+                  25% dos dados estão abaixo deste valor
+                </p>
+                <div id="q1Result" class="mt-3"></div>
+              </div>
+            </div>
           </div>
           <div class="col-md-3">
-            <h3>Mediana (Q2)</h3>
-            <div id="q2Result" class="mt-3"></div>
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="card-title text-success">Mediana (Q2)</h3>
+                <p class="card-text small">
+                  50% dos dados estão abaixo deste valor
+                </p>
+                <div id="q2Result" class="mt-3"></div>
+              </div>
+            </div>
           </div>
           <div class="col-md-3">
-            <h3>Terceiro Quartil (Q3)</h3>
-            <div id="q3Result" class="mt-3"></div>
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="card-title text-warning">Terceiro Quartil (Q3)</h3>
+                <p class="card-text small">
+                  75% dos dados estão abaixo deste valor
+                </p>
+                <div id="q3Result" class="mt-3"></div>
+              </div>
+            </div>
           </div>
           <div class="col-md-3">
-            <h3>Amplitude do Interquartil (IQR)</h3>
-            <div id="iqrResult" class="mt-3"></div>
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="card-title text-info">
+                  Amplitude Interquartil (IQR)
+                </h3>
+                <p class="card-text small">
+                  Q3 - Q1: medida de dispersão robusta
+                </p>
+                <div id="iqrResult" class="mt-3"></div>
+              </div>
+            </div>
           </div>
-          <div class="col-md-3">
-            <h3>Média das Juntas</h3>
-            <div id="mediaJuntasResult" class="mt-3"></div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h3 class="card-title text-secondary">Média das Juntas</h3>
+                <p class="card-text small">Média dos valores mínimo e máximo</p>
+                <div id="mediaJuntasResult" class="mt-3"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h3 class="card-title text-dark">Detecção de Outliers</h3>
+                <p class="card-text small">
+                  Valores abaixo de Q1 - 1.5×IQR ou acima de Q3 + 1.5×IQR são
+                  considerados outliers
+                </p>
+                <div id="outliersResult" class="mt-3"></div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -497,16 +633,189 @@
 
       <!-- Seção Gráficos -->
       <section class="mb-5">
-        <h2>Gráficos</h2>
+        <h2>
+          <i class="fas fa-chart-bar text-success"></i> Gráficos e Visualizações
+        </h2>
+        <p class="text-muted mb-4">
+          Visualize seus dados através de gráficos interativos que facilitam a
+          interpretação estatística.
+        </p>
         <div class="row">
           <div class="col-md-6">
-            <h3>Histograma</h3>
-            <canvas id="histogramaChart"></canvas>
+            <div class="card">
+              <div class="card-body">
+                <h3 class="card-title text-primary">Histograma</h3>
+                <p class="card-text small">
+                  Distribuição de frequência dos dados
+                </p>
+                <canvas id="histogramaChart"></canvas>
+              </div>
+            </div>
           </div>
           <div class="col-md-6">
-            <h3>Boxplot</h3>
-            <canvas id="boxplotChart"></canvas>
+            <div class="card">
+              <div class="card-body">
+                <h3 class="card-title text-warning">Boxplot</h3>
+                <p class="card-text small">
+                  Visualização dos quartis e outliers
+                </p>
+                <canvas id="boxplotChart"></canvas>
+              </div>
+            </div>
           </div>
+        </div>
+      </section>
+
+      <!-- Seção de Benefícios e Casos de Uso -->
+      <section class="mb-5">
+        <h2>
+          <i class="fas fa-star text-warning"></i> Por que usar nossa
+          Calculadora de Quartil?
+        </h2>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="card-title text-primary">Para Estudantes</h3>
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fas fa-check text-success"></i> Cálculos precisos
+                    de quartis (Q1, Q2, Q3)
+                  </li>
+                  <li>
+                    <i class="fas fa-check text-success"></i> Aprenda
+                    estatística de forma prática
+                  </li>
+                  <li>
+                    <i class="fas fa-check text-success"></i> Ideal para
+                    trabalhos acadêmicos
+                  </li>
+                  <li>
+                    <i class="fas fa-check text-success"></i> Gráficos para
+                    melhor compreensão
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="card-title text-success">Para Profissionais</h3>
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fas fa-check text-success"></i> Análise rápida de
+                    dados estatísticos
+                  </li>
+                  <li>
+                    <i class="fas fa-check text-success"></i> Detecção de
+                    outliers
+                  </li>
+                  <li>
+                    <i class="fas fa-check text-success"></i> Relatórios
+                    profissionais
+                  </li>
+                  <li>
+                    <i class="fas fa-check text-success"></i> Exportação em
+                    múltiplos formatos
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Seção de Casos de Uso Comuns -->
+      <section class="mb-5">
+        <h2><i class="fas fa-lightbulb text-info"></i> Casos de Uso Comuns</h2>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card text-center h-100">
+              <div class="card-body">
+                <i class="fas fa-graduation-cap fa-3x text-primary mb-3"></i>
+                <h4>Educação</h4>
+                <p class="card-text">
+                  Cálculo de notas, análise de desempenho escolar, trabalhos de
+                  estatística
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card text-center h-100">
+              <div class="card-body">
+                <i class="fas fa-chart-line fa-3x text-success mb-3"></i>
+                <h4>Pesquisa</h4>
+                <p class="card-text">
+                  Análise de dados de pesquisa, estudos científicos, relatórios
+                  acadêmicos
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card text-center h-100">
+              <div class="card-body">
+                <i class="fas fa-briefcase fa-3x text-warning mb-3"></i>
+                <h4>Negócios</h4>
+                <p class="card-text">
+                  Análise de vendas, métricas de performance, relatórios
+                  financeiros
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Seção Educativa sobre Quartis -->
+      <section class="mb-5">
+        <h2>
+          <i class="fas fa-book-open text-primary"></i> O que são Quartis e como
+          calcular?
+        </h2>
+        <p class="lead">
+          Os <strong>quartis</strong> são medidas estatísticas que dividem um
+          conjunto de dados ordenados em quatro partes iguais, cada uma contendo
+          25% dos dados.
+        </p>
+        <div class="row">
+          <div class="col-md-4">
+            <h4>
+              <i class="fas fa-chart-line text-primary"></i> Primeiro Quartil
+              (Q1)
+            </h4>
+            <p>
+              Representa o valor que separa os primeiros 25% dos dados. É o 25º
+              percentil.
+            </p>
+          </div>
+          <div class="col-md-4">
+            <h4>
+              <i class="fas fa-chart-bar text-success"></i> Segundo Quartil (Q2)
+            </h4>
+            <p>
+              É a <strong>mediana</strong> dos dados, separando os primeiros 50%
+              dos últimos 50%.
+            </p>
+          </div>
+          <div class="col-md-4">
+            <h4>
+              <i class="fas fa-chart-pie text-warning"></i> Terceiro Quartil
+              (Q3)
+            </h4>
+            <p>
+              Representa o valor que separa os primeiros 75% dos dados. É o 75º
+              percentil.
+            </p>
+          </div>
+        </div>
+        <div class="alert alert-info">
+          <i class="fas fa-info-circle"></i>
+          <strong>Dica:</strong> Use nossa calculadora online para calcular
+          quartis automaticamente. Basta inserir seus dados e clicar em
+          calcular!
         </div>
       </section>
     </main>
