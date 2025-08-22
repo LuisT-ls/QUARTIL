@@ -218,7 +218,8 @@ function limparRol() {
     'q2Result',
     'q3Result',
     'iqrResult',
-    'mediaJuntasResult'
+    'mediaJuntasResult',
+    'outliersResult'
   ]
 
   resultDivs.forEach(div => {
