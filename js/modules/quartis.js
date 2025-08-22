@@ -124,8 +124,59 @@ export function calculateQuartis(data) {
     </div>
   `
 
+  // Calcular e exibir outliers
+  const outliersResult = document.getElementById('outliersResult')
+  const outliers = calcularOutliers(data)
+
+  outliersResult.innerHTML = `
+    <div class="result-card">
+      <p class="result-value">
+        ${
+          outliers.inferior.length > 0 || outliers.superior.length > 0
+            ? `${
+                outliers.inferior.length + outliers.superior.length
+              } outlier(s) detectado(s)`
+            : 'Nenhum outlier detectado'
+        }
+      </p>
+      <p class="result-formula">
+        <strong>Fórmula:</strong> Limites = Q<sub>1</sub> ± (1.5 × IQR)
+      </p>
+      <div class="result-steps">
+        <p>Q<sub>1</sub> = ${q1.toFixed(2)}</p>
+        <p>Q<sub>3</sub> = ${q3.toFixed(2)}</p>
+        <p>IQR = ${iqr.toFixed(2)}</p>
+        <p>Limite Inferior = ${q1.toFixed(2)} - (1.5 × ${iqr.toFixed(
+    2
+  )}) = ${outliers.limiteInferior.toFixed(2)}</p>
+        <p>Limite Superior = ${q3.toFixed(2)} + (1.5 × ${iqr.toFixed(
+    2
+  )}) = ${outliers.limiteSuperior.toFixed(2)}</p>
+        ${
+          outliers.inferior.length > 0
+            ? `<p><strong>Outliers Inferiores:</strong> [${outliers.inferior.join(
+                ', '
+              )}]</p>`
+            : ''
+        }
+        ${
+          outliers.superior.length > 0
+            ? `<p><strong>Outliers Superiores:</strong> [${outliers.superior.join(
+                ', '
+              )}]</p>`
+            : ''
+        }
+        ${
+          outliers.inferior.length === 0 && outliers.superior.length === 0
+            ? '<p><strong>Nenhum outlier detectado nos dados.</strong></p>'
+            : ''
+        }
+      </div>
+    </div>
+  `
+
   // Retornar os valores calculados para uso em outros módulos
-  return { q1, q2, q3, iqr, mediaJuntas }
+  return { q1, q2, q3, iqr, mediaJuntas, outliers }
 }
 
 // Função para calcular um quartil específico
