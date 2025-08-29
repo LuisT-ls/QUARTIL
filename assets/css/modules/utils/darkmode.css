@@ -239,3 +239,11 @@
 .dark-mode .medida-description {
   color: var(--gray-400);
 }
+
+.dark-mode .text-muted.mb-4 {
+  color: var(--gray-500) !important;
+}
+
+.dark-mode h4 {
+  color: var(--gray-400) !important;
+}
