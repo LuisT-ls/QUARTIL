@@ -1,0 +1,51 @@
+{
+  "version": "2.0.0",
+  "buildDate": "2025-01-27T10:00:00.000Z",
+  "features": [
+    "Web Workers para cálculos pesados",
+    "Cache inteligente de resultados",
+    "Lazy loading de módulos",
+    "Otimização de imagens com WebP",
+    "Sistema de notificações push",
+    "Sincronização offline",
+    "Atualizações automáticas",
+    "PWA completa com manifest",
+    "Debouncing para inputs",
+    "Performance melhorada"
+  ],
+  "changelog": {
+    "2.0.0": [
+      "Implementação de Web Workers para cálculos estatísticos",
+      "Sistema de cache inteligente com IndexedDB",
+      "Lazy loading de módulos JavaScript",
+      "Otimização de imagens com suporte a WebP",
+      "Sistema completo de notificações push",
+      "Sincronização offline com IndexedDB",
+      "Atualizações automáticas da aplicação",
+      "Manifest.json para PWA",
+      "Debouncing em inputs para melhor performance",
+      "Melhorias gerais de performance e UX"
+    ]
+  },
+  "performance": {
+    "loadTime": "< 2s",
+    "calculationTime": "< 100ms para datasets < 1000",
+    "cacheHitRate": "> 80%",
+    "lighthouseScore": "> 95"
+  },
+  "compatibility": {
+    "browsers": [
+      "Chrome 80+",
+      "Firefox 75+",
+      "Safari 13+",
+      "Edge 80+"
+    ],
+    "features": {
+      "webWorkers": true,
+      "indexedDB": true,
+      "serviceWorker": true,
+      "notifications": true,
+      "webP": true
+    }
+  }
+}

@@ -108,7 +108,7 @@
       sizes="16x16"
       href="assets/img/favicon/favicon-16x16.png"
     />
-    <link rel="manifest" href="assets/img/favicon/site.webmanifest" />
+    <link rel="manifest" href="manifest.json" />
     <link
       rel="mask-icon"
       href="assets/img/favicon/safari-pinned-tab.svg"
@@ -139,6 +139,7 @@
 
     <!-- Preload Key Resources -->
     <link rel="preload" href="./assets/css/main.css" as="style" />
+    <link rel="preload" href="./assets/img/logo/logo.svg" as="image" type="image/svg+xml" />
 
     <!-- Google tag (gtag.js) -->
     <script
@@ -367,6 +368,9 @@
             src="./assets/img/logo/logo.svg"
             alt="Logo da Calculadora de Quartil e Estatística: gráfico de barras estilizado com as letras Q e L em destaque"
             class="header-logo"
+            loading="eager"
+            width="60"
+            height="60"
           />
           <h1 class="header-title">Calculadora de Quartil e Estatística</h1>
         </div>

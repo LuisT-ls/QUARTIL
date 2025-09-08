@@ -9,6 +9,11 @@ import { initializeGraficos } from './modules/graficos.js'
 import { inicializarGeradorAleatorio } from './modules/geradorAleatorio.js'
 import Glossario from './modules/glossary.js'
 import { initializeAccessibility } from './modules/accessibility.js'
+import { debounce, throttle, measurePerformance } from './utils/performance-utils.js'
+import { initializeImageOptimizations } from './utils/image-optimizer.js'
+import { initializeNotifications } from './utils/notifications.js'
+import { initializeOfflineSync } from './utils/offline-sync.js'
+import { initializeAutoUpdater } from './utils/auto-updater.js'
 
 // Dados compartilhados entre módulos
 export const appState = {
@@ -81,17 +86,37 @@ if ('serviceWorker' in navigator) {
   })
 }
 
+// Função para inicializar todos os módulos
+function initializeAllModules() {
+  try {
+    // Módulos críticos carregados imediatamente
+    initializeDarkMode()
+    initializeRol()
+    initializeAccessibility()
+    initializeImageOptimizations()
+    
+    // Inicializar sistemas PWA
+    initializeNotifications()
+    initializeOfflineSync()
+    initializeAutoUpdater()
+    
+    // Inicializar todos os módulos de forma síncrona
+    initializeMedidasPosicao()
+    initializeMedidasDispersao()
+    initializeQuartis()
+    initializeTabelaFrequencia()
+    initializeTabelaFrequenciaManual()
+    initializeGraficos()
+    inicializarGeradorAleatorio()
+    initializeGlossario()
+    
+    console.log('Todos os módulos inicializados com sucesso')
+  } catch (error) {
+    console.error('Erro ao inicializar módulos:', error)
+  }
+}
+
 // Inicializar todos os módulos quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', () => {
-  initializeDarkMode()
-  initializeRol()
-  initializeMedidasPosicao()
-  initializeMedidasDispersao()
-  initializeQuartis()
-  initializeTabelaFrequencia()
-  initializeTabelaFrequenciaManual()
-  initializeGraficos()
-  inicializarGeradorAleatorio()
-  initializeGlossario()
-  initializeAccessibility()
+  initializeAllModules()
 })

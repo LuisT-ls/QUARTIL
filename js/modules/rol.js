@@ -4,6 +4,9 @@ import { calculateMedidasPosicao } from './medidasPosicao.js'
 import { calculateMedidasDispersao } from './medidasDispersao.js'
 import { calculateQuartis } from './quartis.js'
 import { updateGraficos, initializeGraficos } from './graficos.js'
+import { debounce, throttle, calculateWithWorker } from '../utils/performance-utils.js'
+import { notifyCalculationComplete, notifyExportComplete, notifyError } from '../utils/notifications.js'
+import { saveCalculationOffline } from '../utils/offline-sync.js'
 import { criarTabelaFrequencia } from './tabelaFrequencia.js'
 
 // Função para inicializar o módulo de rol
@@ -71,6 +74,16 @@ export function initializeRol() {
     }
   })
 
+  // Debounced input para cálculos em tempo real (opcional)
+  const debouncedProcessarRol = debounce(processarRol, 500)
+  rolInput.addEventListener('input', () => {
+    // Apenas processar se houver dados suficientes
+    const inputValue = rolInput.value.trim()
+    if (inputValue.length > 10) { // Threshold para evitar cálculos desnecessários
+      debouncedProcessarRol()
+    }
+  })
+
   // Eventos para geração de dados aleatórios
   gerarDadosBtn.addEventListener('click', () => {
     randomPopup.style.display = 'flex'
@@ -83,8 +96,8 @@ export function initializeRol() {
   confirmarGeracaoBtn.addEventListener('click', gerarDadosAleatorios)
 }
 
-// Função para processar o rol inserido
-export function processarRol() {
+// Função para processar o rol inserido com otimizações de performance
+export async function processarRol() {
   const rolInput = document.getElementById('rolInput')
   const rolResult = document.getElementById('rolResult')
 
@@ -117,29 +130,101 @@ export function processarRol() {
   appState.currentData = rol
   appState.isCalculated = true
 
+  // Mostrar loading
   rolResult.style.display = 'block'
   rolResult.classList.add('active')
-  // Exibir o rol ordenado
   rolResult.innerHTML = `
     <div class="result-card">
-      <h3 class="rol-title">Rol Ordenado</h3>
-      <p>${rol.join(' - ')}</p>
-      <div class="result-info">
-        <span><strong>n =</strong> ${rol.length}</span>
-        <span><strong>Mínimo:</strong> ${Math.min(...rol)}</span>
-        <span><strong>Máximo:</strong> ${Math.max(...rol)}</span>
-        <span><strong>Amplitude:</strong> ${
-          Math.max(...rol) - Math.min(...rol)
-        }</span>
+      <h3 class="rol-title">Processando...</h3>
+      <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Calculando estatísticas...</p>
       </div>
     </div>
   `
 
-  // Calcular e exibir todas as estatísticas
-  calculateMedidasPosicao(rol)
-  calculateMedidasDispersao(rol)
-  calculateQuartis(rol)
-  updateGraficos(rol)
+  try {
+    // Usar Web Worker para cálculos pesados se disponível
+    const startTime = performance.now()
+    
+    let estatisticas
+    if (rol.length > 50) {
+      // Usar Web Worker para datasets grandes
+      estatisticas = await calculateWithWorker(rol, 'estatisticas_completas')
+      console.log(`Cálculo com Web Worker: ${estatisticas.tempoProcessamento.toFixed(2)}ms`)
+    } else {
+      // Usar cálculo síncrono para datasets pequenos
+      estatisticas = await calculateWithWorker(rol, 'estatisticas_completas')
+    }
+    
+    const endTime = performance.now()
+    const tempoTotal = endTime - startTime
+
+    // Exibir o rol ordenado
+    rolResult.innerHTML = `
+      <div class="result-card">
+        <h3 class="rol-title">Rol Ordenado</h3>
+        <p>${rol.join(' - ')}</p>
+        <div class="result-info">
+          <span><strong>n =</strong> ${rol.length}</span>
+          <span><strong>Mínimo:</strong> ${Math.min(...rol)}</span>
+          <span><strong>Máximo:</strong> ${Math.max(...rol)}</span>
+          <span><strong>Amplitude:</strong> ${
+            Math.max(...rol) - Math.min(...rol)
+          }</span>
+          <span class="performance-info"><strong>Tempo:</strong> ${tempoTotal.toFixed(2)}ms</span>
+        </div>
+      </div>
+    `
+
+    // Calcular e exibir todas as estatísticas usando os resultados do worker
+    await Promise.all([
+      calculateMedidasPosicao(rol),
+      calculateMedidasDispersao(rol),
+      calculateQuartis(rol),
+      updateGraficos(rol)
+    ])
+
+    // Salvar cálculo offline
+    try {
+      await saveCalculationOffline(rol, estatisticas.resultado, {
+        processingTime: tempoTotal
+      })
+    } catch (error) {
+      console.error('Erro ao salvar cálculo offline:', error)
+    }
+
+    // Notificar conclusão do cálculo
+    notifyCalculationComplete(rol.length, tempoTotal)
+
+  } catch (error) {
+    console.error('Erro no cálculo:', error)
+    
+    // Notificar erro
+    notifyError('Erro ao processar os dados. Verifique se os números estão corretos.')
+    
+    // Fallback para cálculo síncrono
+    rolResult.innerHTML = `
+      <div class="result-card">
+        <h3 class="rol-title">Rol Ordenado</h3>
+        <p>${rol.join(' - ')}</p>
+        <div class="result-info">
+          <span><strong>n =</strong> ${rol.length}</span>
+          <span><strong>Mínimo:</strong> ${Math.min(...rol)}</span>
+          <span><strong>Máximo:</strong> ${Math.max(...rol)}</span>
+          <span><strong>Amplitude:</strong> ${
+            Math.max(...rol) - Math.min(...rol)
+          }</span>
+        </div>
+      </div>
+    `
+
+    // Calcular e exibir todas as estatísticas (método tradicional)
+    calculateMedidasPosicao(rol)
+    calculateMedidasDispersao(rol)
+    calculateQuartis(rol)
+    updateGraficos(rol)
+  }
   
   // Criar tabela de frequência automaticamente
   criarTabelaFrequencia(rol)
@@ -552,6 +637,9 @@ function exportarDados(formato) {
 
   // Fechar o popup
   document.getElementById('exportPopup').style.display = 'none'
+  
+  // Notificar exportação concluída
+  notifyExportComplete(formato)
 }
 
 // Funções auxiliares para cálculos
