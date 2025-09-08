@@ -4,6 +4,7 @@ import { calculateMedidasPosicao } from './medidasPosicao.js'
 import { calculateMedidasDispersao } from './medidasDispersao.js'
 import { calculateQuartis } from './quartis.js'
 import { updateGraficos, initializeGraficos } from './graficos.js'
+import { criarTabelaFrequencia } from './tabelaFrequencia.js'
 
 // Função para inicializar o módulo de rol
 export function initializeRol() {
@@ -139,6 +140,9 @@ export function processarRol() {
   calculateMedidasDispersao(rol)
   calculateQuartis(rol)
   updateGraficos(rol)
+  
+  // Criar tabela de frequência automaticamente
+  criarTabelaFrequencia(rol)
 }
 
 // Função para gerar dados aleatórios
@@ -219,7 +223,8 @@ function limparRol() {
     'q3Result',
     'iqrResult',
     'mediaJuntasResult',
-    'outliersResult'
+    'outliersResult',
+    'tabelaFrequenciaResult'
   ]
 
   resultDivs.forEach(div => {
