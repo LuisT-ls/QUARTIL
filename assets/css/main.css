@@ -1,5 +1,6 @@
 /* Reset e Base */
 @import url('./modules/base/reset.css');
+@import url('./modules/base/fonts.css');
 @import url('./modules/base/typography.css');
 @import url('./modules/base/animations.css');
 @import url('./modules/base/scrollbar.css');

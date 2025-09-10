@@ -14,6 +14,7 @@ import { initializeImageOptimizations } from './utils/image-optimizer.js'
 import { initializeNotifications } from './utils/notifications.js'
 import { initializeOfflineSync } from './utils/offline-sync.js'
 import { initializeAutoUpdater } from './utils/auto-updater.js'
+import FontLoader from './utils/font-loader.js'
 
 // Dados compartilhados entre módulos
 export const appState = {
@@ -109,6 +110,10 @@ function initializeAllModules() {
     initializeGraficos()
     inicializarGeradorAleatorio()
     initializeGlossario()
+    
+    // Inicializar otimizador de fontes
+    const fontLoader = new FontLoader()
+    fontLoader.preloadCriticalFonts()
     
     console.log('Todos os módulos inicializados com sucesso')
   } catch (error) {
