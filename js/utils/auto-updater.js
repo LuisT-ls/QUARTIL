@@ -22,8 +22,13 @@ export async function checkForUpdates() {
       const registration = await navigator.serviceWorker.getRegistration()
       
       if (registration) {
-        // Verificar se há atualização disponível
-        await registration.update()
+        // Verificar se há atualização disponível de forma segura
+        try {
+          await registration.update()
+        } catch (updateError) {
+          console.warn('Erro ao atualizar Service Worker:', updateError)
+          // Continuar mesmo se a atualização falhar
+        }
         
         // Verificar versão do manifest
         await checkManifestVersion()
@@ -56,9 +61,12 @@ async function checkManifestVersion() {
         console.log('Nova versão disponível:', versionData.version)
         showUpdateAvailable(versionData)
       }
+    } else {
+      console.warn('Falha ao verificar versão:', response.status, response.statusText)
     }
   } catch (error) {
-    console.log('Não foi possível verificar versão do manifest:', error)
+    console.log('Não foi possível verificar versão do manifest:', error.message)
+    // Não mostrar erro para o usuário, apenas log
   }
 }
 
@@ -236,7 +244,11 @@ export async function applyUpdate() {
       
       if (registration && registration.waiting) {
         // Enviar mensagem para o Service Worker para ativar
-        registration.waiting.postMessage({ type: 'SKIP_WAITING' })
+        try {
+          registration.waiting.postMessage({ type: 'SKIP_WAITING' })
+        } catch (messageError) {
+          console.warn('Erro ao enviar mensagem para Service Worker:', messageError)
+        }
         
         // Recarregar a página após um pequeno delay
         setTimeout(() => {
@@ -284,6 +296,8 @@ export function setupServiceWorkerUpdates() {
         console.log('Service Worker esperando para ativação')
         showUpdateAvailable({ version: 'Nova versão' })
       }
+    }).catch(error => {
+      console.warn('Erro ao verificar Service Worker ready:', error)
     })
   }
 }
@@ -295,7 +309,11 @@ export function setupUpdateListeners() {
     navigator.serviceWorker.addEventListener('controllerchange', () => {
       console.log('Service Worker atualizado')
       // Recarregar página para usar nova versão
-      window.location.reload()
+      try {
+        window.location.reload()
+      } catch (reloadError) {
+        console.warn('Erro ao recarregar página:', reloadError)
+      }
     })
   }
   
@@ -324,8 +342,10 @@ export function initializeAutoUpdater() {
     // Configurar listeners
     setupUpdateListeners()
     
-    // Verificar atualizações na inicialização
-    checkForUpdates()
+    // Verificar atualizações na inicialização (com delay para evitar conflitos)
+    setTimeout(() => {
+      checkForUpdates()
+    }, 2000)
     
     // Agendar verificações periódicas
     scheduleUpdateCheck()

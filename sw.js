@@ -35,6 +35,10 @@ self.addEventListener('install', event => {
       console.log('Recursos em cache')
       // Forçar ativação imediata do novo Service Worker
       return self.skipWaiting()
+    }).catch(error => {
+      console.error('Erro ao instalar Service Worker:', error)
+      // Continuar mesmo se houver erro no cache
+      return self.skipWaiting()
     })
   )
 })
@@ -46,12 +50,22 @@ self.addEventListener('fetch', event => {
       if (response) {
         return response
       }
-      return fetch(event.request).catch(() => {
+      return fetch(event.request).catch(error => {
+        console.warn('Erro ao buscar recurso:', event.request.url, error)
         // Se for navegação (HTML), retorna offline.html
         if (event.request.mode === 'navigate') {
           return caches.match('/offline.html')
         }
+        // Para outros recursos, retornar uma resposta vazia
+        return new Response('', { status: 404, statusText: 'Not Found' })
       })
+    }).catch(error => {
+      console.error('Erro no Service Worker fetch:', error)
+      // Fallback para navegação
+      if (event.request.mode === 'navigate') {
+        return caches.match('/offline.html')
+      }
+      return new Response('', { status: 500, statusText: 'Internal Server Error' })
     })
   )
 })
@@ -72,11 +86,17 @@ self.addEventListener('activate', event => {
             }
           })
         )
+      }).catch(error => {
+        console.warn('Erro ao limpar caches antigos:', error)
       }),
       // Assumir controle de todas as abas
-      self.clients.claim()
+      self.clients.claim().catch(error => {
+        console.warn('Erro ao assumir controle dos clientes:', error)
+      })
     ]).then(() => {
       console.log('Service Worker ativado:', CACHE_NAME)
+    }).catch(error => {
+      console.error('Erro ao ativar Service Worker:', error)
     })
   )
 })
@@ -85,25 +105,33 @@ self.addEventListener('activate', event => {
 self.addEventListener('message', event => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     console.log('Pulando espera e ativando novo Service Worker')
-    self.skipWaiting()
+    try {
+      self.skipWaiting()
+    } catch (error) {
+      console.warn('Erro ao pular espera do Service Worker:', error)
+    }
   }
 })
 
 // Listener para notificações push (se implementado)
 self.addEventListener('push', event => {
   if (event.data) {
-    const data = event.data.json()
-    const options = {
-      body: data.body,
-      icon: '/assets/img/favicon/android-chrome-192x192.png',
-      badge: '/assets/img/favicon/favicon-32x32.png',
-      tag: 'quartil-notification',
-      data: data.data
+    try {
+      const data = event.data.json()
+      const options = {
+        body: data.body,
+        icon: '/assets/img/favicon/android-chrome-192x192.png',
+        badge: '/assets/img/favicon/favicon-32x32.png',
+        tag: 'quartil-notification',
+        data: data.data
+      }
+      
+      event.waitUntil(
+        self.registration.showNotification(data.title, options)
+      )
+    } catch (error) {
+      console.warn('Erro ao processar notificação push:', error)
     }
-    
-    event.waitUntil(
-      self.registration.showNotification(data.title, options)
-    )
   }
 })
 
@@ -123,6 +151,8 @@ self.addEventListener('notificationclick', event => {
       if (clients.openWindow) {
         return clients.openWindow('/')
       }
+    }).catch(error => {
+      console.warn('Erro ao processar clique na notificação:', error)
     })
   )
 })
