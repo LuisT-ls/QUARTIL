@@ -197,10 +197,6 @@ function showUpdateBanner(versionData) {
       }
     }
     
-    .dark-mode .update-banner {
-      background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
-    }
-    
     @media (max-width: 768px) {
       .update-banner-content {
         flex-direction: column;

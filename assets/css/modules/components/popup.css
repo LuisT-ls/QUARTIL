@@ -62,27 +62,3 @@
   margin-right: var(--spacing-sm);
   margin-bottom: var(--spacing-sm);
 }
-
-.dark-mode .popup-content {
-  background-color: var(--gray-800);
-}
-
-.dark-mode .popup h3 {
-  color: var(--light-text);
-}
-
-.dark-mode .popup p {
-  color: var(--gray-400);
-}
-
-.dark-mode .close-popup {
-  color: var(--gray-400);
-}
-
-.dark-mode .close-popup:hover {
-  color: var(--accent-color);
-}
-
-.dark-mode .form-check-label {
-  color: var(--light-text);
-}

@@ -21,50 +21,6 @@ import reflowOptimizer from './utils/reflow-optimizer.js'
 export const appState = {
   currentData: [],
   isCalculated: false,
-  darkMode: localStorage.getItem('darkMode') === 'true'
-}
-
-// Inicializa o modo escuro
-function initializeDarkMode() {
-  const darkModeToggle = document.querySelector('.dark-mode-toggle')
-  const darkModeIcon = document.getElementById('darkModeIcon')
-  const isMobile = window.matchMedia('(max-width: 768px)').matches // Verifica se é um dispositivo móvel
-
-  // Ativar modo escuro por padrão em dispositivos móveis
-  if (isMobile) {
-    document.body.classList.add('dark-mode')
-    appState.darkMode = true
-    localStorage.setItem('darkMode', true) // Salva a preferência
-  } else {
-    // Verificar preferência salva no localStorage para dispositivos não móveis
-    const savedDarkMode = localStorage.getItem('darkMode') === 'true'
-    if (savedDarkMode) {
-      document.body.classList.add('dark-mode')
-      appState.darkMode = true
-      darkModeIcon.classList.remove('fa-moon')
-      darkModeIcon.classList.add('fa-sun')
-    }
-  }
-
-  // Alternar modo escuro ao clicar (apenas para desktop)
-  if (!isMobile) {
-    darkModeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode')
-      appState.darkMode = document.body.classList.contains('dark-mode')
-
-      // Alterar ícone
-      if (appState.darkMode) {
-        darkModeIcon.classList.remove('fa-moon')
-        darkModeIcon.classList.add('fa-sun')
-      } else {
-        darkModeIcon.classList.remove('fa-sun')
-        darkModeIcon.classList.add('fa-moon')
-      }
-
-      // Salvar preferência
-      localStorage.setItem('darkMode', appState.darkMode)
-    })
-  }
 }
 
 // Inicializar o glossário
@@ -95,7 +51,6 @@ async function initializeAllModules() {
     await new Promise(resolve => requestAnimationFrame(resolve))
     
     // Módulos críticos carregados imediatamente
-    initializeDarkMode()
     initializeRol()
     initializeAccessibility()
     initializeImageOptimizations()

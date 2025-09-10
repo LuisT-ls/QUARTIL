@@ -114,20 +114,6 @@
   outline-offset: 2px;
 }
 
-.dark-mode *:focus {
-  outline-color: var(--primary-color-light);
-}
-
-/* Cores de alto contraste para modo escuro */
-.dark-mode {
-  --text-color: #ffffff;
-  --background-color: #121212;
-  --primary-color: #4da3ff;
-  --primary-color-light: #66b3ff;
-  --secondary-color: #ff8533;
-  --border-color: #444444;
-}
-
 /* Cores de alto contraste para modo claro */
 :root {
   --text-color: #000000;
@@ -253,30 +239,9 @@ input:disabled {
   color: #0a4a52 !important;
 }
 
-/* Melhorar contraste no modo escuro */
-.dark-mode .text-warning {
-  color: #fbbf24 !important; /* Amarelo mais claro no modo escuro */
-}
-
-.dark-mode .text-info {
-  color: #22d3ee !important; /* Azul mais claro no modo escuro */
-}
-
-.dark-mode .card-title.text-warning {
-  color: #fbbf24 !important;
-}
-
-.dark-mode .card-title.text-info {
-  color: #22d3ee !important;
-}
-
 /* Melhorar contraste geral dos textos */
 body {
   color: #212529;
-}
-
-.dark-mode body {
-  color: #ffffff;
 }
 
 /* Melhorar contraste dos textos em cards */
@@ -284,32 +249,12 @@ body {
   color: #212529;
 }
 
-.dark-mode .card-body {
-  color: #ffffff;
-}
-
 /* Melhorar contraste dos textos descritivos */
 .card-text {
   color: #495057;
 }
 
-.dark-mode .card-text {
-  color: #e9ecef;
-}
-
 /* Melhorar contraste dos textos pequenos */
 .small, .card-text.small {
   color: #6c757d;
-}
-
-.dark-mode .small, .dark-mode .card-text.small {
-  color: var(--gray-200);
-}
-
-.dark-mode .lead {
-  color: var(--gray-700);
-}
-
-.dark-mode .mb-3 {
-  color: var(--gray-200);
 }

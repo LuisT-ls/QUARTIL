@@ -73,13 +73,3 @@
 .rol-result.success {
   background: linear-gradient(to right, #00b894, #00cec9);
 }
-
-.dark-mode .rol-input {
-  background-color: var(--gray-800);
-  color: var(--light-text);
-  border-color: var(--gray-700);
-}
-
-.dark-mode .rol-input::placeholder {
-  color: var(--gray-500);
-}

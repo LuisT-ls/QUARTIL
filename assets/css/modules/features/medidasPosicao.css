@@ -67,7 +67,3 @@
   color: var(--primary-color);
   margin-bottom: var(--spacing-md);
 }
-
-.dark-mode .form-label {
-  color: var(--gray-600);
-}

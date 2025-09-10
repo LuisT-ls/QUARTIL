@@ -67,19 +67,3 @@
   color: var(--secondary-color);
   margin-bottom: var(--spacing-md);
 }
-
-.dark-mode .dispersao-box {
-  background-color: var(--gray-800);
-}
-
-.dark-mode .dispersao-box h3 {
-  color: var(--light-text);
-}
-
-.dark-mode .dispersao-value {
-  color: var(--accent-color);
-}
-
-.dark-mode .dispersao-description {
-  color: var(--gray-400);
-}

@@ -60,20 +60,3 @@
   box-shadow: var(--shadow-md);
   pointer-events: none;
 }
-
-.dark-mode .chart-container {
-  background-color: var(--gray-800);
-}
-
-.dark-mode .chart-title {
-  color: var(--primary-light);
-}
-
-.dark-mode .chart-placeholder {
-  color: var(--gray-500);
-}
-
-.dark-mode .chart-tooltip {
-  background-color: var(--gray-900);
-  color: var(--light-text);
-}

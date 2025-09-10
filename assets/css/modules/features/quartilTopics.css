@@ -62,19 +62,6 @@
   margin-bottom: 0;
 }
 
-/* Dark mode */
-.dark-mode .quartil-topic-card {
-  background-color: var(--gray-800);
-}
-
-.dark-mode .quartil-topic-card h4 {
-  color: var(--light-text);
-}
-
-.dark-mode .quartil-topic-card p {
-  color: var(--gray-400);
-}
-
 /* Responsividade específica para tópicos de quartis */
 @media (max-width: 768px) {
   .quartil-topics .row {

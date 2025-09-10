@@ -16,11 +16,6 @@
   opacity: 1;
 }
 
-.dark-mode .tooltip {
-  background-color: var(--gray-900);
-  color: var(--light-text);
-}
-
 /* Animações para entrada e saída */
 .fade-enter {
   opacity: 0;

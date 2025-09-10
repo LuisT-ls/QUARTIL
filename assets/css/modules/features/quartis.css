@@ -111,19 +111,3 @@
   background-color: #6c5ce7;
   width: 75%;
 }
-
-.dark-mode .quartil-box {
-  background-color: var(--gray-800);
-}
-
-.dark-mode .quartil-box h3 {
-  color: var(--light-text);
-}
-
-.dark-mode .quartil-progress {
-  background-color: var(--gray-700);
-}
-
-.dark-mode .quartil-description {
-  color: var(--gray-400);
-}

@@ -105,10 +105,6 @@
     margin-right: 0;
   }
 
-  .dark-mode-toggle {
-    display: none !important;
-  }
-
   .stats-grid {
     grid-template-columns: 1fr;
   }
@@ -236,10 +232,6 @@
 
   .legenda {
     width: 100%;
-  }
-
-  .dark-mode-toggle {
-    display: none;
   }
 
   .footer-social {
@@ -401,13 +393,6 @@
     font-size: 3rem !important;
   }
 
-  .dark-mode-toggle {
-    display: block;
-    position: fixed;
-    top: var(--spacing-md);
-    right: var(--spacing-md);
-  }
-
   .table {
     font-size: 0.9rem;
   }
@@ -498,13 +483,6 @@
 
   .card .fa-3x {
     font-size: 3.5rem !important;
-  }
-
-  .dark-mode-toggle {
-    display: block;
-    position: fixed;
-    top: var(--spacing-md);
-    right: var(--spacing-md);
   }
 
   .stats-grid {

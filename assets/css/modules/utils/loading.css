@@ -165,48 +165,6 @@ img[data-src].loaded {
   box-shadow: var(--shadow-sm);
 }
 
-/* Dark mode adjustments */
-.dark-mode .loading-spinner {
-  background: var(--gray-800);
-}
-
-.dark-mode .spinner {
-  border-color: var(--gray-700);
-  border-top-color: var(--primary-color);
-}
-
-.dark-mode .loading-spinner p {
-  color: var(--gray-400);
-}
-
-.dark-mode .skeleton {
-  background: linear-gradient(90deg, var(--gray-700) 25%, var(--gray-600) 50%, var(--gray-700) 75%);
-}
-
-.dark-mode .skeleton-card {
-  background: var(--gray-800);
-}
-
-.dark-mode .loading-overlay {
-  background: rgba(18, 18, 18, 0.9);
-}
-
-.dark-mode .loading-overlay p {
-  color: var(--light-text);
-}
-
-.dark-mode .progress-bar {
-  background: var(--gray-700);
-}
-
-.dark-mode .performance-info {
-  color: var(--primary-light) !important;
-}
-
-.dark-mode .performance-info strong {
-  color: var(--primary-light);
-}
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .loading-spinner {

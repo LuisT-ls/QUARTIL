@@ -28,19 +28,3 @@
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
 }
-
-.dark-mode .form-label {
-  color: var(--gray-300);
-}
-
-.dark-mode .form-control {
-  color: var(--light-text);
-  background-color: var(--gray-800);
-  border-color: var(--gray-600);
-}
-
-.dark-mode .form-control:focus {
-  color: var(--light-text);
-  background-color: var(--gray-800);
-  border-color: var(--primary-color);
-}

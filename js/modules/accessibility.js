@@ -287,9 +287,6 @@ export function initializeAccessibility() {
       outline: 3px solid #007bff !important;
       outline-offset: 2px !important;
     }
-    .dark-mode *:focus {
-      outline-color: #55aaff !important;
-    }
     .watermark-link:focus {
       outline: none !important;
     }

@@ -100,24 +100,6 @@
   color: var(--warning-color);
 }
 
-/* Dark mode */
-.dark-mode .caso-uso-card {
-  background-color: var(--gray-800);
-}
-
-.dark-mode .caso-uso-card h3,
-.dark-mode .caso-uso-card h4 {
-  color: var(--light-text);
-}
-
-.dark-mode .caso-uso-card p {
-  color: var(--gray-400);
-}
-
-.dark-mode .caso-uso-card ul li {
-  color: var(--gray-300);
-}
-
 /* Responsividade específica para cards de casos de uso */
 @media (max-width: 768px) {
   .caso-uso-card {
