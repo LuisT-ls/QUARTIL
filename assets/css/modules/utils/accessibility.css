@@ -303,5 +303,13 @@ body {
 }
 
 .dark-mode .small, .dark-mode .card-text.small {
-  color: #adb5bd;
+  color: var(--gray-200);
+}
+
+.dark-mode .lead {
+  color: var(--gray-700);
+}
+
+.dark-mode .mb-3 {
+  color: var(--gray-200);
 }
