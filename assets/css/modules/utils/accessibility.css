@@ -30,15 +30,28 @@
   position: absolute;
   top: -40px;
   left: 0;
-  background: var(--primary-color);
-  color: white;
-  padding: 8px;
-  z-index: 100;
+  background: #000000;
+  color: #ffffff;
+  padding: 12px 16px;
+  z-index: 1000;
   transition: top 0.2s;
+  text-decoration: none;
+  font-weight: bold;
+  border: 2px solid #ffffff;
+  border-radius: 4px;
+  font-size: 16px;
 }
 
 .skip-link:focus {
   top: 0;
+  background: #ffffff;
+  color: #000000;
+  border-color: #000000;
+}
+
+.skip-link:hover {
+  background: #333333;
+  color: #ffffff;
 }
 
 /* Melhor indicação visual de foco para navegação por teclado */
@@ -148,4 +161,93 @@ input:disabled {
   opacity: 0.7;
   background-color: #f0f0f0;
   color: #666666;
+}
+
+/* Correções de contraste para cores Bootstrap */
+.text-warning {
+  color: #b45309 !important; /* Cor mais escura para melhor contraste */
+}
+
+.text-info {
+  color: #0c5460 !important; /* Cor mais escura para melhor contraste */
+}
+
+/* Melhorar contraste dos títulos dos cards */
+.card-title.text-warning {
+  color: #92400e !important; /* Cor ainda mais escura para títulos */
+}
+
+.card-title.text-info {
+  color: #0a4a52 !important; /* Cor ainda mais escura para títulos */
+}
+
+/* Melhorar contraste dos cards com cores de warning e info */
+.card.h-100 .card-title.text-warning {
+  color: #92400e !important;
+}
+
+.card.h-100 .card-title.text-info {
+  color: #0a4a52 !important;
+}
+
+/* Melhorar contraste dos wrappers de gráficos */
+.grafico-wrapper .card-title.text-warning {
+  color: #92400e !important;
+}
+
+.grafico-wrapper .card-title.text-info {
+  color: #0a4a52 !important;
+}
+
+/* Melhorar contraste no modo escuro */
+.dark-mode .text-warning {
+  color: #fbbf24 !important; /* Amarelo mais claro no modo escuro */
+}
+
+.dark-mode .text-info {
+  color: #22d3ee !important; /* Azul mais claro no modo escuro */
+}
+
+.dark-mode .card-title.text-warning {
+  color: #fbbf24 !important;
+}
+
+.dark-mode .card-title.text-info {
+  color: #22d3ee !important;
+}
+
+/* Melhorar contraste geral dos textos */
+body {
+  color: #212529;
+}
+
+.dark-mode body {
+  color: #ffffff;
+}
+
+/* Melhorar contraste dos textos em cards */
+.card-body {
+  color: #212529;
+}
+
+.dark-mode .card-body {
+  color: #ffffff;
+}
+
+/* Melhorar contraste dos textos descritivos */
+.card-text {
+  color: #495057;
+}
+
+.dark-mode .card-text {
+  color: #e9ecef;
+}
+
+/* Melhorar contraste dos textos pequenos */
+.small, .card-text.small {
+  color: #6c757d;
+}
+
+.dark-mode .small, .dark-mode .card-text.small {
+  color: #adb5bd;
 }
