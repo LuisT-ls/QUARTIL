@@ -25,21 +25,25 @@
   white-space: normal;
 }
 
-/* Link para pular para o conteúdo principal */
+/* Link para pular para o conteúdo principal - Alto contraste WCAG 2.1 AA */
 .skip-link {
   position: absolute;
-  top: -40px;
+  top: -50px;
   left: 0;
   background: #000000;
   color: #ffffff;
-  padding: 12px 16px;
+  padding: 16px 24px;
   z-index: 1000;
-  transition: top 0.2s;
+  transition: top 0.3s ease;
   text-decoration: none;
-  font-weight: bold;
-  border: 2px solid #ffffff;
-  border-radius: 4px;
-  font-size: 16px;
+  font-weight: 700;
+  border: 3px solid #ffffff;
+  border-radius: 6px;
+  font-size: 18px;
+  line-height: 1.2;
+  min-width: 200px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .skip-link:focus {
@@ -47,11 +51,61 @@
   background: #ffffff;
   color: #000000;
   border-color: #000000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  outline: 4px solid #0066cc;
+  outline-offset: 2px;
 }
 
 .skip-link:hover {
-  background: #333333;
+  background: #1a1a1a;
   color: #ffffff;
+  border-color: #ffffff;
+}
+
+.skip-link:active {
+  background: #000000;
+  color: #ffffff;
+  transform: scale(0.98);
+}
+
+/* Garantir visibilidade em todos os cenários */
+.skip-link:not(:focus) {
+  clip: rect(0, 0, 0, 0);
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
+.skip-link:focus {
+  clip: auto;
+  overflow: visible;
+  position: absolute;
+  white-space: normal;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 16px 24px;
+  border: 3px solid #ffffff;
+}
+
+/* Melhorar contraste para diferentes fundos */
+.skip-link:focus {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
+  text-shadow: none;
+}
+
+/* Garantir que o skip link seja sempre visível quando focado */
+.skip-link:focus-visible {
+  outline: 4px solid #0066cc;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px #0066cc, 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 /* Melhor indicação visual de foco para navegação por teclado */
