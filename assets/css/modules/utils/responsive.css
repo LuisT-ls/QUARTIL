@@ -558,16 +558,24 @@
     margin-bottom: var(--spacing-md);
   }
   
-  /* Cards de Média das Juntas e Detecção de Outliers */
-  .quartis-section .col-md-6 {
+  /* Cards de quartis - todos em coluna única em mobile */
+  .quartis-section .col-md-3 {
     flex: 0 0 100%;
     max-width: 100%;
     margin-bottom: var(--spacing-md);
   }
   
-  /* Garantir que os cards de Média das Juntas e Detecção de Outliers tenham a mesma altura */
-  .quartis-section .col-md-6 .card {
+  /* Garantir altura uniforme para todos os cards de quartis */
+  .quartis-section .card {
     min-height: 140px;
+    height: 100%;
+  }
+  
+  .quartis-section .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
   }
 }
 
@@ -623,6 +631,39 @@
   
   .list-unstyled li {
     font-size: 0.85rem;
+  }
+}
+
+/* Ajustes específicos para dispositivos 393x852 e similares */
+@media (max-width: 400px) and (min-width: 350px) {
+  /* Forçar altura uniforme para todos os cards de quartis */
+  .quartis-section .card {
+    min-height: 120px !important;
+    height: 120px !important;
+  }
+  
+  .quartis-section .card-body {
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    padding: var(--spacing-md) !important;
+  }
+  
+  .quartis-section .card-title {
+    font-size: clamp(0.9rem, 5vw, 1.1rem) !important;
+    margin-bottom: var(--spacing-sm) !important;
+    line-height: 1.2 !important;
+  }
+  
+  .quartis-section .card-text {
+    font-size: 0.8rem !important;
+    line-height: 1.3 !important;
+    margin-bottom: var(--spacing-sm) !important;
+  }
+  
+  .quartis-section .mt-3 {
+    margin-top: auto !important;
   }
 }
 
