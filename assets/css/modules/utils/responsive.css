@@ -16,10 +16,83 @@
     flex-direction: column;
   }
 
+  .col-md-3,
   .col-md-4,
   .col-md-6 {
     width: 100%;
     margin-bottom: var(--spacing-lg);
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  /* Cards de Quartis - Mobile */
+  .card {
+    margin-bottom: var(--spacing-md);
+    min-height: auto;
+  }
+
+  .card-body {
+    padding: var(--spacing-md);
+  }
+
+  .card-title {
+    font-size: clamp(1rem, 4vw, 1.25rem);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .card-text {
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+
+  /* Cards de Medidas de Posição e Dispersão */
+  .medida-box,
+  .dispersao-box,
+  .quartil-box {
+    padding: var(--spacing-md);
+    min-height: 120px;
+  }
+
+  .medida-value,
+  .dispersao-value,
+  .quartil-value {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+
+  .medida-description,
+  .dispersao-description,
+  .quartil-description {
+    font-size: 0.8rem;
+  }
+
+  /* Cards de Gráficos */
+  .grafico-wrapper {
+    padding: var(--spacing-sm);
+    min-height: 200px;
+  }
+
+  .grafico-content {
+    height: 200px;
+  }
+
+  .grafico-title {
+    font-size: clamp(1rem, 4vw, 1.1rem);
+    margin-bottom: var(--spacing-md);
+  }
+
+  /* Cards de Casos de Uso */
+  .card h3,
+  .card h4 {
+    font-size: clamp(1.1rem, 4vw, 1.3rem);
+  }
+
+  .card .fa-3x {
+    font-size: 2rem !important;
+  }
+
+  .list-unstyled li {
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-xs);
   }
 
   .button-group {
@@ -36,17 +109,8 @@
     display: none !important;
   }
 
-  .grafico-content {
-    height: 200px;
-  }
-
   .stats-grid {
     grid-template-columns: 1fr;
-  }
-
-  .grafico-wrapper {
-    padding: var(--spacing-sm);
-    min-height: 200px;
   }
 
   .grafico-tab {
@@ -85,10 +149,84 @@
     font-size: var(--font-size-md);
   }
 
-  .col-md-4,
-  .col-md-6 {
-    width: 100%;
+  /* Cards de Quartis - Tablet */
+  .col-md-3 {
+    flex: 0 0 50%;
+    max-width: 50%;
     margin-bottom: var(--spacing-lg);
+  }
+
+  .col-md-4 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .col-md-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-bottom: 20px;
+  }
+
+  .card {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .card-body {
+    padding: var(--spacing-lg);
+  }
+
+  .card-title {
+    font-size: clamp(1.1rem, 3vw, 1.3rem);
+  }
+
+  .card-text {
+    font-size: 0.9rem;
+  }
+
+  /* Cards de Medidas */
+  .medida-box,
+  .dispersao-box,
+  .quartil-box {
+    padding: var(--spacing-lg);
+    min-height: 140px;
+  }
+  
+  /* Cards de quartis adicionais (Média das Juntas e Detecção de Outliers) */
+  .quartis-section .col-md-6 .card {
+    min-height: 140px;
+  }
+
+  .medida-value,
+  .dispersao-value,
+  .quartil-value {
+    font-size: clamp(1.8rem, 5vw, 2.2rem);
+  }
+
+  /* Cards de Gráficos */
+  .grafico-wrapper {
+    padding: var(--spacing-md);
+    min-height: 250px;
+  }
+
+  .grafico-content {
+    height: 250px;
+  }
+
+  .grafico-title {
+    font-size: clamp(1.1rem, 3vw, 1.2rem);
+  }
+
+  /* Cards de Casos de Uso */
+  .card h3,
+  .card h4 {
+    font-size: clamp(1.2rem, 3vw, 1.4rem);
+  }
+
+  .card .fa-3x {
+    font-size: 2.5rem !important;
   }
 
   .stats-container {
@@ -136,14 +274,6 @@
   #boxplotChart,
   #histogramaChart {
     max-height: 200px !important;
-  }
-
-  .col-md-6 {
-    flex: 0 0 100%;
-    max-width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-bottom: 20px;
   }
 
   .d-flex.gap-2 {
@@ -194,15 +324,15 @@
     padding: 0 var(--spacing-xl);
   }
 
-  .col-md-4 {
-    width: 50%;
+  /* Cards de Quartis - Desktop Médio */
+  .col-md-3 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
   }
 
-  .dark-mode-toggle {
-    display: block;
-    position: fixed;
-    top: var(--spacing-md);
-    right: var(--spacing-md);
+  .col-md-4 {
+    flex: 0 0 50%;
+    max-width: 50%;
   }
 
   .col-md-6 {
@@ -210,6 +340,72 @@
     max-width: 50%;
     padding-right: 15px;
     padding-left: 15px;
+  }
+
+  .card {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .card-body {
+    padding: var(--spacing-xl);
+  }
+
+  .card-title {
+    font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+  }
+
+  .card-text {
+    font-size: 0.95rem;
+  }
+
+  /* Cards de Medidas */
+  .medida-box,
+  .dispersao-box,
+  .quartil-box {
+    padding: var(--spacing-xl);
+    min-height: 160px;
+  }
+  
+  /* Cards de quartis adicionais (Média das Juntas e Detecção de Outliers) */
+  .quartis-section .col-md-6 .card {
+    min-height: 160px;
+  }
+
+  .medida-value,
+  .dispersao-value,
+  .quartil-value {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+  }
+
+  /* Cards de Gráficos */
+  .grafico-wrapper {
+    padding: var(--spacing-lg);
+    min-height: 300px;
+  }
+
+  .grafico-content {
+    height: 300px;
+  }
+
+  .grafico-title {
+    font-size: clamp(1.2rem, 2.5vw, 1.3rem);
+  }
+
+  /* Cards de Casos de Uso */
+  .card h3,
+  .card h4 {
+    font-size: clamp(1.3rem, 2.5vw, 1.5rem);
+  }
+
+  .card .fa-3x {
+    font-size: 3rem !important;
+  }
+
+  .dark-mode-toggle {
+    display: block;
+    position: fixed;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
   }
 
   .table {
@@ -229,6 +425,81 @@
     max-width: 1200px;
   }
 
+  /* Cards de Quartis - Desktop Grande */
+  .col-md-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+
+  .col-md-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+  }
+
+  .col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  .card {
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .card-body {
+    padding: var(--spacing-2xl);
+  }
+
+  .card-title {
+    font-size: clamp(1.3rem, 2vw, 1.5rem);
+  }
+
+  .card-text {
+    font-size: 1rem;
+  }
+
+  /* Cards de Medidas */
+  .medida-box,
+  .dispersao-box,
+  .quartil-box {
+    padding: var(--spacing-2xl);
+    min-height: 180px;
+  }
+  
+  /* Cards de quartis adicionais (Média das Juntas e Detecção de Outliers) */
+  .quartis-section .col-md-6 .card {
+    min-height: 180px;
+  }
+
+  .medida-value,
+  .dispersao-value,
+  .quartil-value {
+    font-size: clamp(2.2rem, 3vw, 2.8rem);
+  }
+
+  /* Cards de Gráficos */
+  .grafico-wrapper {
+    padding: var(--spacing-xl);
+    min-height: 350px;
+  }
+
+  .grafico-content {
+    height: 350px;
+  }
+
+  .grafico-title {
+    font-size: clamp(1.3rem, 2vw, 1.4rem);
+  }
+
+  /* Cards de Casos de Uso */
+  .card h3,
+  .card h4 {
+    font-size: clamp(1.4rem, 2vw, 1.6rem);
+  }
+
+  .card .fa-3x {
+    font-size: 3.5rem !important;
+  }
+
   .dark-mode-toggle {
     display: block;
     position: fixed;
@@ -236,16 +507,8 @@
     right: var(--spacing-md);
   }
 
-  .grafico-content {
-    height: 250px;
-  }
-
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .grafico-wrapper {
-    padding: var(--spacing-md);
   }
 }
 
@@ -279,5 +542,107 @@
 
   canvas {
     max-height: 180px !important;
+  }
+}
+
+/* Melhorias específicas para cards de quartis */
+@media (max-width: 768px) {
+  /* Cards de quartis em mobile - layout em coluna */
+  .quartis-section .row {
+    flex-direction: column;
+  }
+  
+  .quartis-section .col-md-3 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  /* Cards de Média das Juntas e Detecção de Outliers */
+  .quartis-section .col-md-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  /* Garantir que os cards de Média das Juntas e Detecção de Outliers tenham a mesma altura */
+  .quartis-section .col-md-6 .card {
+    min-height: 140px;
+  }
+}
+
+/* Melhorias para cards de gráficos */
+@media (max-width: 768px) {
+  .graficos-section .row {
+    flex-direction: column;
+  }
+  
+  .graficos-section .col-md-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-bottom: var(--spacing-lg);
+  }
+}
+
+/* Melhorias para cards de casos de uso */
+@media (max-width: 768px) {
+  /* Cards Para Estudantes e Para Profissionais */
+  .mb-5 .row:first-of-type .col-md-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  /* Cards Educação, Pesquisa, Negócios */
+  .mb-5 .row:last-of-type .col-md-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-bottom: var(--spacing-lg);
+  }
+}
+
+/* Ajustes para telas muito pequenas (até 480px) */
+@media (max-width: 480px) {
+  .card-body {
+    padding: var(--spacing-sm);
+  }
+  
+  .card-title {
+    font-size: clamp(0.9rem, 5vw, 1.1rem);
+  }
+  
+  .medida-value,
+  .dispersao-value,
+  .quartil-value {
+    font-size: clamp(1.2rem, 8vw, 1.8rem);
+  }
+  
+  .card .fa-3x {
+    font-size: 1.8rem !important;
+  }
+  
+  .list-unstyled li {
+    font-size: 0.85rem;
+  }
+}
+
+/* Ajustes para telas extra pequenas (até 360px) */
+@media (max-width: 360px) {
+  .container {
+    padding: 0 var(--spacing-sm);
+  }
+  
+  .card-body {
+    padding: var(--spacing-xs);
+  }
+  
+  .card-title {
+    font-size: clamp(0.8rem, 6vw, 1rem);
+  }
+  
+  .medida-value,
+  .dispersao-value,
+  .quartil-value {
+    font-size: clamp(1rem, 10vw, 1.5rem);
   }
 }

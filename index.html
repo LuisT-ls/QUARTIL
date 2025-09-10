@@ -526,7 +526,7 @@
         </div>
         <div class="row mt-3">
           <div class="col-md-6">
-            <div class="card">
+            <div class="card h-100">
               <div class="card-body">
                 <h3 class="card-title text-secondary">Média das Juntas</h3>
                 <p class="card-text small">Média dos valores mínimo e máximo</p>
@@ -535,7 +535,7 @@
             </div>
           </div>
           <div class="col-md-6">
-            <div class="card">
+            <div class="card h-100">
               <div class="card-body">
                 <h3 class="card-title text-dark">Detecção de Outliers</h3>
                 <p class="card-text small">
@@ -678,7 +678,7 @@
         </h2>
         <div class="row">
           <div class="col-md-6">
-            <div class="card h-100">
+            <div class="card h-100 caso-uso-card estudantes">
               <div class="card-body">
                 <h3 class="card-title text-primary">Para Estudantes</h3>
                 <ul class="list-unstyled">
@@ -703,7 +703,7 @@
             </div>
           </div>
           <div class="col-md-6">
-            <div class="card h-100">
+            <div class="card h-100 caso-uso-card profissionais">
               <div class="card-body">
                 <h3 class="card-title text-success">Para Profissionais</h3>
                 <ul class="list-unstyled">
@@ -735,7 +735,7 @@
         <h2><i class="fas fa-lightbulb text-info"></i> Casos de Uso Comuns</h2>
         <div class="row">
           <div class="col-md-4">
-            <div class="card text-center h-100">
+            <div class="card text-center h-100 caso-uso-card educacao">
               <div class="card-body">
                 <i class="fas fa-graduation-cap fa-3x text-primary mb-3"></i>
                 <h4>Educação</h4>
@@ -747,7 +747,7 @@
             </div>
           </div>
           <div class="col-md-4">
-            <div class="card text-center h-100">
+            <div class="card text-center h-100 caso-uso-card pesquisa">
               <div class="card-body">
                 <i class="fas fa-chart-line fa-3x text-success mb-3"></i>
                 <h4>Pesquisa</h4>
@@ -759,7 +759,7 @@
             </div>
           </div>
           <div class="col-md-4">
-            <div class="card text-center h-100">
+            <div class="card text-center h-100 caso-uso-card negocios">
               <div class="card-body">
                 <i class="fas fa-briefcase fa-3x text-warning mb-3"></i>
                 <h4>Negócios</h4>
@@ -784,35 +784,41 @@
           conjunto de dados ordenados em quatro partes iguais, cada uma contendo
           25% dos dados.
         </p>
-        <div class="row">
+        <div class="row quartil-topics">
           <div class="col-md-4">
-            <h4>
-              <i class="fas fa-chart-line text-primary"></i> Primeiro Quartil
-              (Q1)
-            </h4>
-            <p>
-              Representa o valor que separa os primeiros 25% dos dados. É o 25º
-              percentil.
-            </p>
+            <div class="quartil-topic-card">
+              <h4>
+                <i class="fas fa-chart-line text-primary"></i> Primeiro Quartil
+                (Q1)
+              </h4>
+              <p>
+                Representa o valor que separa os primeiros 25% dos dados. É o 25º
+                percentil.
+              </p>
+            </div>
           </div>
           <div class="col-md-4">
-            <h4>
-              <i class="fas fa-chart-bar text-success"></i> Segundo Quartil (Q2)
-            </h4>
-            <p>
-              É a <strong>mediana</strong> dos dados, separando os primeiros 50%
-              dos últimos 50%.
-            </p>
+            <div class="quartil-topic-card">
+              <h4>
+                <i class="fas fa-chart-bar text-success"></i> Segundo Quartil (Q2)
+              </h4>
+              <p>
+                É a <strong>mediana</strong> dos dados, separando os primeiros 50%
+                dos últimos 50%.
+              </p>
+            </div>
           </div>
           <div class="col-md-4">
-            <h4>
-              <i class="fas fa-chart-pie text-warning"></i> Terceiro Quartil
-              (Q3)
-            </h4>
-            <p>
-              Representa o valor que separa os primeiros 75% dos dados. É o 75º
-              percentil.
-            </p>
+            <div class="quartil-topic-card">
+              <h4>
+                <i class="fas fa-chart-pie text-warning"></i> Terceiro Quartil
+                (Q3)
+              </h4>
+              <p>
+                Representa o valor que separa os primeiros 75% dos dados. É o 75º
+                percentil.
+              </p>
+            </div>
           </div>
         </div>
         <div class="alert alert-info">

@@ -1,0 +1,212 @@
+/* modules/features/quartilTopics.css */
+
+.quartil-topics {
+  margin-bottom: var(--spacing-xl);
+}
+
+.quartil-topic-card {
+  background-color: white;
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-sm);
+  height: 100%;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  border-left: 4px solid transparent;
+}
+
+.quartil-topic-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+}
+
+.quartil-topic-card:nth-child(1)::before {
+  background: linear-gradient(to right, #74b9ff, #0984e3);
+}
+
+.quartil-topic-card:nth-child(2)::before {
+  background: linear-gradient(to right, #81ecec, #00cec9);
+}
+
+.quartil-topic-card:nth-child(3)::before {
+  background: linear-gradient(to right, #a29bfe, #6c5ce7);
+}
+
+.quartil-topic-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.quartil-topic-card h4 {
+  margin-bottom: var(--spacing-md);
+  color: var(--dark-text);
+  font-weight: var(--font-weight-bold);
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+  line-height: 1.3;
+}
+
+.quartil-topic-card h4 i {
+  margin-right: var(--spacing-sm);
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+}
+
+.quartil-topic-card p {
+  color: var(--gray-600);
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+
+/* Dark mode */
+.dark-mode .quartil-topic-card {
+  background-color: var(--gray-800);
+}
+
+.dark-mode .quartil-topic-card h4 {
+  color: var(--light-text);
+}
+
+.dark-mode .quartil-topic-card p {
+  color: var(--gray-400);
+}
+
+/* Responsividade específica para tópicos de quartis */
+@media (max-width: 768px) {
+  .quartil-topics .row {
+    flex-direction: column;
+  }
+  
+  .quartil-topics .col-md-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .quartil-topic-card {
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .quartil-topic-card h4 {
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .quartil-topic-card h4 i {
+    font-size: clamp(1.1rem, 4vw, 1.3rem);
+  }
+  
+  .quartil-topic-card p {
+    font-size: clamp(0.85rem, 3vw, 0.95rem);
+  }
+}
+
+@media (max-width: 576px) {
+  .quartil-topic-card {
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .quartil-topic-card h4 {
+    font-size: clamp(0.9rem, 5vw, 1.1rem);
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .quartil-topic-card h4 i {
+    font-size: clamp(1rem, 5vw, 1.2rem);
+  }
+  
+  .quartil-topic-card p {
+    font-size: clamp(0.8rem, 4vw, 0.9rem);
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: 480px) {
+  .quartil-topic-card {
+    padding: var(--spacing-sm);
+  }
+  
+  .quartil-topic-card h4 {
+    font-size: clamp(0.85rem, 6vw, 1rem);
+  }
+  
+  .quartil-topic-card h4 i {
+    font-size: clamp(0.9rem, 6vw, 1.1rem);
+  }
+  
+  .quartil-topic-card p {
+    font-size: clamp(0.75rem, 5vw, 0.85rem);
+  }
+}
+
+/* Ajustes para orientação landscape em dispositivos móveis */
+@media (max-width: 768px) and (orientation: landscape) {
+  .quartil-topic-card {
+    padding: var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .quartil-topic-card h4 {
+    font-size: clamp(0.9rem, 3vw, 1.1rem);
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .quartil-topic-card h4 i {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+  }
+  
+  .quartil-topic-card p {
+    font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+    line-height: 1.3;
+  }
+}
+
+/* Melhorias para tablets */
+@media (min-width: 576px) and (max-width: 768px) {
+  .quartil-topics .col-md-4 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .quartil-topic-card {
+    padding: var(--spacing-lg);
+  }
+  
+  .quartil-topic-card h4 {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+  }
+  
+  .quartil-topic-card h4 i {
+    font-size: clamp(1.1rem, 3vw, 1.3rem);
+  }
+  
+  .quartil-topic-card p {
+    font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+  }
+}
+
+/* Ajustes para telas muito pequenas (até 360px) */
+@media (max-width: 360px) {
+  .quartil-topic-card {
+    padding: var(--spacing-xs);
+  }
+  
+  .quartil-topic-card h4 {
+    font-size: clamp(0.8rem, 7vw, 0.95rem);
+  }
+  
+  .quartil-topic-card h4 i {
+    font-size: clamp(0.85rem, 7vw, 1rem);
+  }
+  
+  .quartil-topic-card p {
+    font-size: clamp(0.7rem, 6vw, 0.8rem);
+  }
+}
