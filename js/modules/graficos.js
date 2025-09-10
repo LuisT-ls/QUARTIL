@@ -1,6 +1,7 @@
 // graficos.js - Módulo para criação e atualização dos gráficos
 import { appState } from '../app.js'
 import { calcularQuartil, calcularOutliers } from './quartis.js'
+import chartLoader from '../utils/chart-loader.js'
 
 window.histogramaChart = null
 window.boxplotChart = null
@@ -53,21 +54,8 @@ export function updateGraficos(data) {
   }
 }
 
-function loadChartJs() {
-  return new Promise(resolve => {
-    if (window.Chart) {
-      resolve();
-      return;
-    }
-    if (document.querySelector('script[src*="chart.js"]')) {
-      document.querySelector('script[src*="chart.js"]').addEventListener('load', resolve);
-      return;
-    }
-    const s = document.createElement('script');
-    s.src = 'https://cdn.jsdelivr.net/npm/chart.js';
-    s.onload = resolve;
-    document.body.appendChild(s);
-  });
+async function loadChartJs() {
+  return await chartLoader.loadChartJS()
 }
 
 // Função para criar um histograma vazio

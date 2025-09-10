@@ -15,6 +15,7 @@ import { initializeNotifications } from './utils/notifications.js'
 import { initializeOfflineSync } from './utils/offline-sync.js'
 import { initializeAutoUpdater } from './utils/auto-updater.js'
 import FontLoader from './utils/font-loader.js'
+import reflowOptimizer from './utils/reflow-optimizer.js'
 
 // Dados compartilhados entre módulos
 export const appState = {
@@ -88,18 +89,23 @@ if ('serviceWorker' in navigator) {
 }
 
 // Função para inicializar todos os módulos
-function initializeAllModules() {
+async function initializeAllModules() {
   try {
+    // Usar requestAnimationFrame para evitar reflow forçado
+    await new Promise(resolve => requestAnimationFrame(resolve))
+    
     // Módulos críticos carregados imediatamente
     initializeDarkMode()
     initializeRol()
     initializeAccessibility()
     initializeImageOptimizations()
     
-    // Inicializar sistemas PWA
-    initializeNotifications()
-    initializeOfflineSync()
-    initializeAutoUpdater()
+    // Inicializar sistemas PWA de forma otimizada
+    await reflowOptimizer.batchDOMUpdates([
+      () => initializeNotifications(),
+      () => initializeOfflineSync(),
+      () => initializeAutoUpdater()
+    ])
     
     // Inicializar todos os módulos de forma síncrona
     initializeMedidasPosicao()

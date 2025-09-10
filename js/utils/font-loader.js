@@ -53,15 +53,29 @@ class FontLoader {
   }
 
   applyFontFallbacks() {
-    const elements = document.querySelectorAll('*');
-    
-    elements.forEach(element => {
-      const computedStyle = window.getComputedStyle(element);
-      const fontFamily = computedStyle.fontFamily;
+    // Usar requestAnimationFrame para evitar reflow forçado
+    requestAnimationFrame(() => {
+      const elements = document.querySelectorAll('*');
+      const elementsToUpdate = [];
       
-      // Se a fonte não carregou, aplicar fallback
-      if (fontFamily && !this.isFontLoaded(fontFamily)) {
-        element.classList.add('font-fallback');
+      // Primeiro, coletar elementos que precisam de fallback
+      elements.forEach(element => {
+        const computedStyle = window.getComputedStyle(element);
+        const fontFamily = computedStyle.fontFamily;
+        
+        // Se a fonte não carregou, marcar para atualização
+        if (fontFamily && !this.isFontLoaded(fontFamily)) {
+          elementsToUpdate.push(element);
+        }
+      });
+      
+      // Aplicar fallbacks em batch para reduzir reflows
+      if (elementsToUpdate.length > 0) {
+        requestAnimationFrame(() => {
+          elementsToUpdate.forEach(element => {
+            element.classList.add('font-fallback');
+          });
+        });
       }
     });
   }
@@ -74,11 +88,18 @@ class FontLoader {
   }
 
   optimizeTextRendering() {
-    // Aplicar otimizações de renderização de texto
-    const textElements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, div');
-    
-    textElements.forEach(element => {
-      element.classList.add('text-optimized');
+    // Usar requestAnimationFrame para evitar reflow forçado
+    requestAnimationFrame(() => {
+      const textElements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, div');
+      
+      // Aplicar otimizações em batch
+      if (textElements.length > 0) {
+        requestAnimationFrame(() => {
+          textElements.forEach(element => {
+            element.classList.add('text-optimized');
+          });
+        });
+      }
     });
   }
 
