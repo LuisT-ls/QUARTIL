@@ -129,7 +129,7 @@
 /* Performance info */
 .performance-info {
   font-size: var(--font-size-xs);
-  color: var(--gray-500);
+  color: var(--primary-color);
   font-style: italic;
 }
 
@@ -200,7 +200,7 @@ img[data-src].loaded {
 }
 
 .dark-mode .performance-info {
-  color: var(--gray-400);
+  color: var(--primary-light) !important;
 }
 
 .dark-mode .performance-info strong {
