@@ -98,8 +98,40 @@ Para verificar as melhorias:
 3. Monitore o FCP e CLS
 4. Teste em conexões lentas
 
+## Otimizações Adicionais do KaTeX
+
+### Problema Identificado
+- As fontes KaTeX ainda apareciam no PageSpeed sem `font-display: swap`
+- O KaTeX era carregado dinamicamente via JavaScript sem otimizações
+
+### Soluções Implementadas
+
+1. **CSS Otimizado do KaTeX** (`katex-optimized.css`)
+   - Todas as fontes KaTeX com `font-display: swap`
+   - CSS customizado substituindo o original do CDN
+
+2. **KaTeX Loader Otimizado** (`katex-loader.js`)
+   - Carregamento controlado do KaTeX
+   - Preload de fontes críticas
+   - Fallbacks robustos
+
+3. **Preloads Específicos**
+   ```html
+   <!-- Preload KaTeX Fonts -->
+   <link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin />
+   <link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin />
+   ```
+
+4. **Integração com FontLoader**
+   - KaTeX incluído no sistema de preload de fontes
+   - Carregamento otimizado e controlado
+
+### Arquivos Adicionais Criados
+- `assets/css/modules/base/katex-optimized.css` - CSS otimizado do KaTeX
+- `js/utils/katex-loader.js` - Loader otimizado do KaTeX
+
 ## Próximos Passos
 
 - Considerar usar fontes locais para fontes críticas
 - Implementar service worker para cache de fontes
-- Otimizar ainda mais as fontes KaTeX se necessário
+- Monitorar performance após implementações

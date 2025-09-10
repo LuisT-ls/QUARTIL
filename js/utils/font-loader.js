@@ -105,6 +105,14 @@ class FontLoader {
       {
         url: 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0-beta3/webfonts/fa-solid-900.woff2',
         family: 'Font Awesome 5 Free'
+      },
+      {
+        url: 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/fonts/KaTeX_Main-Regular.woff2',
+        family: 'KaTeX_Main'
+      },
+      {
+        url: 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/fonts/KaTeX_Math-Italic.woff2',
+        family: 'KaTeX_Math'
       }
     ];
 

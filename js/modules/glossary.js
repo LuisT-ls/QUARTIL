@@ -3,6 +3,8 @@
  * Glossário interativo para todos os termos estatísticos com suas fórmulas
  */
 
+import katexLoader from '../utils/katex-loader.js'
+
 export default class Glossario {
   constructor() {
     this.glossarioData = [
@@ -391,62 +393,24 @@ export default class Glossario {
   }
 
   adicionarCSSMatematico() {
-    // Verificar se já existe o link para KaTeX
-    if (!document.getElementById('katex-css')) {
-      // Adicionar KaTeX CSS
-      const katexCSS = document.createElement('link')
-      katexCSS.id = 'katex-css'
-      katexCSS.rel = 'stylesheet'
-      katexCSS.href =
-        'https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css'
-      document.head.appendChild(katexCSS)
-
-      // Criar uma promessa que resolve quando KaTeX estiver carregado
-      this.katexPromise = new Promise(resolve => {
-        // Adicionar o script do KaTeX
-        const katexScript = document.createElement('script')
-        katexScript.src =
-          'https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js'
-        katexScript.onload = () => {
-          // Adicionar o script de auto-render após katex carregar
-          const autoRenderScript = document.createElement('script')
-          autoRenderScript.src =
-            'https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js'
-          autoRenderScript.onload = () => {
-            // Garantir que tanto KaTeX quanto auto-render estejam disponíveis
-            resolve()
-          }
-          document.head.appendChild(autoRenderScript)
-        }
-        document.head.appendChild(katexScript)
-      })
-    } else {
-      // Se KaTeX já foi carregado, cria uma promessa resolvida
-      this.katexPromise = Promise.resolve()
-    }
+    // Usar o KaTeX Loader otimizado
+    this.katexPromise = katexLoader.loadKaTeX()
   }
 
   async inicializarRenderizacaoMatematica() {
     // Aguardar carregamento do KaTeX
     await this.katexPromise
 
-    // Verificar se o renderMathInElement está disponível
-    if (typeof renderMathInElement === 'function') {
-      try {
-        // Renderizar todas as fórmulas no glossário
-        renderMathInElement(this.glossarioElement, {
-          delimiters: [
-            { left: '\\(', right: '\\)', display: false },
-            { left: '\\[', right: '\\]', display: true },
-            { left: '$$', right: '$$', display: true }
-          ],
-          throwOnError: false,
-          strict: false
-        })
-      } catch (error) {
-        console.warn('Erro ao renderizar fórmulas (tentativa inicial):', error)
-      }
-    }
+    // Usar o KaTeX Loader otimizado para renderizar fórmulas
+    katexLoader.renderMath(this.glossarioElement, {
+      delimiters: [
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$$', right: '$$', display: true }
+      ],
+      throwOnError: false,
+      strict: false
+    })
   }
 
   adicionarGlossarioNaPagina() {
