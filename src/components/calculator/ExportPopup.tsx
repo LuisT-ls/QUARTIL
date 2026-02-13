@@ -10,8 +10,6 @@ import {
   calcularDesvioPadrao,
   calcularQuartil,
 } from "@/lib/stats";
-import { jsPDF } from "jspdf";
-import * as XLSX from "xlsx";
 
 type ExportFormat = "pdf" | "txt" | "csv" | "json" | "xlsx";
 
@@ -32,7 +30,7 @@ export function ExportPopup({ isOpen, onClose }: ExportPopupProps) {
     return () => document.removeEventListener("click", handleClick);
   }, [onClose]);
 
-  const exportData = (formato: ExportFormat) => {
+  const exportData = async (formato: ExportFormat) => {
     if (!isCalculated || currentData.length === 0) {
       alert("Não há dados para exportar. Por favor, calcule os dados primeiro.");
       return;
@@ -57,6 +55,7 @@ export function ExportPopup({ isOpen, onClose }: ExportPopupProps) {
 
     switch (formato) {
       case "pdf": {
+        const { jsPDF } = await import("jspdf");
         const doc = new jsPDF();
         doc.setFontSize(18);
         doc.text("Relatório de Estatística", 14, 22);
@@ -178,6 +177,7 @@ export function ExportPopup({ isOpen, onClose }: ExportPopupProps) {
       }
 
       case "xlsx": {
+        const XLSX = await import("xlsx");
         const wb = XLSX.utils.book_new();
         const statsData = [
           ["Calculadora de Estatística - Resultados", ""],

@@ -11,7 +11,8 @@ const GA_MEASUREMENT_ID = "G-SZW57KN2PE";
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
+  display: "swap",
 });
 
 export const metadata: Metadata = siteMetadata;

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ChevronDown, ChevronUp, Calculator } from "lucide-react";
 import type { PassoQuartil } from "@/lib/stats";
 import { obterPassosQuartis } from "@/lib/stats";
-import { MathDisplay } from "@/components/ui/MathDisplay";
+import { MathDisplay } from "@/components/ui/MathDisplayLazy";
 
 function PassoCard({ passo }: { passo: PassoQuartil }) {
   const usaLatex = passo.formulaLatex ?? passo.substituicaoLatex;
