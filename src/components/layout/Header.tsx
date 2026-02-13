@@ -23,8 +23,8 @@ export function Header() {
           </h1>
         </div>
         <p className="mx-auto max-w-[600px] text-center text-lg opacity-90">
-          Rápida, precisa e fácil de usar. Calcule quartis (Q1, Q2, Q3), média,
-          mediana, moda, desvio padrão e muito mais!
+          Calcular quartis online em segundos. Q1, Q2, Q3, média, mediana, moda,
+          desvio padrão e tabela de frequência.
         </p>
         <InternalNav />
       </div>

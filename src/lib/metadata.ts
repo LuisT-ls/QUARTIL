@@ -5,12 +5,12 @@ export const baseUrl = "https://quartil.vercel.app";
 /** Código do Google Search Console. Configure GOOGLE_SITE_VERIFICATION no .env.local */
 const googleVerification = process.env.GOOGLE_SITE_VERIFICATION;
 
-/** Título otimizado para SEO: 50-60 caracteres para melhor exibição nos resultados */
-const seoTitle = "Calculadora de Quartil e Estatística | Média, Mediana, Moda";
+/** Título otimizado para SEO/Bing: inclui "calculadora de quartil" (keyword de conversão) e "como calcular" */
+const seoTitle = "Calculadora de Quartil Online | Como Calcular Quartis Q1 Q2 Q3 Grátis";
 
-/** Descrição otimizada: 70-155 caracteres para snippet no Google */
+/** Descrição otimizada: CTA claro + keywords de alto volume (quartil estatística, calcular quartis) */
 const seoDescription =
-  "Calculadora de quartil e estatística online gratuita. Calcule Q1, Q2, Q3, média, mediana, moda e tabelas de frequência. Conteúdo educativo incluído.";
+  "Calculadora de quartil e estatística online gratuita. Calcular quartis, média, mediana, moda e tabela de frequência. Análise de quartis instantânea. Sem cadastro.";
 
 export const siteMetadata: Metadata = {
   ...(googleVerification && {
@@ -21,22 +21,22 @@ export const siteMetadata: Metadata = {
   description: seoDescription,
   keywords: [
     "calculadora de quartil",
-    "calculadora de estatística",
+    "calculadora de quartis",
+    "quartil estatística",
+    "como calcular quartis",
+    "calcular quartis",
+    "cálculo de quartis",
     "quartis Q1 Q2 Q3",
+    "tabela de frequência estatística online",
     "média aritmética",
     "mediana",
     "moda",
     "desvio padrão",
-    "variância",
-    "tabela de frequência",
-    "estatística online",
-    "análise de dados",
-    "medidas de posição",
-    "medidas de dispersão",
+    "análise de quartis",
+    "calculadora de estatística",
     "boxplot",
     "histograma",
     "aprender estatística",
-    "conteúdo educativo quartis",
   ],
   authors: [{ name: "Luís Antonio Souza Teixeira", url: "https://github.com/LuisT-ls" }],
   creator: "Luís Antonio Souza Teixeira",

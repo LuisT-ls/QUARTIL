@@ -12,22 +12,25 @@ import {
 } from "lucide-react";
 import { baseUrl } from "@/lib/metadata";
 
-const pageTitle = "Aprender Estatística | Quartis, Gráficos e Medidas de Posição";
+const pageTitle = "Como Calcular Quartis | Aprender Estatística Q1 Q2 Q3";
 const pageDescription =
-  "Conteúdo educativo: quartis, medidas de posição, gráficos e tabela de frequência. História, fórmulas e exemplos resolvidos.";
+  "Aprenda como calcular quartis passo a passo. Quartil estatística, fórmula, exemplos resolvidos e análise de quartis. Tabela de frequência e gráficos (boxplot, histograma).";
 
 export const metadata: Metadata = {
   title: pageTitle,
   description: pageDescription,
   keywords: [
-    "aprender estatística",
-    "quartis explicação",
-    "média mediana moda",
-    "histograma boxplot",
-    "tabela de frequência",
-    "estatística para estudo",
-    "fórmula de Sturges",
     "como calcular quartis",
+    "como calcular quartil",
+    "quartil estatística",
+    "quartis Q1 Q2 Q3",
+    "aprender estatística",
+    "cálculo de quartis",
+    "análise de quartis",
+    "mediana e quartis",
+    "tabela de frequência",
+    "histograma boxplot",
+    "fórmula de Sturges",
   ],
   alternates: {
     canonical: `${baseUrl}/aprender`,
@@ -77,10 +80,10 @@ export default function AprenderPage() {
       <header className="text-center">
         <h1 className="mb-4 flex items-center justify-center gap-3 text-3xl font-bold text-slate-100 md:text-4xl">
           <BookOpen className="h-10 w-10 text-blue-400" aria-hidden />
-          Conteúdo Educativo de Estatística
+          Como Calcular Quartis e Estatística
         </h1>
         <p className="text-lg text-slate-400">
-          História, conceitos, fórmulas e como resolver questões de forma detalhada.
+          Aprenda como calcular quartis, média, mediana, moda e análise de quartis. História, fórmulas e exemplos resolvidos.
         </p>
         <Link
           href="/#entrada-dados"
@@ -118,7 +121,7 @@ export default function AprenderPage() {
         <section className="rounded-2xl border border-white/10 border-t border-l border-t-white/15 border-l-white/15 bg-gradient-to-br from-slate-800/50 to-slate-900/80 p-8 backdrop-blur-md">
           <h2 className="mb-6 flex items-center gap-2 text-2xl font-semibold text-slate-100">
             <TrendingUp className="h-6 w-6 text-blue-400" aria-hidden />
-            Quartis
+            Quartis e Quartil Estatística
           </h2>
 
           <div className="space-y-6 text-slate-300">
@@ -154,7 +157,7 @@ export default function AprenderPage() {
             </div>
 
             <div>
-              <h3 className="mb-2 font-medium text-blue-300">Como calcular</h3>
+              <h3 className="mb-2 font-medium text-blue-300">Como calcular quartis</h3>
               <p className="mb-2 leading-relaxed">
                 Para dados ordenados, usa-se a posição: <code className="rounded bg-slate-700/50 px-1.5 py-0.5 font-mono text-sm text-cyan-300">posição = (n + 1) × p</code>, onde <em>p</em> é a fração (0,25 para Q1; 0,5 para mediana; 0,75 para Q3).
               </p>
