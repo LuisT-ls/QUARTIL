@@ -18,8 +18,7 @@ Checklist para migrar 100% para Next.js mantendo SEO e evitar perda de indexaç�
 
 ## 🔧 Configuração Vercel
 
-1. **Root Directory**: Em *Project Settings → General*, defina **Root Directory** = `next-app`
-   - Garante que apenas o Next.js seja deployado (legado fica fora do deploy)
+1. **Root Directory**: Em *Project Settings → General*, deixe **Root Directory** vazio (aplicação na raiz)
 
 2. **Variáveis de ambiente**: Se usar `GOOGLE_SITE_VERIFICATION`, configure em *Settings → Environment Variables*
 
@@ -33,7 +32,7 @@ Checklist para migrar 100% para Next.js mantendo SEO e evitar perda de indexaç�
 |------|-------------|
 | **baseUrl** | `metadata.ts` usa `https://quartil.vercel.app` ✅ |
 | **Canonical** | Home e `/aprender` com canonical corretos ✅ |
-| **Imagem OG** | Garanta que `imagem-preview.jpg` esteja em `next-app/public/` (copie da raiz se necessário) |
+| **Imagem OG** | `imagem-preview.jpg` em `public/` ✅ |
 | **Título** | Legacy: "Calculadora... \| Média, Mediana, Moda, Desvio Padrão" / Next: "Calculadora... \| Média, Mediana, Moda" — leve diferença, aceitável |
 | **Descrição** | Dentro de 70–155 caracteres ✅ |
 

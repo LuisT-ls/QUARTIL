@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./next-app/public/logo/logo.svg" alt="Quartil Logo" width="80" height="80" />
+  <img src="./public/logo/logo.svg" alt="Quartil Logo" width="80" height="80" />
 </p>
 
 <h1 align="center">Calculadora de Quartil e Estatística</h1>
@@ -25,7 +25,7 @@
 ## 📸 Preview
 
 <p align="center">
-  <img src="./next-app/public/imagem-preview.jpg" alt="Preview da Calculadora de Quartil" width="800" />
+  <img src="./public/imagem-preview.jpg" alt="Preview da Calculadora de Quartil" width="800" />
 </p>
 
 ---
@@ -84,9 +84,6 @@ Acesse [quartil.vercel.app/aprender](https://quartil.vercel.app/aprender) para c
 git clone https://github.com/LuisT-ls/QUARTIL.git
 cd QUARTIL
 
-# Entre na pasta do Next.js
-cd next-app
-
 # Instale as dependências
 npm install
 
@@ -111,25 +108,23 @@ Acesse [http://localhost:3000](http://localhost:3000).
 
 ```
 QUARTIL/
-├── next-app/                 # Aplicação Next.js (principal)
-│   ├── src/
-│   │   ├── app/              # App Router, layout, rotas
-│   │   │   ├── layout.tsx
-│   │   │   ├── page.tsx
-│   │   │   ├── aprender/     # Conteúdo educativo
-│   │   │   │   ├── layout.tsx  # JSON-LD LearningResource
-│   │   │   │   └── page.tsx
-│   │   │   ├── robots.ts     # Geração de robots.txt
-│   │   │   └── sitemap.ts    # Geração de sitemap.xml
-│   │   ├── components/
-│   │   │   ├── calculator/   # Entrada, export, popups
-│   │   │   ├── layout/       # Header, Footer, etc.
-│   │   │   ├── sections/     # Seções da página
-│   │   │   └── seo/          # JSON-LD schema
-│   │   ├── context/          # CalculatorContext
-│   │   └── lib/              # Cálculos estatísticos
-│   └── public/               # Assets estáticos
-├── index.html                # Versão legada (HTML/JS)
+├── src/
+│   ├── app/                  # App Router, layout, rotas
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   ├── aprender/         # Conteúdo educativo
+│   │   │   ├── layout.tsx    # JSON-LD LearningResource
+│   │   │   └── page.tsx
+│   │   ├── robots.ts         # Geração de robots.txt
+│   │   └── sitemap.ts        # Geração de sitemap.xml
+│   ├── components/
+│   │   ├── calculator/       # Entrada, export, popups
+│   │   ├── layout/           # Header, Footer, etc.
+│   │   ├── sections/         # Seções da página
+│   │   └── seo/              # JSON-LD schema
+│   ├── context/              # CalculatorContext
+│   └── lib/                  # Cálculos estatísticos
+├── public/                   # Assets estáticos
 └── README.md
 ```
 
