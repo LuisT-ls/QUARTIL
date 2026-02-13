@@ -32,16 +32,17 @@
 
 ## 📋 Sobre o projeto
 
-**Quartil** é uma calculadora de estatística online que permite calcular quartis (Q1, Q2, Q3), medidas de posição, dispersão, gerar tabelas de frequência, gráficos e exportar resultados em múltiplos formatos. Ideal para estudantes, professores e profissionais que precisam de análise estatística rápida e precisa.
+**Quartil** é uma calculadora de estatística online que permite calcular quartis (Q1, Q2, Q3), medidas de posição, dispersão, gerar tabelas de frequência, gráficos e exportar resultados em múltiplos formatos. Inclui uma **página de conteúdo educativo** com história, fórmulas e exemplos resolvidos. Ideal para estudantes, professores e profissionais que precisam de análise estatística rápida e precisa.
 
 ### ✨ Funcionalidades
 
 | Recurso | Descrição |
 |---------|-----------|
+| **Conteúdo Educativo** | Página `/aprender` com quartis, medidas de posição, gráficos e tabela de frequência — história, fórmulas e exemplos |
 | **Medidas de Posição** | Média, mediana e moda com fórmulas explicadas |
 | **Medidas de Dispersão** | Desvio padrão, variância e coeficiente de variação |
 | **Quartis** | Q1, Q2 (mediana), Q3, IQR e detecção de outliers |
-| **Gráficos** | Histograma e boxplot interativos (Chart.js) |
+| **Gráficos** | Histograma e boxplot interativos (Chart.js) com legendas |
 | **Tabela de Frequência** | Automática (Sturges) ou manual por classes |
 | **Exportação** | PDF, TXT, CSV, JSON e XLSX |
 | **Gerar Dados** | Números aleatórios para testes |
@@ -52,6 +53,8 @@
 1. Insira os dados separados por vírgula ou espaço: `10, 20, 30, 40, 50`
 2. Clique em **Calcular**
 3. Visualize resultados, gráficos e exporte no formato desejado
+
+Acesse [quartil.vercel.app/aprender](https://quartil.vercel.app/aprender) para conteúdo didático sobre quartis, gráficos e medidas de posição.
 
 ---
 
@@ -113,6 +116,9 @@ QUARTIL/
 │   │   ├── app/              # App Router, layout, rotas
 │   │   │   ├── layout.tsx
 │   │   │   ├── page.tsx
+│   │   │   ├── aprender/     # Conteúdo educativo
+│   │   │   │   ├── layout.tsx  # JSON-LD LearningResource
+│   │   │   │   └── page.tsx
 │   │   │   ├── robots.ts     # Geração de robots.txt
 │   │   │   └── sitemap.ts    # Geração de sitemap.xml
 │   │   ├── components/
@@ -132,10 +138,11 @@ QUARTIL/
 ## 🔍 SEO e acessibilidade
 
 - **Meta tags** otimizadas (title ~55 chars, description 70–155 chars)
-- **Open Graph** e **Twitter Cards** para compartilhamento
-- **JSON-LD** schema `WebApplication`
-- **robots.txt** e **sitemap.xml** dinâmicos
-- **Links internos** com âncora para seções
+- **Open Graph** e **Twitter Cards** para compartilhamento nas páginas principal e `/aprender`
+- **JSON-LD** schema `WebApplication` (página principal) e `LearningResource` (página educativa)
+- **robots.txt** e **sitemap.xml** dinâmicos (inclui `/aprender`)
+- **Canonical URLs** e keywords específicas por página
+- **Links internos** entre calculadora e conteúdo educativo
 - **Links externos** com anchor text descritivo
 - **WCAG 2.1** (foco visível, contraste, aria-labels)
 

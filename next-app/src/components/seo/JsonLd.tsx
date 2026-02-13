@@ -28,6 +28,7 @@ const jsonLd = {
     "Desvio padrão e variância",
     "Tabela de frequência",
     "Gráficos: histograma e boxplot",
+    "Conteúdo educativo (história, fórmulas, exemplos)",
     "Exportação em PDF, CSV, JSON, XLSX",
   ],
 };

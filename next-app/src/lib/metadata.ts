@@ -10,7 +10,7 @@ const seoTitle = "Calculadora de Quartil e Estatística | Média, Mediana, Moda"
 
 /** Descrição otimizada: 70-155 caracteres para snippet no Google */
 const seoDescription =
-  "Calculadora de quartil e estatística online gratuita. Calcule Q1, Q2, Q3, média, mediana, moda e tabelas de frequência.";
+  "Calculadora de quartil e estatística online gratuita. Calcule Q1, Q2, Q3, média, mediana, moda e tabelas de frequência. Conteúdo educativo incluído.";
 
 export const siteMetadata: Metadata = {
   ...(googleVerification && {
@@ -35,6 +35,8 @@ export const siteMetadata: Metadata = {
     "medidas de dispersão",
     "boxplot",
     "histograma",
+    "aprender estatística",
+    "conteúdo educativo quartis",
   ],
   authors: [{ name: "Luís Antonio Souza Teixeira", url: "https://github.com/LuisT-ls" }],
   creator: "Luís Antonio Souza Teixeira",

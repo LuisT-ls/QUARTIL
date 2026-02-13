@@ -10,11 +10,50 @@ import {
   ChevronRight,
   ArrowLeft,
 } from "lucide-react";
+import { baseUrl } from "@/lib/metadata";
+
+const pageTitle = "Aprender Estatística | Quartis, Gráficos e Medidas de Posição";
+const pageDescription =
+  "Conteúdo educativo: quartis, medidas de posição, gráficos e tabela de frequência. História, fórmulas e exemplos resolvidos.";
 
 export const metadata: Metadata = {
-  title: "Aprender Estatística | Quartis, Gráficos e Medidas",
-  description:
-    "Conteúdo educativo sobre quartis, medidas de posição, gráficos (histograma, boxplot), tabela de frequência. História, fórmulas e exercícios resolvidos.",
+  title: pageTitle,
+  description: pageDescription,
+  keywords: [
+    "aprender estatística",
+    "quartis explicação",
+    "média mediana moda",
+    "histograma boxplot",
+    "tabela de frequência",
+    "estatística para estudo",
+    "fórmula de Sturges",
+    "como calcular quartis",
+  ],
+  alternates: {
+    canonical: `${baseUrl}/aprender`,
+  },
+  openGraph: {
+    title: pageTitle,
+    description: pageDescription,
+    url: `${baseUrl}/aprender`,
+    siteName: "Quartil - Calculadora de Estatística",
+    locale: "pt_BR",
+    type: "article",
+    images: [
+      {
+        url: `${baseUrl}/imagem-preview.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "Quartil - Conteúdo educativo de estatística",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: pageTitle,
+    description: pageDescription,
+    images: [`${baseUrl}/imagem-preview.jpg`],
+  },
 };
 
 const topics = [
