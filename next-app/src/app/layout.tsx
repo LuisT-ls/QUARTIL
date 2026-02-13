@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import { Header, Footer, Watermark, ScrollToTop } from "@/components/layout";
+import { Header, Footer, Watermark, ScrollToTop, OfflineModal } from "@/components/layout";
 import { siteMetadata } from "@/lib/metadata";
 import "./globals.css";
 
@@ -35,6 +35,7 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} font-sans antialiased`}
       >
+        <OfflineModal />
         <Watermark />
         <ScrollToTop />
         <Header />
