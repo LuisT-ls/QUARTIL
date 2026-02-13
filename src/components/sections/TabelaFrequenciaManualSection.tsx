@@ -205,6 +205,7 @@ export function TabelaFrequenciaManualSection() {
                         value={row.limiteInferior}
                         onChange={(e) => updateRow(i, "limiteInferior", e.target.value)}
                         placeholder="Li"
+                        aria-label={`Linha ${i + 1}: limite inferior da classe`}
                         className="w-20 rounded border border-white/10 bg-slate-800/50 px-2 py-1 text-sm text-slate-200 placeholder:text-slate-500"
                       />
                       <span>⊢</span>
@@ -214,6 +215,7 @@ export function TabelaFrequenciaManualSection() {
                         value={row.limiteSuperior}
                         onChange={(e) => updateRow(i, "limiteSuperior", e.target.value)}
                         placeholder="Ls"
+                        aria-label={`Linha ${i + 1}: limite superior da classe`}
                         className="w-20 rounded border border-white/10 bg-slate-800/50 px-2 py-1 text-sm text-slate-200 placeholder:text-slate-500"
                       />
                     </div>
@@ -225,6 +227,7 @@ export function TabelaFrequenciaManualSection() {
                       value={row.pontoMedio}
                       onChange={(e) => updateRow(i, "pontoMedio", e.target.value)}
                       placeholder="PM"
+                      aria-label={`Linha ${i + 1}: ponto médio`}
                       className="w-20 rounded border border-white/10 bg-slate-800/50 px-2 py-1 text-sm text-slate-200 placeholder:text-slate-500"
                     />
                   </td>
@@ -235,6 +238,7 @@ export function TabelaFrequenciaManualSection() {
                       value={row.h}
                       onChange={(e) => updateRow(i, "h", e.target.value)}
                       placeholder="h"
+                      aria-label={`Linha ${i + 1}: largura da classe (h)`}
                       className="w-16 rounded border border-white/10 bg-slate-800/50 px-2 py-1 text-sm text-slate-200 placeholder:text-slate-500"
                     />
                   </td>
@@ -244,6 +248,7 @@ export function TabelaFrequenciaManualSection() {
                       value={row.fi}
                       onChange={(e) => updateRow(i, "fi", e.target.value)}
                       placeholder="fi"
+                      aria-label={`Linha ${i + 1}: frequência absoluta (fi)`}
                       className="w-16 rounded border border-white/10 bg-slate-800/50 px-2 py-1 text-sm text-slate-200 placeholder:text-slate-500"
                     />
                   </td>
@@ -253,6 +258,7 @@ export function TabelaFrequenciaManualSection() {
                       step="any"
                       value={row.fri}
                       readOnly
+                      aria-label={`Linha ${i + 1}: frequência relativa (fri)`}
                       className="w-20 rounded border border-white/10 bg-slate-800/50 px-2 py-1 text-sm text-slate-300"
                     />
                   </td>
@@ -262,6 +268,7 @@ export function TabelaFrequenciaManualSection() {
                       step="any"
                       value={row.friPerc}
                       readOnly
+                      aria-label={`Linha ${i + 1}: frequência relativa em percentual (fri %)`}
                       className="w-16 rounded border border-white/10 bg-slate-800/50 px-2 py-1 text-sm text-slate-300"
                     />
                   </td>
@@ -270,6 +277,7 @@ export function TabelaFrequenciaManualSection() {
                       type="number"
                       value={row.Fi}
                       readOnly
+                      aria-label={`Linha ${i + 1}: frequência acumulada (Fi)`}
                       className="w-16 rounded border border-white/10 bg-slate-800/50 px-2 py-1 text-sm text-slate-300"
                     />
                   </td>
@@ -279,6 +287,7 @@ export function TabelaFrequenciaManualSection() {
                       step="any"
                       value={row.Fri}
                       readOnly
+                      aria-label={`Linha ${i + 1}: frequência relativa acumulada (Fri)`}
                       className="w-16 rounded border border-white/10 bg-slate-800/50 px-2 py-1 text-sm text-slate-300"
                     />
                   </td>
