@@ -1,3 +1,4 @@
+import { CalculatorProvider } from "@/context/CalculatorContext";
 import { CalculatorSection } from "@/components/calculator/CalculatorSection";
 import { MedidasPosicao } from "@/components/sections/MedidasPosicao";
 import { MedidasDispersao } from "@/components/sections/MedidasDispersao";
@@ -10,16 +11,18 @@ import { EducativoSection } from "@/components/sections/EducativoSection";
 
 export default function Home() {
   return (
-    <div className="container mx-auto max-w-6xl px-4 pb-8">
-      <CalculatorSection />
-      <MedidasPosicao />
-      <MedidasDispersao />
-      <QuartisSection />
-      <GraficosSection />
-      <TabelaFrequenciaSection />
-      <TabelaFrequenciaManualSection />
-      <CasosUsoSection />
-      <EducativoSection />
-    </div>
+    <CalculatorProvider>
+      <div className="container mx-auto max-w-6xl px-4 pb-8">
+        <CalculatorSection />
+        <MedidasPosicao />
+        <MedidasDispersao />
+        <QuartisSection />
+        <GraficosSection />
+        <TabelaFrequenciaSection />
+        <TabelaFrequenciaManualSection />
+        <CasosUsoSection />
+        <EducativoSection />
+      </div>
+    </CalculatorProvider>
   );
 }
