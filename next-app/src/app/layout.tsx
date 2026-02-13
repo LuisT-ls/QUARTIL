@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import { Header, Footer, Watermark, SkipLink } from "@/components/layout";
+import { Header, Footer, Watermark } from "@/components/layout";
 import { siteMetadata } from "@/lib/metadata";
 import "./globals.css";
 
@@ -35,10 +35,9 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} font-sans antialiased`}
       >
-        <SkipLink />
         <Watermark />
         <Header />
-        <main id="main-content" role="main" aria-label="Conteúdo principal">
+        <main id="main" role="main" aria-label="Conteúdo principal">
           {children}
         </main>
         <Footer />

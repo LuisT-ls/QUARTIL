@@ -18,10 +18,10 @@ function ResultCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm dark:border-neutral-700 dark:bg-neutral-800">
-      <p className="text-xl font-semibold text-[#4361ee]">{value}</p>
-      <p className="mt-2 text-sm" dangerouslySetInnerHTML={{ __html: formula }} />
-      <div className="mt-2 space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
+    <div className="rounded-2xl border border-white/10 border-t border-l border-t-white/15 border-l-white/15 bg-gradient-to-br from-slate-800/50 to-slate-900/80 p-6 backdrop-blur-md transition-all duration-300 hover:border-blue-500/50">
+      <p className="font-mono text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">{value}</p>
+      <p className="mt-2 text-sm text-slate-300" dangerouslySetInnerHTML={{ __html: formula }} />
+      <div className="mt-2 space-y-1 text-sm text-slate-400">
         {children}
       </div>
     </div>
@@ -33,19 +33,19 @@ export function QuartisSection() {
 
   if (!isCalculated || currentData.length === 0) {
     return (
-      <section className="mb-12" aria-labelledby="quartis-title">
-        <h2 className="mb-2 flex items-center gap-2 text-2xl font-semibold">
-          <TrendingUp className="h-6 w-6 text-[#4361ee]" aria-hidden />
+      <section className="py-6" aria-labelledby="quartis-title">
+        <h2 className="mb-2 flex items-center gap-2 text-2xl font-semibold text-slate-100">
+          <TrendingUp className="h-6 w-6 text-blue-400" aria-hidden />
           Quartis - Análise de Distribuição
         </h2>
-        <p className="mb-6 text-neutral-600">
+        <p className="mb-6 text-slate-400">
           Os quartis dividem os dados em quatro partes iguais. Insira os dados e
           clique em Calcular.
         </p>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {["Q1", "Q2", "Q3", "IQR"].map((q) => (
-            <div key={q} className="rounded-lg border p-4">
-              <p className="text-neutral-500">-</p>
+            <div key={q} className="rounded-2xl border border-white/10 border-t border-l border-t-white/15 border-l-white/15 bg-gradient-to-br from-slate-800/50 to-slate-900/80 p-6 backdrop-blur-md transition-all duration-300 hover:border-blue-500/50">
+              <p className="text-slate-500">-</p>
             </div>
           ))}
         </div>
@@ -63,18 +63,18 @@ export function QuartisSection() {
   const totalOutliers = outliers.inferior.length + outliers.superior.length;
 
   return (
-    <section className="mb-12" aria-labelledby="quartis-title">
-      <h2 className="mb-2 flex items-center gap-2 text-2xl font-semibold">
-        <TrendingUp className="h-6 w-6 text-[#4361ee]" aria-hidden />
+    <section className="py-6" aria-labelledby="quartis-title">
+      <h2 className="mb-2 flex items-center gap-2 text-2xl font-semibold text-slate-100">
+        <TrendingUp className="h-6 w-6 text-blue-400" aria-hidden />
         Quartis - Análise de Distribuição
       </h2>
-      <p className="mb-6 text-neutral-600">
+      <p className="mb-6 text-slate-400">
         Os quartis são essenciais para entender a distribuição dos dados.
       </p>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         <div>
-          <h3 className="mb-2 font-medium text-[#4361ee]">Primeiro Quartil (Q1)</h3>
-          <p className="mb-3 text-sm text-neutral-600">25% dos dados abaixo</p>
+          <h3 className="mb-2 text-xs font-medium uppercase tracking-wider text-slate-400">Primeiro Quartil (Q1)</h3>
+          <p className="mb-3 text-sm text-slate-400">25% dos dados abaixo</p>
           <ResultCard
             value={q1.toFixed(2)}
             formula="<strong>Fórmula:</strong> Q₁ = posição n×0,25"
@@ -84,8 +84,8 @@ export function QuartisSection() {
           </ResultCard>
         </div>
         <div>
-          <h3 className="mb-2 font-medium text-emerald-600">Mediana (Q2)</h3>
-          <p className="mb-3 text-sm text-neutral-600">50% dos dados abaixo</p>
+          <h3 className="mb-2 text-xs font-medium uppercase tracking-wider text-slate-400">Mediana (Q2)</h3>
+          <p className="mb-3 text-sm text-slate-400">50% dos dados abaixo</p>
           <ResultCard
             value={q2.toFixed(2)}
             formula="<strong>Fórmula:</strong> Q₂ = Mediana"
@@ -94,8 +94,8 @@ export function QuartisSection() {
           </ResultCard>
         </div>
         <div>
-          <h3 className="mb-2 font-medium text-amber-600">Terceiro Quartil (Q3)</h3>
-          <p className="mb-3 text-sm text-neutral-600">75% dos dados abaixo</p>
+          <h3 className="mb-2 text-xs font-medium uppercase tracking-wider text-slate-400">Terceiro Quartil (Q3)</h3>
+          <p className="mb-3 text-sm text-slate-400">75% dos dados abaixo</p>
           <ResultCard
             value={q3.toFixed(2)}
             formula="<strong>Fórmula:</strong> Q₃ = posição n×0,75"
@@ -104,8 +104,8 @@ export function QuartisSection() {
           </ResultCard>
         </div>
         <div>
-          <h3 className="mb-2 font-medium text-sky-600">Amplitude Interquartil (IQR)</h3>
-          <p className="mb-3 text-sm text-neutral-600">Q3 - Q1</p>
+          <h3 className="mb-2 text-xs font-medium uppercase tracking-wider text-slate-400">Amplitude Interquartil (IQR)</h3>
+          <p className="mb-3 text-sm text-slate-400">Q3 - Q1</p>
           <ResultCard
             value={iqr.toFixed(2)}
             formula="<strong>Fórmula:</strong> IQR = Q₃ - Q₁"
@@ -116,8 +116,8 @@ export function QuartisSection() {
       </div>
       <div className="mt-6 grid gap-6 md:grid-cols-2">
         <div>
-          <h3 className="mb-2 font-medium text-neutral-600">Média das Juntas</h3>
-          <p className="mb-3 text-sm text-neutral-600">(Q1 + Q2 + Q3) / 3</p>
+          <h3 className="mb-2 text-xs font-medium uppercase tracking-wider text-slate-400">Média das Juntas</h3>
+          <p className="mb-3 text-sm text-slate-400">(Q1 + Q2 + Q3) / 3</p>
           <ResultCard
             value={mediaJuntas.toFixed(2)}
             formula="<strong>Fórmula:</strong> (Q₁+Q₂+Q₃)/3"
@@ -126,8 +126,8 @@ export function QuartisSection() {
           </ResultCard>
         </div>
         <div>
-          <h3 className="mb-2 font-medium text-neutral-800">Detecção de Outliers</h3>
-          <p className="mb-3 text-sm text-neutral-600">Limites = Q₁ ± 1.5×IQR</p>
+          <h3 className="mb-2 text-xs font-medium uppercase tracking-wider text-slate-400">Detecção de Outliers</h3>
+          <p className="mb-3 text-sm text-slate-400">Limites = Q₁ ± 1.5×IQR</p>
           <ResultCard
             value={
               totalOutliers > 0

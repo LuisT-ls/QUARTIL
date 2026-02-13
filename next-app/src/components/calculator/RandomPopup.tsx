@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { Sparkles } from "lucide-react";
 
 interface RandomPopupProps {
   isOpen: boolean;
@@ -91,7 +92,7 @@ export function RandomPopup({
               max={100}
               value={quantidade}
               onChange={(e) => setQuantidade(parseInt(e.target.value, 10) || 20)}
-              className="w-full rounded-lg border border-neutral-300 px-3 py-2 dark:border-neutral-600 dark:bg-neutral-800"
+              className="w-full rounded-lg border border-neutral-300 px-3 py-2 transition-colors duration-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:border-neutral-600 dark:bg-neutral-800"
             />
           </div>
           <div>
@@ -106,7 +107,7 @@ export function RandomPopup({
               type="number"
               value={min}
               onChange={(e) => setMin(parseFloat(e.target.value) || 0)}
-              className="w-full rounded-lg border border-neutral-300 px-3 py-2 dark:border-neutral-600 dark:bg-neutral-800"
+              className="w-full rounded-lg border border-neutral-300 px-3 py-2 transition-colors duration-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:border-neutral-600 dark:bg-neutral-800"
             />
           </div>
           <div>
@@ -121,7 +122,7 @@ export function RandomPopup({
               type="number"
               value={max}
               onChange={(e) => setMax(parseFloat(e.target.value) || 100)}
-              className="w-full rounded-lg border border-neutral-300 px-3 py-2 dark:border-neutral-600 dark:bg-neutral-800"
+              className="w-full rounded-lg border border-neutral-300 px-3 py-2 transition-colors duration-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:border-neutral-600 dark:bg-neutral-800"
             />
           </div>
           <div className="flex items-center gap-2">
@@ -141,9 +142,10 @@ export function RandomPopup({
         <button
           type="button"
           onClick={handleGenerate}
-          className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-[#4361ee] px-4 py-2 text-white transition-colors hover:bg-[#3a0ca3]"
+          className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-indigo-500 to-indigo-600 px-4 py-2.5 font-medium text-white shadow-[0_0_15px_rgba(99,102,241,0.3)] transition-all duration-300 hover:from-indigo-400 hover:to-indigo-500 hover:shadow-[0_0_20px_rgba(99,102,241,0.4)]"
           aria-label="Gerar números aleatórios"
         >
+          <Sparkles className="h-4 w-4" />
           Gerar
         </button>
       </div>

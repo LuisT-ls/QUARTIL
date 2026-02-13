@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
+import { FileText, FileSpreadsheet, Braces } from "lucide-react";
 import { useCalculator } from "@/context/CalculatorContext";
 import {
   calcularMedia,
@@ -253,20 +254,22 @@ export function ExportPopup({ isOpen, onClose }: ExportPopupProps) {
         <div className="flex flex-wrap gap-2">
           {(
             [
-              ["pdf", "PDF", "bg-red-600 hover:bg-red-700"],
-              ["txt", "TXT", "bg-amber-600 hover:bg-amber-700"],
-              ["csv", "CSV", "bg-sky-600 hover:bg-sky-700"],
-              ["json", "JSON", "bg-emerald-600 hover:bg-emerald-700"],
-              ["xlsx", "XLSX", "bg-[#4361ee] hover:bg-[#3a0ca3]"],
-            ] as [ExportFormat, string, string][]
-          ).map(([fmt, label, cls]) => (
+              ["pdf", "PDF", "from-red-500 to-red-600", "0 0 15px rgba(239,68,68,0.3)", FileText],
+              ["txt", "TXT", "from-amber-500 to-amber-600", "0 0 15px rgba(245,158,11,0.3)", FileText],
+              ["csv", "CSV", "from-sky-500 to-sky-600", "0 0 15px rgba(14,165,233,0.3)", FileSpreadsheet],
+              ["json", "JSON", "from-emerald-500 to-emerald-600", "0 0 15px rgba(16,185,129,0.3)", Braces],
+              ["xlsx", "XLSX", "from-indigo-500 to-indigo-600", "0 0 15px rgba(99,102,241,0.3)", FileSpreadsheet],
+            ] as [ExportFormat, string, string, string, typeof FileText][]
+          ).map(([fmt, label, gradient, shadow, Icon]) => (
             <button
               key={fmt}
               type="button"
               onClick={() => exportData(fmt)}
-              className={`rounded-lg px-4 py-2 text-white transition-colors ${cls}`}
+              className={`inline-flex items-center gap-2 rounded-lg bg-gradient-to-r ${gradient} px-4 py-2.5 font-medium text-white transition-all duration-300 hover:opacity-90`}
+              style={{ boxShadow: shadow }}
               aria-label={`Exportar como ${label}`}
             >
+              <Icon className="h-4 w-4" />
               {label}
             </button>
           ))}

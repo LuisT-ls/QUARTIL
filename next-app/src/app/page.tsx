@@ -12,7 +12,7 @@ import { EducativoSection } from "@/components/sections/EducativoSection";
 export default function Home() {
   return (
     <CalculatorProvider>
-      <div className="container mx-auto max-w-6xl px-4 pb-8">
+      <div className="container mx-auto max-w-6xl space-y-6 px-4 pb-8">
         <CalculatorSection />
         <MedidasPosicao />
         <MedidasDispersao />

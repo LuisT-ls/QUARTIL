@@ -210,18 +210,18 @@ export function GraficosSection() {
   }, [currentData, isCalculated]);
 
   return (
-    <section className="mb-12" aria-labelledby="graficos-title">
-      <h2 className="mb-2 flex items-center gap-2 text-2xl font-semibold">
-        <BarChart3 className="h-6 w-6 text-emerald-600" aria-hidden />
+      <section className="py-6" aria-labelledby="graficos-title">
+      <h2 className="mb-2 flex items-center gap-2 text-2xl font-semibold text-slate-100">
+        <BarChart3 className="h-6 w-6 text-emerald-400" aria-hidden />
         Gráficos e Visualizações
       </h2>
-      <p className="mb-6 text-neutral-600">
+      <p className="mb-6 text-slate-400">
         Visualize seus dados através de gráficos interativos.
       </p>
       <div className="grid gap-6 md:grid-cols-2">
-        <div className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm dark:border-neutral-700 dark:bg-neutral-800">
-          <h3 className="mb-2 font-medium text-[#4361ee]">Histograma</h3>
-          <p className="mb-3 text-sm text-neutral-600">
+        <div className="rounded-2xl border border-white/10 border-t border-l border-t-white/15 border-l-white/15 bg-gradient-to-br from-slate-800/50 to-slate-900/80 p-6 backdrop-blur-md transition-all duration-300 hover:border-blue-500/50">
+          <h3 className="mb-2 font-medium text-blue-400">Histograma</h3>
+          <p className="mb-3 text-sm text-slate-400">
             Distribuição de frequência dos dados
           </p>
           <div className="relative h-64">
@@ -234,9 +234,9 @@ export function GraficosSection() {
             />
           </div>
         </div>
-        <div className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm dark:border-neutral-700 dark:bg-neutral-800">
-          <h3 className="mb-2 font-medium text-amber-600">Boxplot</h3>
-          <p className="mb-3 text-sm text-neutral-600">
+        <div className="rounded-2xl border border-white/10 border-t border-l border-t-white/15 border-l-white/15 bg-gradient-to-br from-slate-800/50 to-slate-900/80 p-6 backdrop-blur-md transition-all duration-300 hover:border-blue-500/50">
+          <h3 className="mb-2 font-medium text-amber-400">Boxplot</h3>
+          <p className="mb-3 text-sm text-slate-400">
             Visualização dos quartis e outliers
           </p>
           <div className="relative h-64">

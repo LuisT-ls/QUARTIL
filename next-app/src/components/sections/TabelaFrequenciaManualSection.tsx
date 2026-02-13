@@ -147,56 +147,56 @@ export function TabelaFrequenciaManualSection() {
   };
 
   return (
-    <section className="mb-12" aria-labelledby="tabela-frequencia-manual-title">
-      <h2 id="tabela-frequencia-manual-title" className="mb-4 text-2xl font-semibold">
+    <section className="py-6" aria-labelledby="tabela-frequencia-manual-title">
+      <h2 id="tabela-frequencia-manual-title" className="mb-6 text-2xl font-semibold text-slate-100">
         Tabela de Frequência Manual
       </h2>
-      <div className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm dark:border-neutral-700 dark:bg-neutral-800">
-        <p className="mb-4 text-neutral-600">
+      <div className="rounded-2xl border border-white/10 border-t border-l border-t-white/15 border-l-white/15 bg-gradient-to-br from-slate-800/50 to-slate-900/80 p-6 backdrop-blur-md transition-all duration-300 hover:border-blue-500/50">
+        <p className="mb-4 text-slate-400">
           Configure manualmente a tabela adicionando limites das classes e frequências.
         </p>
         <div className="mb-4 flex flex-wrap gap-2">
           <button
             type="button"
             onClick={addRow}
-            className="inline-flex items-center gap-2 rounded-lg bg-[#4361ee] px-4 py-2 text-white hover:bg-[#3a0ca3]"
+            className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-2.5 font-medium text-white shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all duration-300 hover:from-blue-400 hover:to-blue-500 hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]"
           >
             <Plus className="h-4 w-4" /> Adicionar Linha
           </button>
           <button
             type="button"
             onClick={calculate}
-            className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 text-white hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-emerald-500 to-emerald-600 px-4 py-2.5 font-medium text-white shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all duration-300 hover:from-emerald-400 hover:to-emerald-500 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)]"
           >
             <Calculator className="h-4 w-4" /> Calcular Tabela
           </button>
           <button
             type="button"
             onClick={clear}
-            className="inline-flex items-center gap-2 rounded-lg border border-neutral-300 px-4 py-2 hover:bg-neutral-50 dark:hover:bg-neutral-700"
+            className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-red-500 to-red-600 px-4 py-2.5 font-medium text-white shadow-[0_0_15px_rgba(239,68,68,0.25)] transition-all duration-300 hover:from-red-400 hover:to-red-500 hover:shadow-[0_0_20px_rgba(239,68,68,0.35)]"
           >
             <Trash2 className="h-4 w-4" /> Limpar Tabela
           </button>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-[800px] text-sm">
+        <div className="overflow-x-auto rounded-2xl border border-white/10">
+          <table className="w-full min-w-[800px] border-collapse text-sm text-slate-300">
             <thead>
-              <tr className="border-b bg-neutral-50 dark:bg-neutral-800">
-                <th className="p-2 text-left">Classe</th>
-                <th className="p-2 text-left">Ponto Médio</th>
-                <th className="p-2 text-left">h</th>
-                <th className="p-2 text-left">fi</th>
-                <th className="p-2 text-left">fri</th>
-                <th className="p-2 text-left">fri (%)</th>
-                <th className="p-2 text-left">Fi</th>
-                <th className="p-2 text-left">Fri</th>
-                <th className="p-2 text-left">Ações</th>
+              <tr className="border-b border-white/5 bg-black/20">
+                <th className="p-3 text-left font-bold">Classe</th>
+                <th className="p-3 text-left font-bold">Ponto Médio</th>
+                <th className="p-3 text-left font-bold">h</th>
+                <th className="p-3 text-left font-bold">fi</th>
+                <th className="p-3 text-left font-bold">fri</th>
+                <th className="p-3 text-left font-bold">fri (%)</th>
+                <th className="p-3 text-left font-bold">Fi</th>
+                <th className="p-3 text-left font-bold">Fri</th>
+                <th className="p-3 text-left font-bold">Ações</th>
               </tr>
             </thead>
             <tbody>
               {rows.map((row, i) => (
-                <tr key={i} className="border-b">
+                <tr key={i} className="border-b border-white/5 transition-colors hover:bg-blue-500/10">
                   <td className="p-1">
                     <div className="flex items-center gap-1">
                       <input
@@ -205,7 +205,7 @@ export function TabelaFrequenciaManualSection() {
                         value={row.limiteInferior}
                         onChange={(e) => updateRow(i, "limiteInferior", e.target.value)}
                         placeholder="Li"
-                        className="w-20 rounded border px-2 py-1 text-sm dark:bg-neutral-800"
+                        className="w-20 rounded border border-white/10 bg-slate-800/50 px-2 py-1 text-sm text-slate-200 placeholder:text-slate-500"
                       />
                       <span>⊢</span>
                       <input
@@ -214,7 +214,7 @@ export function TabelaFrequenciaManualSection() {
                         value={row.limiteSuperior}
                         onChange={(e) => updateRow(i, "limiteSuperior", e.target.value)}
                         placeholder="Ls"
-                        className="w-20 rounded border px-2 py-1 text-sm dark:bg-neutral-800"
+                        className="w-20 rounded border border-white/10 bg-slate-800/50 px-2 py-1 text-sm text-slate-200 placeholder:text-slate-500"
                       />
                     </div>
                   </td>
@@ -225,7 +225,7 @@ export function TabelaFrequenciaManualSection() {
                       value={row.pontoMedio}
                       onChange={(e) => updateRow(i, "pontoMedio", e.target.value)}
                       placeholder="PM"
-                      className="w-20 rounded border px-2 py-1 text-sm dark:bg-neutral-800"
+                      className="w-20 rounded border border-white/10 bg-slate-800/50 px-2 py-1 text-sm text-slate-200 placeholder:text-slate-500"
                     />
                   </td>
                   <td className="p-1">
@@ -235,7 +235,7 @@ export function TabelaFrequenciaManualSection() {
                       value={row.h}
                       onChange={(e) => updateRow(i, "h", e.target.value)}
                       placeholder="h"
-                      className="w-16 rounded border px-2 py-1 text-sm dark:bg-neutral-800"
+                      className="w-16 rounded border border-white/10 bg-slate-800/50 px-2 py-1 text-sm text-slate-200 placeholder:text-slate-500"
                     />
                   </td>
                   <td className="p-1">
@@ -244,7 +244,7 @@ export function TabelaFrequenciaManualSection() {
                       value={row.fi}
                       onChange={(e) => updateRow(i, "fi", e.target.value)}
                       placeholder="fi"
-                      className="w-16 rounded border px-2 py-1 text-sm dark:bg-neutral-800"
+                      className="w-16 rounded border border-white/10 bg-slate-800/50 px-2 py-1 text-sm text-slate-200 placeholder:text-slate-500"
                     />
                   </td>
                   <td className="p-1">
@@ -253,7 +253,7 @@ export function TabelaFrequenciaManualSection() {
                       step="any"
                       value={row.fri}
                       readOnly
-                      className="w-20 rounded border bg-neutral-50 px-2 py-1 text-sm dark:bg-neutral-800"
+                      className="w-20 rounded border border-white/10 bg-slate-800/50 px-2 py-1 text-sm text-slate-300"
                     />
                   </td>
                   <td className="p-1">
@@ -262,7 +262,7 @@ export function TabelaFrequenciaManualSection() {
                       step="any"
                       value={row.friPerc}
                       readOnly
-                      className="w-16 rounded border bg-neutral-50 px-2 py-1 text-sm dark:bg-neutral-800"
+                      className="w-16 rounded border border-white/10 bg-slate-800/50 px-2 py-1 text-sm text-slate-300"
                     />
                   </td>
                   <td className="p-1">
@@ -270,7 +270,7 @@ export function TabelaFrequenciaManualSection() {
                       type="number"
                       value={row.Fi}
                       readOnly
-                      className="w-16 rounded border bg-neutral-50 px-2 py-1 text-sm dark:bg-neutral-800"
+                      className="w-16 rounded border border-white/10 bg-slate-800/50 px-2 py-1 text-sm text-slate-300"
                     />
                   </td>
                   <td className="p-1">
@@ -279,7 +279,7 @@ export function TabelaFrequenciaManualSection() {
                       step="any"
                       value={row.Fri}
                       readOnly
-                      className="w-16 rounded border bg-neutral-50 px-2 py-1 text-sm dark:bg-neutral-800"
+                      className="w-16 rounded border border-white/10 bg-slate-800/50 px-2 py-1 text-sm text-slate-300"
                     />
                   </td>
                   <td className="p-1">
@@ -300,52 +300,52 @@ export function TabelaFrequenciaManualSection() {
 
         {result && (
           <div className="mt-6 space-y-4">
-            <h4 className="font-medium">Tabela Final</h4>
-            <div className="overflow-x-auto">
-              <table className="w-full min-w-[600px] text-sm">
+            <h4 className="font-medium text-slate-200">Tabela Final</h4>
+            <div className="overflow-x-auto rounded-2xl border border-white/10">
+              <table className="w-full min-w-[600px] border-collapse text-sm text-slate-300">
                 <thead>
-                  <tr className="border-b bg-neutral-50 dark:bg-neutral-800">
-                    <th className="p-2 text-left">Classe</th>
-                    <th className="p-2 text-left">PM</th>
-                    <th className="p-2 text-left">h</th>
-                    <th className="p-2 text-left">fi</th>
-                    <th className="p-2 text-left">fri</th>
-                    <th className="p-2 text-left">fri (%)</th>
-                    <th className="p-2 text-left">Fi</th>
-                    <th className="p-2 text-left">Fri</th>
+                  <tr className="border-b border-white/5 bg-black/20">
+                    <th className="p-3 text-left font-bold">Classe</th>
+                    <th className="p-3 text-left font-bold">PM</th>
+                    <th className="p-3 text-left font-bold">h</th>
+                    <th className="p-3 text-left font-bold">fi</th>
+                    <th className="p-3 text-left font-bold">fri</th>
+                    <th className="p-3 text-left font-bold">fri (%)</th>
+                    <th className="p-3 text-left font-bold">Fi</th>
+                    <th className="p-3 text-left font-bold">Fri</th>
                   </tr>
                 </thead>
                 <tbody>
                   {result.table.map((row, i) => (
-                    <tr key={i} className="border-b">
-                      <td className="p-2">
+                    <tr key={i} className="border-b border-white/5 transition-colors hover:bg-blue-500/10">
+                      <td className="p-3">
                         {row.limiteInferior} ⊢ {row.limiteSuperior}
                       </td>
-                      <td className="p-2">{row.pontoMedio}</td>
-                      <td className="p-2">{row.h}</td>
-                      <td className="p-2">{row.fi}</td>
-                      <td className="p-2">{row.fri}</td>
-                      <td className="p-2">{row.friPerc}%</td>
-                      <td className="p-2">{row.Fi}</td>
-                      <td className="p-2">{row.Fri}</td>
+                      <td className="p-3">{row.pontoMedio}</td>
+                      <td className="p-3">{row.h}</td>
+                      <td className="p-3">{row.fi}</td>
+                      <td className="p-3">{row.fri}</td>
+                      <td className="p-3">{row.friPerc}%</td>
+                      <td className="p-3">{row.Fi}</td>
+                      <td className="p-3">{row.Fri}</td>
                     </tr>
                   ))}
                 </tbody>
                 <tfoot>
-                  <tr className="border-t bg-neutral-50 font-medium dark:bg-neutral-800">
-                    <td className="p-2">Total</td>
-                    <td className="p-2">-</td>
-                    <td className="p-2">-</td>
-                    <td className="p-2">{result.totalFi}</td>
-                    <td className="p-2">1.0000</td>
-                    <td className="p-2">100.00%</td>
-                    <td className="p-2">-</td>
-                    <td className="p-2">-</td>
+                  <tr className="border-t border-white/5 bg-black/20 font-bold">
+                    <td className="p-3">Total</td>
+                    <td className="p-3">-</td>
+                    <td className="p-3">-</td>
+                    <td className="p-3">{result.totalFi}</td>
+                    <td className="p-3">1.0000</td>
+                    <td className="p-3">100.00%</td>
+                    <td className="p-3">-</td>
+                    <td className="p-3">-</td>
                   </tr>
                 </tfoot>
               </table>
             </div>
-            <div className="rounded-lg border p-4">
+            <div className="rounded-2xl border border-white/10 border-t border-l border-t-white/15 border-l-white/15 bg-gradient-to-br from-slate-800/50 to-slate-900/80 p-6 backdrop-blur-md transition-all duration-300 hover:border-blue-500/50">
               <h4 className="mb-2 font-medium">Estatísticas</h4>
               <p><strong>Média:</strong> {result.media.toFixed(2)}</p>
               <p><strong>Mediana:</strong> {result.mediana.toFixed(2)}</p>

@@ -24,9 +24,11 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  color: #f8fafc;
+  min-height: 100vh;
 }
+
 
 /* Animação para o logo do watermark */
 @keyframes spin {

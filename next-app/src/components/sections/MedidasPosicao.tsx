@@ -17,10 +17,10 @@ function ResultCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm dark:border-neutral-700 dark:bg-neutral-800">
-      <p className="text-xl font-semibold text-[#4361ee]">{value}</p>
-      <p className="mt-2 text-sm" dangerouslySetInnerHTML={{ __html: formula }} />
-      <div className="mt-2 space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
+    <div className="rounded-2xl border border-white/10 border-t border-l border-t-white/15 border-l-white/15 bg-gradient-to-br from-slate-800/50 to-slate-900/80 p-6 backdrop-blur-md transition-all duration-300 hover:border-blue-500/50">
+      <p className="font-mono text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">{value}</p>
+      <p className="mt-2 text-sm text-slate-300" dangerouslySetInnerHTML={{ __html: formula }} />
+      <div className="mt-2 space-y-1 text-sm text-slate-400">
         {children}
       </div>
     </div>
@@ -32,14 +32,14 @@ export function MedidasPosicao() {
 
   if (!isCalculated || currentData.length === 0) {
     return (
-      <section className="mb-12" aria-labelledby="medidas-posicao-title">
-        <h2 id="medidas-posicao-title" className="mb-4 text-2xl font-semibold">
+      <section className="py-6" aria-labelledby="medidas-posicao-title">
+        <h2 id="medidas-posicao-title" className="mb-6 text-2xl font-semibold text-slate-100">
           Medidas de Posição
         </h2>
-        <div className="grid gap-6 md:grid-cols-3">
-          <div><h3 className="mb-3 text-lg font-medium">Média</h3><div className="text-neutral-500">-</div></div>
-          <div><h3 className="mb-3 text-lg font-medium">Mediana</h3><div className="text-neutral-500">-</div></div>
-          <div><h3 className="mb-3 text-lg font-medium">Moda</h3><div className="text-neutral-500">-</div></div>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          <div><h3 className="mb-3 text-xs font-medium uppercase tracking-wider text-slate-400">Média</h3><div className="text-slate-500">-</div></div>
+          <div><h3 className="mb-3 text-xs font-medium uppercase tracking-wider text-slate-400">Mediana</h3><div className="text-slate-500">-</div></div>
+          <div><h3 className="mb-3 text-xs font-medium uppercase tracking-wider text-slate-400">Moda</h3><div className="text-slate-500">-</div></div>
         </div>
       </section>
     );
@@ -66,13 +66,13 @@ export function MedidasPosicao() {
         : "Distribuição unimodal";
 
   return (
-    <section className="mb-12" aria-labelledby="medidas-posicao-title">
-      <h2 id="medidas-posicao-title" className="mb-4 text-2xl font-semibold">
+    <section className="py-6" aria-labelledby="medidas-posicao-title">
+      <h2 id="medidas-posicao-title" className="mb-6 text-2xl font-semibold text-slate-100">
         Medidas de Posição
       </h2>
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <div>
-          <h3 className="mb-3 text-lg font-medium">Média</h3>
+          <h3 className="mb-3 text-xs font-medium uppercase tracking-wider text-slate-400">Média</h3>
           <ResultCard
             value={media.toFixed(2)}
             formula="<strong>Fórmula:</strong> μ = ∑x/n"
@@ -83,7 +83,7 @@ export function MedidasPosicao() {
           </ResultCard>
         </div>
         <div>
-          <h3 className="mb-3 text-lg font-medium">Mediana</h3>
+          <h3 className="mb-3 text-xs font-medium uppercase tracking-wider text-slate-400">Mediana</h3>
           <ResultCard
             value={mediana.toFixed(2)}
             formula={`<strong>Fórmula:</strong> ${formulaMediana}`}
@@ -94,7 +94,7 @@ export function MedidasPosicao() {
           </ResultCard>
         </div>
         <div>
-          <h3 className="mb-3 text-lg font-medium">Moda</h3>
+          <h3 className="mb-3 text-xs font-medium uppercase tracking-wider text-slate-400">Moda</h3>
           <ResultCard
             value={valorModa}
             formula="<strong>Fórmula:</strong> Mo = valor(es) com maior frequência"
