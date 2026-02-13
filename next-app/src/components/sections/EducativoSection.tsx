@@ -52,12 +52,19 @@ export function EducativoSection() {
         <p className="text-sm">
           <strong>Dica:</strong>{" "}
           <Link
+            href="/aprender"
+            className="text-sky-400 underline decoration-sky-400/50 underline-offset-2 transition-colors hover:text-sky-300"
+          >
+            Aprenda mais sobre quartis, gráficos e medidas
+          </Link>
+          {" · "}
+          <Link
             href="/#entrada-dados"
             className="text-sky-400 underline decoration-sky-400/50 underline-offset-2 transition-colors hover:text-sky-300"
           >
-            Use nossa calculadora online
+            Use a calculadora online
           </Link>{" "}
-          para calcular quartis automaticamente. Basta inserir seus dados e clicar em calcular!
+          para calcular automaticamente.
         </p>
       </div>
     </section>

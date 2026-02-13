@@ -10,6 +10,14 @@ export function Footer() {
     >
       <div className="container relative z-10 mx-auto max-w-6xl px-4">
         <div className="flex flex-col items-center gap-8">
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/aprender"
+              className="text-sm text-slate-400 underline-offset-2 transition-colors hover:text-slate-200"
+            >
+              Conteúdo educativo
+            </Link>
+          </div>
           <p className="text-center text-sm text-slate-400">
             &copy; <time dateTime="2026">2026</time> Calculadora de Estatística.
             Todos os direitos reservados.
