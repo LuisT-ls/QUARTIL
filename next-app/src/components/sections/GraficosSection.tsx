@@ -1,19 +1,55 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BarChart3 } from "lucide-react";
 import { useCalculator } from "@/context/CalculatorContext";
 import { calcularQuartil, calcularOutliers } from "@/lib/stats";
 
+interface ClasseHistograma {
+  limiteInferior: number;
+  limiteSuperior: number;
+  frequencia: number;
+}
+
+interface DetalhesHistograma {
+  numClasses: number;
+  min: number;
+  max: number;
+  amplitude: number;
+  larguraClasse: number;
+  classes: ClasseHistograma[];
+}
+
+interface DetalhesBoxplot {
+  min: number;
+  max: number;
+  q1: number;
+  mediana: number;
+  q3: number;
+  iqr: number;
+  whiskerMin: number;
+  whiskerMax: number;
+  limiteInferior: number;
+  limiteSuperior: number;
+  outliersInferior: number[];
+  outliersSuperior: number[];
+}
+
 export function GraficosSection() {
   const { currentData, isCalculated } = useCalculator();
+  const [detalhesHistograma, setDetalhesHistograma] = useState<DetalhesHistograma | null>(null);
+  const [detalhesBoxplot, setDetalhesBoxplot] = useState<DetalhesBoxplot | null>(null);
   const histogramRef = useRef<HTMLCanvasElement>(null);
   const boxplotRef = useRef<HTMLCanvasElement>(null);
   const histogramChartRef = useRef<unknown>(null);
   const boxplotChartRef = useRef<unknown>(null);
 
   useEffect(() => {
-    if (!isCalculated || currentData.length === 0) return;
+    if (!isCalculated || currentData.length === 0) {
+      setDetalhesHistograma(null);
+      setDetalhesBoxplot(null);
+      return;
+    }
 
     const loadCharts = async () => {
       const { Chart } = await import("chart.js/auto");
@@ -52,6 +88,15 @@ export function GraficosSection() {
           }
         });
 
+        setDetalhesHistograma({
+          numClasses,
+          min,
+          max,
+          amplitude,
+          larguraClasse,
+          classes: [...classes],
+        });
+
         const maxFreq = Math.max(...classes.map((c) => c.frequencia));
         const getColor = (freq: number, type: "bg" | "border") => {
           const int = freq / maxFreq;
@@ -78,18 +123,22 @@ export function GraficosSection() {
           },
           options: {
             responsive: true,
+            color: "#e2e8f0",
             scales: {
               y: {
                 beginAtZero: true,
-                title: { display: true, text: "Frequência" },
+                title: { display: true, text: "Frequência", color: "#e2e8f0" },
+                ticks: { color: "#e2e8f0" },
+                grid: { color: "rgba(226, 232, 240, 0.15)" },
               },
               x: {
-                title: { display: true, text: "Classes" },
-                ticks: { maxRotation: 45, minRotation: 45 },
+                title: { display: true, text: "Classes", color: "#e2e8f0" },
+                ticks: { color: "#e2e8f0", maxRotation: 45, minRotation: 45 },
+                grid: { color: "rgba(226, 232, 240, 0.1)" },
               },
             },
             plugins: {
-              title: { display: true, text: "Histograma" },
+              title: { display: true, text: "Histograma", color: "#e2e8f0" },
               legend: { display: false },
             },
           },
@@ -115,6 +164,22 @@ export function GraficosSection() {
           res.superior.length > 0
             ? Math.max(...currentData.filter((v) => v <= res.limiteSuperior))
             : max;
+        const iqr = q3 - q1;
+
+        setDetalhesBoxplot({
+          min,
+          max,
+          q1,
+          mediana,
+          q3,
+          iqr,
+          whiskerMin,
+          whiskerMax,
+          limiteInferior: res.limiteInferior,
+          limiteSuperior: res.limiteSuperior,
+          outliersInferior: res.inferior,
+          outliersSuperior: res.superior,
+        });
 
         boxplotChartRef.current = new Chart(boxplotRef.current, {
           type: "bar",
@@ -164,16 +229,22 @@ export function GraficosSection() {
             responsive: true,
             maintainAspectRatio: true,
             aspectRatio: 2,
+            color: "#e2e8f0",
             scales: {
               x: {
                 position: "top",
-                title: { display: true, text: "Valores" },
-                grid: { color: "rgba(0,0,0,0.1)" },
+                title: { display: true, text: "Valores", color: "#e2e8f0" },
+                ticks: { color: "#e2e8f0" },
+                grid: { color: "rgba(226, 232, 240, 0.15)" },
               },
-              y: { display: true, grid: { display: false } },
+              y: {
+                display: true,
+                grid: { display: false },
+                ticks: { color: "#e2e8f0" },
+              },
             },
             plugins: {
-              title: { display: true, text: "Boxplot" },
+              title: { display: true, text: "Boxplot", color: "#e2e8f0" },
               legend: { display: false },
               tooltip: {
                 callbacks: {
@@ -210,7 +281,7 @@ export function GraficosSection() {
   }, [currentData, isCalculated]);
 
   return (
-      <section id="graficos" className="py-6" aria-labelledby="graficos-title">
+      <section id="graficos" className="py-6" aria-labelledby="graficos-title" suppressHydrationWarning>
       <h2 className="mb-2 flex items-center gap-2 text-2xl font-semibold text-slate-100">
         <BarChart3 className="h-6 w-6 text-emerald-400" aria-hidden />
         Gráficos e Visualizações
@@ -233,6 +304,69 @@ export function GraficosSection() {
               aria-label="Histograma da distribuição de frequência"
             />
           </div>
+          {detalhesHistograma && (
+            <div className="mt-4 rounded-xl border border-white/5 bg-black/20 p-4">
+              <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                Como ler o histograma
+              </h4>
+              <div className="mb-4 grid gap-x-6 gap-y-2 text-sm sm:grid-cols-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-500">Número de classes:</span>
+                  <span className="font-mono text-slate-200">{detalhesHistograma.numClasses}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-500">Valor mínimo:</span>
+                  <span className="font-mono text-slate-200">{detalhesHistograma.min.toFixed(2)}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-500">Valor máximo:</span>
+                  <span className="font-mono text-slate-200">{detalhesHistograma.max.toFixed(2)}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-500">Amplitude total:</span>
+                  <span className="font-mono text-slate-200">{detalhesHistograma.amplitude.toFixed(2)}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-500">Largura da classe (h):</span>
+                  <span className="font-mono text-slate-200">{detalhesHistograma.larguraClasse.toFixed(2)}</span>
+                </div>
+              </div>
+              <p className="mb-2 text-xs text-slate-500">
+                Cada barra representa um intervalo. A altura indica quantos valores pertencem àquela faixa.
+              </p>
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[280px] border-collapse text-xs">
+                  <thead>
+                    <tr className="border-b border-white/5">
+                      <th className="py-2 text-left font-medium text-slate-400">Classe</th>
+                      <th className="py-2 text-right font-medium text-slate-400">Frequência</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {detalhesHistograma.classes.map((c, i) => (
+                      <tr key={i} className="border-b border-white/5 text-slate-300">
+                        <td className="py-1.5 font-mono">
+                          {c.limiteInferior.toFixed(2)} ⊢ {c.limiteSuperior.toFixed(2)}
+                        </td>
+                        <td className="py-1.5 text-right font-mono">{c.frequencia}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                  <tfoot>
+                    <tr className="border-t border-white/5 font-medium text-slate-200">
+                      <td className="py-1.5">Total</td>
+                      <td className="py-1.5 text-right font-mono">
+                        {detalhesHistograma.classes.reduce((s, c) => s + c.frequencia, 0)}
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <p className="mt-2 text-xs text-slate-500">
+                Fórmula de Sturges: k = 1 + 3,322 × log₁₀({currentData.length}) ≈ {detalhesHistograma.numClasses} classes
+              </p>
+            </div>
+          )}
         </div>
         <div className="rounded-2xl border border-white/10 border-t border-l border-t-white/15 border-l-white/15 bg-gradient-to-br from-slate-800/50 to-slate-900/80 p-6 backdrop-blur-md transition-all duration-300 hover:border-blue-500/50">
           <h3 className="mb-2 font-medium text-amber-400">Boxplot</h3>
@@ -248,6 +382,65 @@ export function GraficosSection() {
               aria-label="Boxplot dos quartis"
             />
           </div>
+          {detalhesBoxplot && (
+            <div className="mt-4 rounded-xl border border-white/5 bg-black/20 p-4">
+              <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                Como ler o boxplot
+              </h4>
+              <div className="mb-4 grid gap-x-6 gap-y-2 text-sm sm:grid-cols-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-500">Mínimo (bigode):</span>
+                  <span className="font-mono text-slate-200">{detalhesBoxplot.whiskerMin.toFixed(2)}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-500">Q1 (25%):</span>
+                  <span className="font-mono text-slate-200">{detalhesBoxplot.q1.toFixed(2)}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-500">Mediana (50%):</span>
+                  <span className="font-mono text-slate-200">{detalhesBoxplot.mediana.toFixed(2)}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-500">Q3 (75%):</span>
+                  <span className="font-mono text-slate-200">{detalhesBoxplot.q3.toFixed(2)}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-500">Máximo (bigode):</span>
+                  <span className="font-mono text-slate-200">{detalhesBoxplot.whiskerMax.toFixed(2)}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-500">IQR (Q3 − Q1):</span>
+                  <span className="font-mono text-slate-200">{detalhesBoxplot.iqr.toFixed(2)}</span>
+                </div>
+              </div>
+              <p className="mb-3 text-xs text-slate-500">
+                A caixa central representa 50% dos dados (entre Q1 e Q3). Os bigodes vão até o valor mais próximo dentro de 1,5×IQR dos quartis.
+              </p>
+              <div className="mb-2 flex flex-wrap gap-2 text-xs">
+                <span className="inline-flex items-center gap-1.5 rounded bg-blue-500/20 px-2 py-0.5 text-blue-300">
+                  <span className="size-2 rounded bg-blue-400" aria-hidden /> Bigodes
+                </span>
+                <span className="inline-flex items-center gap-1.5 rounded bg-green-500/20 px-2 py-0.5 text-green-300">
+                  <span className="size-2 rounded bg-green-500" aria-hidden /> Q1 → Mediana
+                </span>
+                <span className="inline-flex items-center gap-1.5 rounded bg-red-500/20 px-2 py-0.5 text-red-300">
+                  <span className="size-2 rounded bg-red-500" aria-hidden /> Mediana → Q3
+                </span>
+              </div>
+              {(detalhesBoxplot.outliersInferior.length > 0 || detalhesBoxplot.outliersSuperior.length > 0) && (
+                <div className="space-y-1 text-xs text-slate-400">
+                  <p className="font-medium text-slate-300">Outliers (valores fora de Q₁ ± 1,5×IQR):</p>
+                  {detalhesBoxplot.outliersInferior.length > 0 && (
+                    <p>Inferiores: [{detalhesBoxplot.outliersInferior.map((v) => v.toFixed(2)).join(", ")}]</p>
+                  )}
+                  {detalhesBoxplot.outliersSuperior.length > 0 && (
+                    <p>Superiores: [{detalhesBoxplot.outliersSuperior.map((v) => v.toFixed(2)).join(", ")}]</p>
+                  )}
+                  <p className="mt-1 text-slate-500">Limites: {detalhesBoxplot.limiteInferior.toFixed(2)} e {detalhesBoxplot.limiteSuperior.toFixed(2)}</p>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </section>

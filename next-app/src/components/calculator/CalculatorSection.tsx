@@ -71,7 +71,7 @@ export function CalculatorSection() {
 
   return (
     <>
-      <section id="entrada-dados" className="py-6" aria-labelledby="input-section-title">
+      <section id="entrada-dados" className="py-6" aria-labelledby="input-section-title" suppressHydrationWarning>
         <h2 id="input-section-title" className="sr-only">
           Entrada de Dados
         </h2>

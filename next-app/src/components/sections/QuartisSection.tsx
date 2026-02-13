@@ -33,7 +33,7 @@ export function QuartisSection() {
 
   if (!isCalculated || currentData.length === 0) {
     return (
-      <section id="quartis" className="py-6" aria-labelledby="quartis-title">
+      <section id="quartis" className="py-6" aria-labelledby="quartis-title" suppressHydrationWarning>
         <h2 className="mb-2 flex items-center gap-2 text-2xl font-semibold text-slate-100">
           <TrendingUp className="h-6 w-6 text-blue-400" aria-hidden />
           Quartis - Análise de Distribuição
@@ -63,7 +63,7 @@ export function QuartisSection() {
   const totalOutliers = outliers.inferior.length + outliers.superior.length;
 
   return (
-    <section id="quartis" className="py-6" aria-labelledby="quartis-title">
+    <section id="quartis" className="py-6" aria-labelledby="quartis-title" suppressHydrationWarning>
       <h2 className="mb-2 flex items-center gap-2 text-2xl font-semibold text-slate-100">
         <TrendingUp className="h-6 w-6 text-blue-400" aria-hidden />
         Quartis - Análise de Distribuição

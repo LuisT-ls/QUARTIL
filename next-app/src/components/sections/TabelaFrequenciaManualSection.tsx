@@ -147,7 +147,7 @@ export function TabelaFrequenciaManualSection() {
   };
 
   return (
-    <section id="tabela-frequencia-manual" className="py-6" aria-labelledby="tabela-frequencia-manual-title">
+    <section id="tabela-frequencia-manual" className="py-6" aria-labelledby="tabela-frequencia-manual-title" suppressHydrationWarning>
       <h2 id="tabela-frequencia-manual-title" className="mb-6 text-2xl font-semibold text-slate-100">
         Tabela de Frequência Manual
       </h2>

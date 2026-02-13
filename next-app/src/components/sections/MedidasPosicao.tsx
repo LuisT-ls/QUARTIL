@@ -32,7 +32,7 @@ export function MedidasPosicao() {
 
   if (!isCalculated || currentData.length === 0) {
     return (
-      <section id="medidas-posicao" className="py-6" aria-labelledby="medidas-posicao-title">
+      <section id="medidas-posicao" className="py-6" aria-labelledby="medidas-posicao-title" suppressHydrationWarning>
         <h2 id="medidas-posicao-title" className="mb-6 text-2xl font-semibold text-slate-100">
           Medidas de Posição
         </h2>
@@ -66,7 +66,7 @@ export function MedidasPosicao() {
         : "Distribuição unimodal";
 
   return (
-    <section id="medidas-posicao" className="py-6" aria-labelledby="medidas-posicao-title">
+    <section id="medidas-posicao" className="py-6" aria-labelledby="medidas-posicao-title" suppressHydrationWarning>
       <h2 id="medidas-posicao-title" className="mb-6 text-2xl font-semibold text-slate-100">
         Medidas de Posição
       </h2>
