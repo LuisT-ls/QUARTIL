@@ -1,0 +1,24 @@
+# Google Search Console - Verificação do Site
+
+## Método 1: Meta tag (recomendado)
+
+Adicione a variável de ambiente no arquivo .env.local:
+
+```
+GOOGLE_SITE_VERIFICATION=seu_codigo_aqui
+```
+
+O código será inserido automaticamente na meta tag do layout.
+
+## Método 2: Arquivo HTML
+
+Se o Google fornecer um arquivo (ex: google-site-verification=XXXXX.html), copie-o para a pasta public/ deste projeto. Ele será servido na raiz do domínio.
+
+## Palavras-chave principais para SEO
+- calculadora de quartil
+- calculadora de estatística
+- quartis Q1 Q2 Q3
+- média mediana moda
+- desvio padrão variância
+- tabela de frequência
+- análise estatística online

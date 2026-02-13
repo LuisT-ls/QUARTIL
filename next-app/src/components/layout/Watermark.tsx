@@ -8,12 +8,13 @@ export function Watermark() {
       <Link
         href="https://github.com/LuisT-ls"
         target="_blank"
-        rel="noopener noreferrer"
+        rel="noopener noreferrer me author"
         className="group block text-inherit no-underline outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-2xl"
         title="Desenvolvido por Luís Teixeira"
         aria-label="Desenvolvido por Luís Teixeira — GitHub"
       >
         <div className="watermark-badge relative flex h-14 w-14 items-center justify-center overflow-hidden rounded-2xl transition-all duration-500 ease-out group-hover:w-52 group-hover:shadow-[0_0_40px_rgba(59,130,246,0.4),0_0_80px_rgba(34,211,238,0.2)]">
+          <span className="sr-only">Desenvolvido por Luís Teixeira - Acessar perfil no GitHub</span>
           {/* Camada base - glassmorphism */}
           <div className="absolute inset-0 rounded-2xl border border-white/20 bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl transition-colors duration-500 group-hover:border-blue-400/40" />
 

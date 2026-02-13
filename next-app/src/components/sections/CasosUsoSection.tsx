@@ -3,7 +3,7 @@ import { Star, Lightbulb, GraduationCap, TrendingUp, Briefcase } from "lucide-re
 export function CasosUsoSection() {
   return (
     <>
-      <section className="py-6" aria-labelledby="beneficios-title">
+      <section id="beneficios" className="py-6" aria-labelledby="beneficios-title">
         <h2
           id="beneficios-title"
           className="mb-6 flex items-center gap-2 text-2xl font-semibold text-slate-100"
@@ -59,7 +59,7 @@ export function CasosUsoSection() {
         </div>
       </section>
 
-      <section className="py-6" aria-labelledby="casos-uso-title">
+      <section id="casos-uso" className="py-6" aria-labelledby="casos-uso-title">
         <h2
           id="casos-uso-title"
           className="mb-6 flex items-center gap-2 text-2xl font-semibold text-slate-100"

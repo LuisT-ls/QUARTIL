@@ -53,7 +53,7 @@ export function MedidasDispersao() {
 
   if (!isCalculated || currentData.length === 0) {
     return (
-      <section className="py-6" aria-labelledby="medidas-dispersao-title">
+      <section id="medidas-dispersao" className="py-6" aria-labelledby="medidas-dispersao-title">
         <h2 id="medidas-dispersao-title" className="mb-6 text-2xl font-semibold text-slate-100">
           Medidas de Dispersão
         </h2>
@@ -77,7 +77,7 @@ export function MedidasDispersao() {
   const curtose = calcularCurtose(currentData, media, desvioPadrao);
 
   return (
-    <section className="mb-12" aria-labelledby="medidas-dispersao-title">
+    <section id="medidas-dispersao" className="mb-12" aria-labelledby="medidas-dispersao-title">
       <h2 id="medidas-dispersao-title" className="mb-4 text-2xl font-semibold">
         Medidas de Dispersão
       </h2>

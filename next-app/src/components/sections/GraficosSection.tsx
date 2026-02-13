@@ -210,7 +210,7 @@ export function GraficosSection() {
   }, [currentData, isCalculated]);
 
   return (
-      <section className="py-6" aria-labelledby="graficos-title">
+      <section id="graficos" className="py-6" aria-labelledby="graficos-title">
       <h2 className="mb-2 flex items-center gap-2 text-2xl font-semibold text-slate-100">
         <BarChart3 className="h-6 w-6 text-emerald-400" aria-hidden />
         Gráficos e Visualizações

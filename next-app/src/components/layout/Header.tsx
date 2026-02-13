@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { InternalNav } from "./InternalNav";
 
 export function Header() {
   return (
@@ -25,6 +26,7 @@ export function Header() {
           Rápida, precisa e fácil de usar. Calcule quartis (Q1, Q2, Q3), média,
           mediana, moda, desvio padrão e muito mais!
         </p>
+        <InternalNav />
       </div>
     </header>
   );

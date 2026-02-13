@@ -7,145 +7,43 @@
   "display": "standalone",
   "orientation": "portrait-primary",
   "theme_color": "#4361ee",
-  "background_color": "#f8f9fa",
+  "background_color": "#0f172a",
   "scope": "/",
   "lang": "pt-BR",
   "dir": "ltr",
   "categories": ["education", "productivity", "utilities"],
-  "screenshots": [
-    {
-      "src": "/assets/img/screenshots/desktop-screenshot.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "Calculadora de Quartil - Desktop"
-    },
-    {
-      "src": "/assets/img/screenshots/mobile-screenshot.png",
-      "sizes": "390x844",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Calculadora de Quartil - Mobile"
-    }
-  ],
   "icons": [
-    {
-      "src": "/assets/img/favicon/favicon-16x16.png",
-      "sizes": "16x16",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/assets/img/favicon/favicon-32x32.png",
-      "sizes": "32x32",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/assets/img/favicon/android-chrome-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/assets/img/favicon/android-chrome-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/assets/img/favicon/apple-touch-icon.png",
-      "sizes": "180x180",
-      "type": "image/png",
-      "purpose": "any"
-    }
+    { "src": "/favicon/favicon-16x16.png", "sizes": "16x16", "type": "image/png", "purpose": "any" },
+    { "src": "/favicon/favicon-32x32.png", "sizes": "32x32", "type": "image/png", "purpose": "any" },
+    { "src": "/favicon/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/favicon/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/favicon/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
   ],
   "shortcuts": [
     {
       "name": "Calcular Quartis",
       "short_name": "Quartis",
       "description": "Calcular quartis (Q1, Q2, Q3) rapidamente",
-      "url": "/?action=quartis",
-      "icons": [
-        {
-          "src": "/assets/img/icons/quartis-icon.png",
-          "sizes": "96x96",
-          "type": "image/png"
-        }
-      ]
+      "url": "/",
+      "icons": [{ "src": "/favicon/favicon-32x32.png", "sizes": "32x32", "type": "image/png" }]
     },
     {
       "name": "Estatísticas Básicas",
       "short_name": "Estatísticas",
       "description": "Calcular média, mediana, moda e desvio padrão",
-      "url": "/?action=estatisticas",
-      "icons": [
-        {
-          "src": "/assets/img/icons/stats-icon.png",
-          "sizes": "96x96",
-          "type": "image/png"
-        }
-      ]
+      "url": "/",
+      "icons": [{ "src": "/favicon/favicon-32x32.png", "sizes": "32x32", "type": "image/png" }]
     },
     {
       "name": "Tabela de Frequência",
       "short_name": "Tabela",
       "description": "Criar tabela de frequência",
-      "url": "/?action=tabela",
-      "icons": [
-        {
-          "src": "/assets/img/icons/table-icon.png",
-          "sizes": "96x96",
-          "type": "image/png"
-        }
-      ]
+      "url": "/",
+      "icons": [{ "src": "/favicon/favicon-32x32.png", "sizes": "32x32", "type": "image/png" }]
     }
   ],
   "related_applications": [
-    {
-      "platform": "webapp",
-      "url": "https://quartil.vercel.app/manifest.json"
-    }
+    { "platform": "webapp", "url": "https://quartil.vercel.app/manifest.json" }
   ],
-  "prefer_related_applications": false,
-  "edge_side_panel": {
-    "preferred_width": 400
-  },
-  "launch_handler": {
-    "client_mode": "navigate-existing"
-  },
-  "handle_links": "preferred",
-  "capture_links": "new-client",
-  "protocol_handlers": [
-    {
-      "protocol": "web+quartil",
-      "url": "/?data=%s"
-    }
-  ],
-  "file_handlers": [
-    {
-      "action": "/?import=csv",
-      "accept": {
-        "text/csv": [".csv"],
-        "application/vnd.ms-excel": [".xls"],
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [".xlsx"]
-      }
-    }
-  ],
-  "share_target": {
-    "action": "/?share=true",
-    "method": "GET",
-    "enctype": "application/x-www-form-urlencoded",
-    "params": {
-      "title": "title",
-      "text": "text",
-      "url": "url"
-    }
-  },
-  "features": [
-    "Cross Platform",
-    "fast",
-    "simple"
-  ],
-  "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7"
+  "prefer_related_applications": false
 }

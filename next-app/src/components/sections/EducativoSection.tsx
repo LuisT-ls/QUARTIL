@@ -1,8 +1,9 @@
+import Link from "next/link";
 import { BookOpen, TrendingUp, BarChart3, PieChart } from "lucide-react";
 
 export function EducativoSection() {
   return (
-    <section className="py-6" aria-labelledby="educativo-title">
+    <section id="educativo" className="py-6" aria-labelledby="educativo-title">
       <h2
         id="educativo-title"
         className="mb-6 flex items-center gap-2 text-2xl font-semibold text-slate-100"
@@ -49,8 +50,14 @@ export function EducativoSection() {
       </div>
       <div className="rounded-2xl border border-white/10 border-t border-l border-t-white/15 border-l-white/15 bg-gradient-to-br from-slate-800/50 to-slate-900/80 p-6 text-sky-300 backdrop-blur-md transition-all duration-300 hover:border-blue-500/50">
         <p className="text-sm">
-          <strong>Dica:</strong> Use nossa calculadora online para calcular
-          quartis automaticamente. Basta inserir seus dados e clicar em calcular!
+          <strong>Dica:</strong>{" "}
+          <Link
+            href="/#entrada-dados"
+            className="text-sky-400 underline decoration-sky-400/50 underline-offset-2 transition-colors hover:text-sky-300"
+          >
+            Use nossa calculadora online
+          </Link>{" "}
+          para calcular quartis automaticamente. Basta inserir seus dados e clicar em calcular!
         </p>
       </div>
     </section>

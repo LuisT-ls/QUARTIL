@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Header, Footer, Watermark, ScrollToTop, OfflineModal } from "@/components/layout";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { siteMetadata } from "@/lib/metadata";
 import "./globals.css";
 
@@ -20,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <head>
-        <link rel="canonical" href="https://quartil.vercel.app/" />
+        <JsonLd />
         <link
           rel="preconnect"
           href="https://www.googletagmanager.com"

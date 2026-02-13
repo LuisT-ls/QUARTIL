@@ -48,7 +48,7 @@ export function TabelaFrequenciaSection() {
 
   if (!tableData || tableData.length === 0) {
     return (
-      <section className="py-6" aria-labelledby="tabela-frequencia-title">
+      <section id="tabela-frequencia" className="py-6" aria-labelledby="tabela-frequencia-title">
         <h2 id="tabela-frequencia-title" className="mb-6 text-2xl font-semibold text-slate-100">
           Tabela de Frequência
         </h2>
@@ -146,7 +146,7 @@ export function TabelaFrequenciaSection() {
   const modaStr = typeof moda === "object" ? (Array.isArray(moda) ? moda.join(", ") : String(moda)) : String(moda);
 
   return (
-    <section className="py-6" aria-labelledby="tabela-frequencia-title">
+    <section id="tabela-frequencia" className="py-6" aria-labelledby="tabela-frequencia-title">
       <h2 id="tabela-frequencia-title" className="mb-6 text-2xl font-semibold text-slate-100">
         Tabela de Frequência
       </h2>
