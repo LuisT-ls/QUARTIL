@@ -117,3 +117,10 @@ body {
 .group:hover .watermark-border {
   animation: watermark-shine 2s ease-in-out infinite;
 }
+
+/* KaTeX: herdar cor do tema escuro (frações, subscritos "como no papel") */
+.math-passo .katex,
+.math-passo .katex * {
+  color: inherit !important;
+  fill: currentColor !important;
+}

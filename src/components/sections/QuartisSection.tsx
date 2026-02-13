@@ -7,6 +7,7 @@ import {
   calcularQuartil,
   calcularOutliers,
 } from "@/lib/stats";
+import { PassoAPassoQuartis } from "./PassoAPassoQuartis";
 
 function ResultCard({
   value,
@@ -148,6 +149,7 @@ export function QuartisSection() {
           </ResultCard>
         </div>
       </div>
+      <PassoAPassoQuartis dados={currentData} />
     </section>
   );
 }

@@ -11,5 +11,7 @@ export {
 export {
   calcularQuartil,
   calcularOutliers,
+  obterPassosQuartis,
   type OutliersResult,
+  type PassoQuartil,
 } from "./quartis";
