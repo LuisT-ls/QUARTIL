@@ -32,7 +32,7 @@ Checklist para migrar 100% para Next.js mantendo SEO e evitar perda de indexaç�
 |------|-------------|
 | **baseUrl** | `metadata.ts` usa `https://quartil.vercel.app` ✅ |
 | **Canonical** | Home e `/aprender` com canonical corretos ✅ |
-| **Imagem OG** | `imagem-preview.jpg` em `public/` ✅ |
+| **Imagem OG** | `og-preview-desktop.png` e `og-preview-mobile.png` em `public/img/` ✅ |
 | **Título** | Legacy: "Calculadora... \| Média, Mediana, Moda, Desvio Padrão" / Next: "Calculadora... \| Média, Mediana, Moda" — leve diferença, aceitável |
 | **Descrição** | Dentro de 70–155 caracteres ✅ |
 

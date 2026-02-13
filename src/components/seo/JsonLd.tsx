@@ -7,7 +7,7 @@ const jsonLd = {
   description:
     "Calculadora de quartil e estatística online gratuita. Calcule Q1, Q2, Q3, média, mediana, moda e tabelas de frequência.",
   url: `${baseUrl}/`,
-  image: `${baseUrl}/imagem-preview.jpg`,
+  image: `${baseUrl}/img/og-preview-desktop.png`,
   applicationCategory: "UtilitiesApplication",
   operatingSystem: "Any",
   offers: {

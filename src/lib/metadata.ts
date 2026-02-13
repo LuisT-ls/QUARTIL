@@ -49,17 +49,17 @@ export const siteMetadata: Metadata = {
     description: seoDescription,
     images: [
       {
-        url: `${baseUrl}/imagem-preview.jpg`,
+        url: `${baseUrl}/img/og-preview-desktop.png`,
         width: 1200,
         height: 630,
         alt: "Calculadora de Quartil e Estatística - Ferramenta online para análise de dados",
-        type: "image/jpeg",
+        type: "image/png",
       },
       {
-        url: `${baseUrl}/logo/logo.png`,
-        width: 1200,
-        height: 630,
-        alt: "Logo Quartil - Calculadora de Estatística",
+        url: `${baseUrl}/img/og-preview-mobile.png`,
+        width: 600,
+        height: 800,
+        alt: "Calculadora de Quartil - Preview mobile",
         type: "image/png",
       },
     ],
@@ -72,7 +72,7 @@ export const siteMetadata: Metadata = {
     description: seoDescription,
     images: [
       {
-        url: `${baseUrl}/imagem-preview.jpg`,
+        url: `${baseUrl}/img/og-preview-desktop.png`,
         width: 1200,
         height: 630,
         alt: "Calculadora de Quartil e Estatística",

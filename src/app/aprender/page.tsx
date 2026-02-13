@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     type: "article",
     images: [
       {
-        url: `${baseUrl}/imagem-preview.jpg`,
+        url: `${baseUrl}/img/og-preview-desktop.png`,
         width: 1200,
         height: 630,
         alt: "Quartil - Conteúdo educativo de estatística",
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: pageTitle,
     description: pageDescription,
-    images: [`${baseUrl}/imagem-preview.jpg`],
+    images: [`${baseUrl}/img/og-preview-desktop.png`],
   },
 };
 

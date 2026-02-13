@@ -25,7 +25,16 @@
 ## 📸 Preview
 
 <p align="center">
-  <img src="./public/imagem-preview.jpg" alt="Preview da Calculadora de Quartil" width="800" />
+  <strong>Desktop</strong>
+</p>
+<p align="center">
+  <img src="./public/img/og-preview-desktop.png" alt="Preview desktop da Calculadora de Quartil" width="800" />
+</p>
+<p align="center">
+  <strong>Mobile</strong>
+</p>
+<p align="center">
+  <img src="./public/img/og-preview-mobile.png" alt="Preview mobile da Calculadora de Quartil" width="320" />
 </p>
 
 ---
@@ -125,6 +134,11 @@ QUARTIL/
 │   ├── context/              # CalculatorContext
 │   └── lib/                  # Cálculos estatísticos
 ├── public/                   # Assets estáticos
+│   ├── img/                  # Imagens de preview (OG, README)
+│   ├── logo/
+│   └── favicon/
+├── docs/                     # Documentação
+│   └── MIGRACAO.md           # Guia de migração Next.js
 └── README.md
 ```
 
