@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { Table, Eraser } from "lucide-react";
 import { toast } from "sonner";
 import { useCalculator } from "@/context/CalculatorContext";
+import { NumberInputChips } from "@/components/ui/NumberInputChips";
 import {
   calcularMedia,
   calcularMediana,
@@ -12,7 +13,7 @@ import {
 
 export function TabelaFrequenciaSection() {
   const { currentData, isCalculated } = useCalculator();
-  const [inputValue, setInputValue] = useState("");
+  const [inputNumbers, setInputNumbers] = useState<number[]>([]);
   const [tableData, setTableData] = useState<number[] | null>(null);
 
   const derivedTableData = isCalculated && currentData.length > 0 ? currentData : null;
@@ -83,27 +84,16 @@ export function TabelaFrequenciaSection() {
     return { numClasses, min, max, amplitudeTotal, h, classes, media, mediana, modaStr };
   }, [activeTableData]);
 
-  const processInput = (raw: string): number[] | null => {
-    const trimmed = raw.trim();
-    if (!trimmed) return null;
-    const parts = trimmed.split(/[,\s]+/);
-    const nums = parts
-      .map((n) => parseFloat(n.replace(",", ".")))
-      .filter((n) => !Number.isNaN(n));
-    return nums.length > 0 ? nums : null;
-  };
-
   const handleCalculate = () => {
-    const nums = processInput(inputValue);
-    if (!nums) {
+    if (inputNumbers.length === 0) {
       toast.error("Por favor, insira alguns números para criar a tabela de frequência.");
       return;
     }
-    setTableData(nums);
+    setTableData(inputNumbers);
   };
 
   const handleClear = () => {
-    setInputValue("");
+    setInputNumbers([]);
     setTableData(null);
   };
 
@@ -117,14 +107,11 @@ export function TabelaFrequenciaSection() {
           <label htmlFor="tabelaFrequenciaInput" className="mb-2 block text-sm font-medium">
             Insira os números separados por vírgula:
           </label>
-          <input
-            id="tabelaFrequenciaInput"
-            type="text"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleCalculate()}
-            placeholder="Ex: 1, 2, 3, 4, 5"
-            className="w-full rounded-lg border border-white/20 bg-slate-800/50 px-4 py-2 text-slate-100 placeholder-slate-500 backdrop-blur-sm transition-colors duration-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+          <NumberInputChips
+            values={inputNumbers}
+            onChange={setInputNumbers}
+            onCalculate={handleCalculate}
+            placeholder="Ex: 1, 2, 3... (Cole do Excel, ou use Espaço e Enter)"
           />
         </div>
         <div className="flex flex-wrap gap-2">
@@ -158,14 +145,11 @@ export function TabelaFrequenciaSection() {
         <label htmlFor="tabelaFrequenciaInput" className="mb-2 block text-sm font-medium">
           Insira os números separados por vírgula:
         </label>
-        <input
-          id="tabelaFrequenciaInput"
-          type="text"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && handleCalculate()}
-          placeholder="Ex: 1, 2, 3, 4, 5"
-          className="w-full rounded-lg border border-white/20 bg-slate-800/50 px-4 py-2 text-slate-100 placeholder-slate-500 backdrop-blur-sm transition-colors duration-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+        <NumberInputChips
+          values={inputNumbers}
+          onChange={setInputNumbers}
+          onCalculate={handleCalculate}
+          placeholder="Ex: 1, 2, 3... (Cole do Excel, ou use Espaço e Enter)"
         />
       </div>
       <div className="mb-4 flex flex-wrap gap-2">

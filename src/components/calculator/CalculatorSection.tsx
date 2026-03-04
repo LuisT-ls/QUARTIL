@@ -4,11 +4,12 @@ import { useState, useCallback } from "react";
 import { Calculator, Eraser, Download, Dices } from "lucide-react";
 import { toast } from "sonner";
 import { useCalculator } from "@/context/CalculatorContext";
+import { NumberInputChips } from "@/components/ui/NumberInputChips";
 import { RandomPopup } from "./RandomPopup";
 import { ExportPopup } from "./ExportPopup";
 
 export function CalculatorSection() {
-  const [inputValue, setInputValue] = useState("");
+  const [inputNumbers, setInputNumbers] = useState<number[]>([]);
   const [rolResult, setRolResult] = useState<{
     rol: number[];
     tempo: number;
@@ -17,7 +18,6 @@ export function CalculatorSection() {
   const [showExportPopup, setShowExportPopup] = useState(false);
 
   const {
-    processData,
     setCurrentData,
     setIsCalculated,
     clearAll,
@@ -40,23 +40,22 @@ export function CalculatorSection() {
   );
 
   const handleCalculate = useCallback(() => {
-    const numeros = processData(inputValue);
-    if (!numeros) {
+    if (inputNumbers.length === 0) {
       toast.error("Por favor, insira alguns números.");
       return;
     }
-    processWithData(numeros);
-  }, [inputValue, processData, processWithData]);
+    processWithData(inputNumbers);
+  }, [inputNumbers, processWithData]);
 
   const handleClear = useCallback(() => {
-    setInputValue("");
+    setInputNumbers([]);
     setRolResult(null);
     clearAll();
   }, [clearAll]);
 
   const handleRandomGenerate = useCallback(
     (numbers: number[]) => {
-      setInputValue(numbers.join(", "));
+      setInputNumbers(numbers);
       processWithData(numbers);
     },
     [processWithData]
@@ -77,15 +76,11 @@ export function CalculatorSection() {
           Entrada de Dados
         </h2>
         <div className="mb-4">
-          <input
-            type="text"
-            id="rolInput"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleCalculate()}
-            placeholder="Ex: 10, 20, 30 ou 10 20 30"
-            className="w-full rounded-lg border border-white/20 bg-slate-800/50 px-4 py-3 text-slate-100 placeholder-slate-500 backdrop-blur-sm transition-colors duration-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-            aria-label="Campo de entrada de dados numéricos"
+          <NumberInputChips
+            values={inputNumbers}
+            onChange={setInputNumbers}
+            onCalculate={handleCalculate}
+            placeholder="Ex: 10, 20, 30... (Cole do Excel, ou use Espaço e Enter)"
           />
         </div>
         <div className="flex flex-wrap gap-2">
