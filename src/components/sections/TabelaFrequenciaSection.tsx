@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Table, Eraser } from "lucide-react";
 import { useCalculator } from "@/context/CalculatorContext";
 import {
@@ -14,13 +14,8 @@ export function TabelaFrequenciaSection() {
   const [inputValue, setInputValue] = useState("");
   const [tableData, setTableData] = useState<number[] | null>(null);
 
-  useEffect(() => {
-    if (isCalculated && currentData.length > 0) {
-      setTableData(currentData);
-    } else if (!isCalculated && currentData.length === 0) {
-      setTableData(null);
-    }
-  }, [currentData, isCalculated]);
+  const derivedTableData = isCalculated && currentData.length > 0 ? currentData : null;
+  const activeTableData = tableData ?? derivedTableData;
 
   const processInput = (raw: string): number[] | null => {
     const trimmed = raw.trim();
@@ -46,7 +41,7 @@ export function TabelaFrequenciaSection() {
     setTableData(null);
   };
 
-  if (!tableData || tableData.length === 0) {
+  if (!activeTableData || activeTableData.length === 0) {
     return (
       <section id="tabela-frequencia" className="py-6" aria-labelledby="tabela-frequencia-title" suppressHydrationWarning>
         <h2 id="tabela-frequencia-title" className="mb-6 text-2xl font-semibold text-slate-100">
@@ -86,9 +81,9 @@ export function TabelaFrequenciaSection() {
     );
   }
 
-  const numClasses = Math.ceil(1 + 3.322 * Math.log10(tableData.length));
-  const min = Math.min(...tableData);
-  const max = Math.max(...tableData);
+  const numClasses = Math.ceil(1 + 3.322 * Math.log10(activeTableData.length));
+  const min = Math.min(...activeTableData);
+  const max = Math.max(...activeTableData);
   const amplitudeTotal = max - min;
   const h = amplitudeTotal / numClasses;
 
@@ -118,7 +113,7 @@ export function TabelaFrequenciaSection() {
     });
   }
 
-  tableData.forEach((valor) => {
+  activeTableData.forEach((valor: number) => {
     for (let i = 0; i < classes.length; i++) {
       if (
         valor >= classes[i].limiteInferior &&
@@ -135,14 +130,14 @@ export function TabelaFrequenciaSection() {
   classes.forEach((c) => {
     freqAcumulada += c.frequencia;
     c.frequenciaAcumulada = freqAcumulada;
-    c.frequenciaRelativa = c.frequencia / tableData.length;
+    c.frequenciaRelativa = c.frequencia / activeTableData.length;
     c.frequenciaRelativaPercentual = c.frequenciaRelativa * 100;
-    c.frequenciaRelativaAcumulada = freqAcumulada / tableData.length;
+    c.frequenciaRelativaAcumulada = freqAcumulada / activeTableData.length;
   });
 
-  const media = calcularMedia(tableData);
-  const mediana = calcularMediana(tableData);
-  const moda = calcularModa(tableData);
+  const media = calcularMedia(activeTableData);
+  const mediana = calcularMediana(activeTableData);
+  const moda = calcularModa(activeTableData);
   const modaStr = typeof moda === "object" ? (Array.isArray(moda) ? moda.join(", ") : String(moda)) : String(moda);
 
   return (
@@ -219,7 +214,7 @@ export function TabelaFrequenciaSection() {
               <td className="p-3">Total</td>
               <td className="p-3">-</td>
               <td className="p-3">-</td>
-              <td className="p-3">{tableData.length}</td>
+              <td className="p-3">{activeTableData.length}</td>
               <td className="p-3">1.0000</td>
               <td className="p-3">100.00%</td>
               <td className="p-3">-</td>

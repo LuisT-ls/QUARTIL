@@ -5,8 +5,6 @@ import { useCalculator } from "@/context/CalculatorContext";
 import {
   calcularMedia,
   calcularVariancia,
-  calcularDesvioPadrao,
-  calcularCV,
   calcularAssimetria,
   calcularCurtose,
 } from "@/lib/stats";

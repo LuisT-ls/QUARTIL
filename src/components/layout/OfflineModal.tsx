@@ -1,36 +1,35 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useSyncExternalStore } from "react";
 import { WifiOff, RefreshCw } from "lucide-react";
 
+const getSnapshot = () => navigator.onLine;
+
+const subscribe = (callback: () => void) => {
+  window.addEventListener("online", callback);
+  window.addEventListener("offline", callback);
+  return () => {
+    window.removeEventListener("online", callback);
+    window.removeEventListener("offline", callback);
+  };
+};
+
 export function OfflineModal() {
-  const [isOffline, setIsOffline] = useState(false);
-  const [hasMounted, setHasMounted] = useState(false);
+  const isOnline = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    () => true // fallback for server-side rendering
+  );
 
-  useEffect(() => {
-    setHasMounted(true);
-    setIsOffline(!navigator.onLine);
 
-    const handleOffline = () => setIsOffline(true);
-    const handleOnline = () => setIsOffline(false);
-
-    window.addEventListener("offline", handleOffline);
-    window.addEventListener("online", handleOnline);
-
-    return () => {
-      window.removeEventListener("offline", handleOffline);
-      window.removeEventListener("online", handleOnline);
-    };
-  }, []);
 
   const handleRetry = () => {
-    if (navigator.onLine) {
-      setIsOffline(false);
+    if (isOnline) {
       window.location.reload();
     }
   };
 
-  if (!hasMounted || !isOffline) return null;
+  if (isOnline) return null;
 
   return (
     <div

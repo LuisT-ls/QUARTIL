@@ -1,4 +1,4 @@
-import { calcularMediana } from "./mediana";
+
 
 export interface PassoQuartil {
   titulo: string;
