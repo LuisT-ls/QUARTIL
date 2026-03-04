@@ -1,5 +1,6 @@
 "use client";
 
+import { ReactNode } from "react";
 import { useCalculator } from "@/context/CalculatorContext";
 import {
   calcularMedia,
@@ -33,9 +34,9 @@ function ResultCard({
   formula,
   children,
 }: {
-  value: React.ReactNode;
+  value: ReactNode;
   formula: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <div className="rounded-2xl border border-white/10 border-t border-l border-t-white/15 border-l-white/15 bg-gradient-to-br from-slate-800/50 to-slate-900/80 p-6 backdrop-blur-md transition-all duration-300 hover:border-blue-500/50">
@@ -73,8 +74,8 @@ export function MedidasDispersao() {
   const variancia = calcularVariancia(currentData, media);
   const desvioPadrao = Math.sqrt(variancia);
   const cv = (desvioPadrao / media) * 100;
-  const assimetria = calcularAssimetria(currentData, media, desvioPadrao);
-  const curtose = calcularCurtose(currentData, media, desvioPadrao);
+  const assimetria = calcularAssimetria(currentData, media);
+  const curtose = calcularCurtose(currentData, media);
 
   return (
     <section id="medidas-dispersao" className="py-6" aria-labelledby="medidas-dispersao-title" suppressHydrationWarning>
@@ -118,7 +119,7 @@ export function MedidasDispersao() {
           <h3 className="mb-3 text-xs font-medium uppercase tracking-wider text-slate-400">Assimetria</h3>
           <ResultCard
             value={assimetria.toFixed(2)}
-            formula="<strong>Fórmula:</strong> As = n/(n-1)(n-2) × ∑[(xᵢ-μ)/σ]³"
+            formula="<strong>Fórmula:</strong> As = n/(n-1)(n-2) × ∑[(xᵢ-μ)/s]³"
           >
             <p>As = {assimetria.toFixed(2)}</p>
             <p>Interpretação: {interpretarAssimetria(assimetria)}</p>
