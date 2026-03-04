@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Plus, Calculator, Trash2 } from "lucide-react";
+import { toast } from "sonner";
 import {
   calcularMedia,
   calcularMediana,
@@ -56,10 +57,10 @@ export function TabelaFrequenciaManualSection() {
           next = next.map((row, i) =>
             i === index
               ? {
-                  ...row,
-                  pontoMedio: ((li + ls) / 2).toFixed(2),
-                  h: (ls - li).toFixed(2),
-                }
+                ...row,
+                pontoMedio: ((li + ls) / 2).toFixed(2),
+                h: (ls - li).toFixed(2),
+              }
               : row
           );
         }
@@ -85,7 +86,7 @@ export function TabelaFrequenciaManualSection() {
 
   const removeRow = (index: number) => {
     if (rows.length <= 1) {
-      alert("A tabela deve ter pelo menos uma linha.");
+      toast.error("A tabela deve ter pelo menos uma linha.");
       return;
     }
     setRows((r) => r.filter((_, i) => i !== index));
@@ -94,7 +95,7 @@ export function TabelaFrequenciaManualSection() {
   const calculate = () => {
     const totalFi = rows.reduce((s, r) => s + (parseFloat(r.fi) || 0), 0);
     if (totalFi === 0) {
-      alert("Preencha as frequências (fi) para calcular.");
+      toast.error("Preencha as frequências (fi) para calcular.");
       return;
     }
 

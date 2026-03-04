@@ -2,6 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import { FileText, FileSpreadsheet, Braces } from "lucide-react";
+import { toast } from "sonner";
 import { useCalculator } from "@/context/CalculatorContext";
 import {
   calcularMedia,
@@ -32,7 +33,7 @@ export function ExportPopup({ isOpen, onClose }: ExportPopupProps) {
 
   const exportData = async (formato: ExportFormat) => {
     if (!isCalculated || currentData.length === 0) {
-      alert("Não há dados para exportar. Por favor, calcule os dados primeiro.");
+      toast.error("Não há dados para exportar. Por favor, calcule os dados primeiro.");
       return;
     }
 

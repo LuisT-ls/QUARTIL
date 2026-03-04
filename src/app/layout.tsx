@@ -4,6 +4,7 @@ import { Poppins } from "next/font/google";
 import { Header, Footer, Watermark, ScrollToTop, OfflineModal } from "@/components/layout";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { siteMetadata } from "@/lib/metadata";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const GA_MEASUREMENT_ID = "G-SZW57KN2PE";
@@ -32,6 +33,7 @@ export default function RootLayout({
         />
       </head>
       <body
+        suppressHydrationWarning
         className={`${poppins.variable} font-sans antialiased`}
       >
         <Script
@@ -56,6 +58,7 @@ export default function RootLayout({
         <main id="main" role="main" aria-label="Conteúdo principal">
           {children}
         </main>
+        <Toaster position="bottom-right" theme="dark" richColors />
         <Footer />
       </body>
     </html>

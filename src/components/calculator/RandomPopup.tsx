@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Sparkles } from "lucide-react";
+import { toast } from "sonner";
 
 interface RandomPopupProps {
   isOpen: boolean;
@@ -30,11 +31,11 @@ export function RandomPopup({
 
   const handleGenerate = () => {
     if (quantidade < 5 || quantidade > 100) {
-      alert("A quantidade de números deve estar entre 5 e 100.");
+      toast.error("A quantidade de números deve estar entre 5 e 100.");
       return;
     }
     if (min >= max) {
-      alert("O valor mínimo deve ser menor que o valor máximo.");
+      toast.error("O valor mínimo deve ser menor que o valor máximo.");
       return;
     }
 

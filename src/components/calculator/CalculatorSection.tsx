@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { Calculator, Eraser, Download, Dices } from "lucide-react";
+import { toast } from "sonner";
 import { useCalculator } from "@/context/CalculatorContext";
 import { RandomPopup } from "./RandomPopup";
 import { ExportPopup } from "./ExportPopup";
@@ -41,7 +42,7 @@ export function CalculatorSection() {
   const handleCalculate = useCallback(() => {
     const numeros = processData(inputValue);
     if (!numeros) {
-      alert("Por favor, insira alguns números.");
+      toast.error("Por favor, insira alguns números.");
       return;
     }
     processWithData(numeros);
@@ -65,7 +66,7 @@ export function CalculatorSection() {
     if (isCalculated && currentData.length > 0) {
       setShowExportPopup(true);
     } else {
-      alert("Por favor, calcule os dados primeiro.");
+      toast.warning("Por favor, calcule os dados primeiro.");
     }
   };
 

@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { Table, Eraser } from "lucide-react";
+import { toast } from "sonner";
 import { useCalculator } from "@/context/CalculatorContext";
 import {
   calcularMedia,
@@ -95,7 +96,7 @@ export function TabelaFrequenciaSection() {
   const handleCalculate = () => {
     const nums = processInput(inputValue);
     if (!nums) {
-      alert("Por favor, insira alguns números para criar a tabela de frequência.");
+      toast.error("Por favor, insira alguns números para criar a tabela de frequência.");
       return;
     }
     setTableData(nums);
