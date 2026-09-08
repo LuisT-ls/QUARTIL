@@ -1,12 +1,13 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { Calculator, Eraser, Download, Dices, Lightbulb } from "lucide-react";
+import { Calculator, Eraser, Download, Dices, Lightbulb, FileUp } from "lucide-react";
 import { toast } from "sonner";
 import { useCalculator } from "@/context/CalculatorContext";
 import { NumberInputChips } from "@/components/ui/NumberInputChips";
 import { RandomPopup } from "./RandomPopup";
 import { ExportPopup } from "./ExportPopup";
+import { ImportPopup, type ImportedData } from "./ImportPopup";
 import { trackEvent } from "@/lib/analytics";
 
 const EXAMPLE_DATA = [5, 8, 10, 12, 15, 18, 20, 22, 25, 30];
@@ -14,6 +15,7 @@ const EXAMPLE_DATA = [5, 8, 10, 12, 15, 18, 20, 22, 25, 30];
 export function CalculatorSection() {
   const [showRandomPopup, setShowRandomPopup] = useState(false);
   const [showExportPopup, setShowExportPopup] = useState(false);
+  const [showImportPopup, setShowImportPopup] = useState(false);
 
   const {
     inputData,
@@ -67,6 +69,20 @@ export function CalculatorSection() {
     }
   };
 
+  const handleImportedData = useCallback(
+    ({ values, fileName }: ImportedData) => {
+      setInputData(values);
+      calculateData(values);
+      trackEvent("import_data", {
+        count: values.length,
+        format: fileName.toLowerCase().endsWith(".xlsx") ? "xlsx" : "csv",
+      });
+      setShowImportPopup(false);
+      toast.success(`${values.length} número(s) importado(s) com sucesso.`);
+    },
+    [calculateData, setInputData]
+  );
+
   return (
     <>
       <section id="entrada-dados" className="py-6" aria-labelledby="input-section-title" suppressHydrationWarning>
@@ -81,7 +97,7 @@ export function CalculatorSection() {
             placeholder="Ex: 10, 20, 30... (decimais: 1,5; 2,75)"
           />
           <p className="mt-2 text-xs text-slate-500">
-            Cole uma coluna do Excel ou use <strong className="text-slate-400">Usar exemplo</strong> para experimentar a análise.
+            Cole uma coluna do Excel, importe um CSV/XLSX ou use <strong className="text-slate-400">Usar exemplo</strong> para experimentar.
           </p>
         </div>
         {isDirty && (
@@ -116,6 +132,15 @@ export function CalculatorSection() {
           >
             <Download className="h-4 w-4" aria-hidden />
             Exportar
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowImportPopup(true)}
+            className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-teal-500 to-emerald-500 px-4 py-2.5 font-medium text-white shadow-[0_0_15px_rgba(20,184,166,0.3)] transition-all duration-300 hover:from-teal-400 hover:to-emerald-400 hover:shadow-[0_0_20px_rgba(20,184,166,0.4)]"
+            aria-label="Importar arquivo"
+          >
+            <FileUp className="h-4 w-4" aria-hidden />
+            Importar arquivo
           </button>
           <button
             type="button"
@@ -167,6 +192,11 @@ export function CalculatorSection() {
         isOpen={showRandomPopup}
         onClose={() => setShowRandomPopup(false)}
         onGenerate={handleRandomGenerate}
+      />
+      <ImportPopup
+        isOpen={showImportPopup}
+        onClose={() => setShowImportPopup(false)}
+        onImport={handleImportedData}
       />
       <ExportPopup
         isOpen={showExportPopup}

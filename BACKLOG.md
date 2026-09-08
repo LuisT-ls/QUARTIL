@@ -132,6 +132,7 @@ Informar claramente a convenção de quartis usada e alinhar o conteúdo de `/ap
 **Impacto:** alto
 **Esforço:** médio/alto
 **Prioridade:** 2
+**Status:** implementado; validação local concluída
 
 Permitir upload de arquivos, seleção de coluna numérica, pré-visualização, tratamento de células vazias ou inválidas e confirmação antes do cálculo.
 
