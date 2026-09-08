@@ -1,4 +1,5 @@
 import { baseUrl } from "@/lib/metadata";
+import { faqJsonLd } from "@/lib/faq";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -36,6 +37,10 @@ export default function AprenderLayout({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       {children}
     </>

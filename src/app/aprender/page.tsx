@@ -7,10 +7,13 @@ import {
   Calculator,
   Target,
   History,
+  HelpCircle,
+  ChevronDown,
   ChevronRight,
   ArrowLeft,
 } from "lucide-react";
 import { baseUrl } from "@/lib/metadata";
+import { faqItems } from "@/lib/faq";
 
 const pageTitle = "Como Calcular Quartis | Aprender Estatística Q1 Q2 Q3";
 const pageDescription =
@@ -64,6 +67,7 @@ const topics = [
   { id: "medidas-posicao", label: "Medidas de Posição", icon: Target },
   { id: "graficos", label: "Gráficos", icon: BarChart3 },
   { id: "tabela-frequencia", label: "Tabela de Frequência", icon: Calculator },
+  { id: "faq", label: "Perguntas frequentes", icon: HelpCircle },
 ] as const;
 
 export default function AprenderPage() {
@@ -97,19 +101,28 @@ export default function AprenderPage() {
 
       <nav
         aria-label="Navegação entre tópicos"
-        className="rounded-2xl border border-white/10 bg-slate-800/30 p-6"
+        className="sticky top-3 z-20 rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 shadow-lg shadow-slate-950/20 backdrop-blur-xl"
       >
-        <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-400">
-          Navegação rápida
-        </h2>
-        <ul className="flex flex-wrap gap-2">
+        <div className="mb-3 flex items-center justify-between gap-3 px-1">
+          <h2 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-300">
+            <span className="h-1.5 w-1.5 rounded-full bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.8)]" aria-hidden />
+            Conteúdo
+          </h2>
+          <span className="text-xs text-slate-500">{topics.length} seções</span>
+        </div>
+        <ul className="flex flex-wrap gap-1.5">
           {topics.map(({ id, label, icon: Icon }) => (
             <li key={id}>
               <a
                 href={`#${id}`}
-                className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-4 py-2 text-sm text-slate-200 transition-colors hover:border-blue-400/50 hover:bg-blue-500/10 hover:text-white"
+                aria-label={`Ir para ${label}`}
+                className={`inline-flex min-h-9 items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-all duration-200 sm:text-sm ${
+                  id === "quartis"
+                    ? "border-blue-400/30 bg-blue-500/15 text-blue-100 shadow-[0_0_14px_rgba(59,130,246,0.12)]"
+                    : "border-transparent bg-white/[0.04] text-slate-300 hover:border-white/15 hover:bg-white/[0.09] hover:text-white"
+                }`}
               >
-                <Icon className="h-4 w-4" aria-hidden />
+                <Icon className="h-4 w-4 shrink-0" aria-hidden />
                 {label}
               </a>
             </li>
@@ -124,7 +137,12 @@ export default function AprenderPage() {
             Quartis e Quartil Estatística
           </h2>
 
-          <div className="space-y-6 text-slate-300">
+          <details open className="group">
+            <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-200 [&::-webkit-details-marker]:hidden">
+              <span>Ver explicação completa</span>
+              <ChevronDown className="h-4 w-4 text-slate-400 transition-transform group-open:rotate-180" aria-hidden />
+            </summary>
+            <div className="mt-6 space-y-6 text-slate-300">
             <div>
               <h3 className="mb-2 flex items-center gap-2 font-medium text-blue-300">
                 <History className="h-5 w-5" aria-hidden />
@@ -178,7 +196,8 @@ export default function AprenderPage() {
                 Valores fora do intervalo <strong className="text-slate-200">[Q1 − 1,5×IQR ; Q3 + 1,5×IQR]</strong> são considerados outliers (discrepantes) e podem ser destacados no boxplot.
               </p>
             </div>
-          </div>
+            </div>
+          </details>
         </section>
       </article>
 
@@ -189,7 +208,12 @@ export default function AprenderPage() {
             Medidas de Posição
           </h2>
 
-          <div className="space-y-6 text-slate-300">
+          <details className="group">
+            <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-200 [&::-webkit-details-marker]:hidden">
+              <span>Ver explicação completa</span>
+              <ChevronDown className="h-4 w-4 text-slate-400 transition-transform group-open:rotate-180" aria-hidden />
+            </summary>
+            <div className="mt-6 space-y-6 text-slate-300">
             <div>
               <h3 className="mb-2 font-medium text-emerald-300">Média aritmética (μ ou x̄)</h3>
               <p className="mb-2 leading-relaxed">
@@ -219,7 +243,8 @@ export default function AprenderPage() {
                 Útil para dados categóricos ou quando o pico de frequência importa.
               </p>
             </div>
-          </div>
+            </div>
+          </details>
         </section>
       </article>
 
@@ -230,7 +255,12 @@ export default function AprenderPage() {
             Gráficos
           </h2>
 
-          <div className="space-y-6 text-slate-300">
+          <details className="group">
+            <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-200 [&::-webkit-details-marker]:hidden">
+              <span>Ver explicação completa</span>
+              <ChevronDown className="h-4 w-4 text-slate-400 transition-transform group-open:rotate-180" aria-hidden />
+            </summary>
+            <div className="mt-6 space-y-6 text-slate-300">
             <div>
               <h3 className="mb-2 font-medium text-amber-300">Histograma</h3>
               <p className="mb-2 leading-relaxed">
@@ -250,7 +280,8 @@ export default function AprenderPage() {
                 Ideal para comparar distribuições e identificar assimetria e outliers.
               </p>
             </div>
-          </div>
+            </div>
+          </details>
         </section>
       </article>
 
@@ -261,7 +292,12 @@ export default function AprenderPage() {
             Tabela de Frequência
           </h2>
 
-          <div className="space-y-6 text-slate-300">
+          <details className="group">
+            <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-200 [&::-webkit-details-marker]:hidden">
+              <span>Ver explicação completa</span>
+              <ChevronDown className="h-4 w-4 text-slate-400 transition-transform group-open:rotate-180" aria-hidden />
+            </summary>
+            <div className="mt-6 space-y-6 text-slate-300">
             <div>
               <h3 className="mb-2 font-medium text-cyan-300">O que é</h3>
               <p className="leading-relaxed">
@@ -286,9 +322,54 @@ export default function AprenderPage() {
                 Dados: 10, 15, 20, 25, 30. Min=10, max=30, A=20. Para n=5: k≈3. Classes: 10–16,67; 16,67–23,33; 23,33–30. Conte quantos valores em cada.
               </p>
             </div>
+            </div>
+          </details>
+        </section>
+      </article>
+
+      <article id="faq" className="scroll-mt-24">
+        <section className="rounded-2xl border border-white/10 border-t border-l border-t-white/15 border-l-white/15 bg-gradient-to-br from-slate-800/50 to-slate-900/80 p-8 backdrop-blur-md">
+          <h2 className="mb-6 flex items-center gap-2 text-2xl font-semibold text-slate-100">
+            <HelpCircle className="h-6 w-6 text-violet-400" aria-hidden />
+            Perguntas frequentes sobre quartis
+          </h2>
+
+          <div className="space-y-3">
+            {faqItems.map(({ question, answer }) => (
+              <details key={question} className="rounded-xl border border-white/10 bg-white/5 p-4">
+                <summary className="cursor-pointer font-medium text-slate-200">{question}</summary>
+                <p className="mt-3 leading-relaxed text-slate-400">{answer}</p>
+              </details>
+            ))}
           </div>
         </section>
       </article>
+
+      <section aria-labelledby="guias-complementares-title" className="rounded-2xl border border-blue-400/20 bg-blue-500/5 p-8">
+        <h2 id="guias-complementares-title" className="mb-4 text-2xl font-semibold text-slate-100">
+          Guias complementares
+        </h2>
+        <p className="mb-5 text-slate-400">
+          Aprofunde os principais conceitos de estatística descritiva com exemplos práticos.
+        </p>
+        <ul className="grid gap-3 sm:grid-cols-3">
+          <li>
+            <Link href="/aprender/como-calcular-quartis" className="text-blue-300 underline decoration-blue-300/40 underline-offset-4 hover:text-blue-200">
+              Como calcular Q1, Q2 e Q3
+            </Link>
+          </li>
+          <li>
+            <Link href="/aprender/quartil-dados-agrupados" className="text-blue-300 underline decoration-blue-300/40 underline-offset-4 hover:text-blue-200">
+              Quartil em dados agrupados
+            </Link>
+          </li>
+          <li>
+            <Link href="/aprender/tabela-de-frequencia" className="text-blue-300 underline decoration-blue-300/40 underline-offset-4 hover:text-blue-200">
+              Como montar uma tabela de frequência
+            </Link>
+          </li>
+        </ul>
+      </section>
 
       <div className="flex flex-col items-center gap-4 border-t border-white/10 pt-12">
         <p className="text-center text-slate-400">

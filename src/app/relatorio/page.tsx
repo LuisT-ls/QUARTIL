@@ -1,9 +1,22 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { SharedReport } from "@/components/report/SharedReport";
+import { baseUrl } from "@/lib/metadata";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Relatório de Análise Estatística | Quartil",
   description: "Relatório compartilhável com resultados e metodologia da análise estatística.",
+  alternates: {
+    canonical: `${baseUrl}/relatorio`,
+  },
+  robots: {
+    index: false,
+    follow: true,
+    googleBot: {
+      index: false,
+      follow: true,
+    },
+  },
 };
 
 function ReportFallback() {

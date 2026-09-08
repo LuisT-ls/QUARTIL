@@ -64,4 +64,10 @@ test("copia o link do relatório e navega para o conteúdo educativo", async ({ 
   await page.getByRole("link", { name: "Conteúdo educativo" }).first().click();
   await expect(page).toHaveURL(/\/aprender$/);
   await expect(page.getByRole("heading", { name: "Como Calcular Quartis e Estatística" })).toBeVisible();
+
+  const positionSection = page.locator("#medidas-posicao");
+  await expect(positionSection.locator("details")).not.toHaveAttribute("open");
+  await positionSection.locator("summary").click();
+  await expect(positionSection.locator("details")).toHaveAttribute("open", "");
+  await expect(positionSection.getByText("Média aritmética (μ ou x̄)")).toBeVisible();
 });

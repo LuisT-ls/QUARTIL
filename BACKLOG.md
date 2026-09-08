@@ -287,6 +287,28 @@ Cobrir automaticamente cálculo, configurações estatísticas, importação CSV
 
 **Justificativa técnica:** o Playwright foi integrado como uma suíte independente do Vitest, com servidor local automático e suporte a `BASE_URL` para validar a implantação publicada. Não exige alteração no modelo client-side nem backend.
 
+### P3-10 — SEO técnico e conteúdo indexável
+
+**Impacto:** alto
+**Esforço:** médio
+**Prioridade:** 3
+**Status:** implementado; verificação do Google Search Console pendente de token
+
+Corrigir diretivas de rastreamento, canonical da rota de relatório, hierarquia de headings, FAQ estruturado e criar páginas educativas específicas para buscas de quartis e tabela de frequência.
+
+**Justificativa técnica:** a aplicação já usa App Router e metadata estática. A implementação ficou restrita a metadata, sitemap, robots, conteúdo server-rendered e dados estruturados, sem introduzir backend.
+
+### P3-11 — Compactar a experiência da página educativa
+
+**Impacto:** médio
+**Esforço:** baixo
+**Prioridade:** 3
+**Status:** implementado; validado visualmente e com E2E
+
+Transformar os blocos longos de `/aprender` em seções recolhíveis e manter a navegação de tópicos acessível durante o scroll.
+
+**Justificativa técnica:** usa elementos HTML nativos (`details`/`summary`) e CSS sticky, sem dependência de estado React adicional ou alteração do conteúdo indexável.
+
 ## 4. 🔴 Mais Difícil & Baixo Impacto
 
 ### P4-01 — Autenticação, dashboard e sincronização em nuvem
@@ -345,6 +367,8 @@ Prioridade 3:
 - P3-07 — Casos extremos.
 - P3-08 — Mensagem offline.
 - P3-09 — Smoke test E2E.
+- P3-10 — SEO técnico e conteúdo indexável.
+- P3-11 — Compactar a experiência da página educativa.
 
 **Objetivo:** melhorar a primeira experiência, reduzir dúvidas e criar visibilidade sobre o uso real.
 
@@ -399,6 +423,8 @@ Com as quatro entregas P2 concluídas e o smoke test automatizado, a próxima et
 | Tratamento de casos extremos | Médio | Baixo | 3 |
 | Revisão da mensagem offline | Médio | Baixo | 3 |
 | Smoke test E2E automatizado | Médio | Baixo/médio | 3 |
+| SEO técnico e conteúdo indexável | Alto | Médio | 3 |
+| Experiência compacta da página educativa | Médio | Baixo | 3 |
 | Autenticação e dashboard em nuvem | Médio | Alto | 4 |
 | PWA/offline completo | Médio | Alto | 4 |
 | Colaboração em tempo real | Baixo | Muito alto | 4 |
