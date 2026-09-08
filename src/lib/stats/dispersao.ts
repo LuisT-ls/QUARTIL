@@ -25,6 +25,7 @@ export function calcularCV(
   if (!array?.length) return 0;
   const m = media ?? calcularMedia(array);
   const dp = desvioPadrao ?? calcularDesvioPadrao(array, m);
+  if (m === 0) return 0;
   return (dp / m) * 100;
 }
 

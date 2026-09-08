@@ -72,7 +72,7 @@ Não existem áreas logadas, dashboards, fluxos de criação/edição persistent
 **Impacto:** alto
 **Esforço:** baixo
 **Prioridade:** 1
-**Status:** implementado; validação de ambiente pendente
+**Status:** implementado; validado (lint, testes e build)
 
 Unificar dados, resultados, tabelas, gráficos e o estado de “análise desatualizada”.
 
@@ -85,7 +85,7 @@ Unificar dados, resultados, tabelas, gráficos e o estado de “análise desatua
 **Impacto:** alto
 **Esforço:** baixo
 **Prioridade:** 1
-**Status:** implementado; validação de ambiente pendente
+**Status:** implementado; validado (lint, testes e build)
 
 Corrigir decimais brasileiros, mostrar valores inválidos e informar quantos números foram reconhecidos.
 
@@ -98,7 +98,7 @@ Corrigir decimais brasileiros, mostrar valores inválidos e informar quantos nú
 **Impacto:** alto
 **Esforço:** baixo
 **Prioridade:** 1
-**Status:** implementado; validação de ambiente pendente
+**Status:** implementado; validado (lint, testes e build)
 
 Exibir logo após o cálculo:
 
@@ -117,7 +117,7 @@ Exibir logo após o cálculo:
 **Impacto:** alto
 **Esforço:** baixo
 **Prioridade:** 1
-**Status:** implementado; validação de ambiente pendente
+**Status:** implementado; validado (lint, testes e build)
 
 Informar claramente a convenção de quartis usada e alinhar o conteúdo de `/aprender` com a implementação real.
 
@@ -187,6 +187,7 @@ Permitir escolher:
 **Impacto:** médio
 **Esforço:** baixo
 **Prioridade:** 3
+**Status:** implementado; validado (lint, testes e build)
 
 Adicionar fechamento com `Esc`, foco inicial, retorno de foco e estados de carregamento nos modais de exportação e geração aleatória.
 
@@ -197,6 +198,7 @@ Adicionar fechamento com `Esc`, foco inicial, retorno de foco e estados de carre
 **Impacto:** médio
 **Esforço:** baixo
 **Prioridade:** 3
+**Status:** implementado; validado (lint, testes e build)
 
 Adicionar botão “Testar com exemplo”, instruções curtas e exemplos de entrada.
 
@@ -207,6 +209,7 @@ Adicionar botão “Testar com exemplo”, instruções curtas e exemplos de ent
 **Impacto:** médio
 **Esforço:** baixo
 **Prioridade:** 3
+**Status:** implementado; validado (lint, testes e build)
 
 Adicionar canal para sugerir melhorias ou reportar resultados inesperados.
 
@@ -217,6 +220,7 @@ Adicionar canal para sugerir melhorias ou reportar resultados inesperados.
 **Impacto:** médio
 **Esforço:** baixo
 **Prioridade:** 3
+**Status:** implementado; validado (lint, testes e build)
 
 Informar o uso de métricas e explicar que os dados estatísticos permanecem no navegador.
 
@@ -227,6 +231,7 @@ Informar o uso de métricas e explicar que os dados estatísticos permanecem no 
 **Impacto:** médio
 **Esforço:** baixo
 **Prioridade:** 3
+**Status:** implementado; validado (lint, testes e build)
 
 Medir eventos como cálculo, uso de dados aleatórios, exportação, upload e acesso ao conteúdo educativo.
 
@@ -237,6 +242,7 @@ Medir eventos como cálculo, uso de dados aleatórios, exportação, upload e ac
 **Impacto:** médio
 **Esforço:** baixo
 **Prioridade:** 3
+**Status:** implementado; validado (lint, testes e build)
 
 Manter tabelas e descrições textuais completas para usuários que não conseguem interpretar o canvas.
 
@@ -247,6 +253,7 @@ Manter tabelas e descrições textuais completas para usuários que não consegu
 **Impacto:** médio
 **Esforço:** baixo
 **Prioridade:** 3
+**Status:** implementado; validado (lint, testes e build)
 
 Evitar `NaN` ou `Infinity` quando a média for zero e explicar situações com poucos dados.
 
@@ -257,6 +264,7 @@ Evitar `NaN` ou `Infinity` quando a média for zero e explicar situações com p
 **Impacto:** médio
 **Esforço:** baixo
 **Prioridade:** 3
+**Status:** implementado; validado (lint, testes e build)
 
 Ajustar a comunicação offline para não prometer recursos que não estejam realmente disponíveis sem conexão.
 

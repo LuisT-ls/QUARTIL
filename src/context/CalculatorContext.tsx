@@ -15,6 +15,7 @@ interface CalculatorContextType {
   isCalculated: boolean;
   isDirty: boolean;
   calculationTimeMs: number | null;
+  calculationVersion: number;
   clearVersion: number;
   setInputData: (data: number[]) => void;
   calculateData: (data?: number[]) => void;
@@ -30,6 +31,7 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
   const [isCalculated, setIsCalculated] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
   const [calculationTimeMs, setCalculationTimeMs] = useState<number | null>(null);
+  const [calculationVersion, setCalculationVersion] = useState(0);
   const [clearVersion, setClearVersion] = useState(0);
 
   const setInputData = useCallback(
@@ -63,6 +65,7 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
       setIsCalculated(true);
       setIsDirty(false);
       setCalculationTimeMs(performance.now() - start);
+      setCalculationVersion((version) => version + 1);
     },
     [inputData]
   );
@@ -90,6 +93,7 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
         isCalculated,
         isDirty,
         calculationTimeMs,
+        calculationVersion,
         clearVersion,
         setInputData,
         calculateData,

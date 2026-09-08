@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Poppins } from "next/font/google";
-import { Header, Footer, Watermark, ScrollToTop, OfflineModal } from "@/components/layout";
+import { Header, Footer, Watermark, ScrollToTop, OfflineModal, PrivacyNotice } from "@/components/layout";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { siteMetadata } from "@/lib/metadata";
 import { Toaster } from "sonner";
@@ -52,6 +52,7 @@ export default function RootLayout({
           `}
         </Script>
         <OfflineModal />
+        <PrivacyNotice />
         <Watermark />
         <ScrollToTop />
         <Header />

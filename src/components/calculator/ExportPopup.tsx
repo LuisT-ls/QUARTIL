@@ -1,9 +1,11 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useState } from "react";
 import { FileText, FileSpreadsheet, Braces } from "lucide-react";
 import { toast } from "sonner";
 import { useCalculator } from "@/context/CalculatorContext";
+import { useDialogAccessibility } from "@/hooks/useDialogAccessibility";
+import { trackEvent } from "@/lib/analytics";
 import {
   calcularMedia,
   calcularMediana,
@@ -21,21 +23,22 @@ interface ExportPopupProps {
 
 export function ExportPopup({ isOpen, onClose }: ExportPopupProps) {
   const { currentData, isCalculated } = useCalculator();
-  const overlayRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const [isExporting, setIsExporting] = useState(false);
 
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      if (e.target === overlayRef.current) onClose();
-    };
-    document.addEventListener("click", handleClick);
-    return () => document.removeEventListener("click", handleClick);
-  }, [onClose]);
+  useDialogAccessibility(isOpen, onClose, dialogRef);
 
   const exportData = async (formato: ExportFormat) => {
     if (!isCalculated || currentData.length === 0) {
       toast.error("Não há dados para exportar. Por favor, calcule os dados primeiro.");
       return;
     }
+
+    setIsExporting(true);
+    trackEvent("export_results", {
+      format: formato,
+      total_elements: currentData.length,
+    });
 
     const rol = currentData;
     const nomeArquivo = `estatistica_${new Date().toISOString().split("T")[0]}`;
@@ -44,7 +47,8 @@ export function ExportPopup({ isOpen, onClose }: ExportPopupProps) {
     const moda = calcularModa(rol);
     const desvioPadrao = calcularDesvioPadrao(rol);
     const variancia = desvioPadrao * desvioPadrao;
-    const cv = (desvioPadrao / media) * 100;
+    const cv = media === 0 ? null : (desvioPadrao / media) * 100;
+    const cvText = cv === null ? "Indefinido (média igual a zero)" : `${cv.toFixed(2)}%`;
     const q1 = calcularQuartil(rol, 0.25);
     const q3 = calcularQuartil(rol, 0.75);
     const modaStr =
@@ -54,7 +58,8 @@ export function ExportPopup({ isOpen, onClose }: ExportPopupProps) {
           : String(moda)
         : String(moda);
 
-    switch (formato) {
+    try {
+      switch (formato) {
       case "pdf": {
         const { jsPDF } = await import("jspdf");
         const doc = new jsPDF();
@@ -76,7 +81,7 @@ export function ExportPopup({ isOpen, onClose }: ExportPopupProps) {
           `Moda: ${modaStr}`,
           `Desvio Padrão: ${desvioPadrao.toFixed(2)}`,
           `Variância: ${variancia.toFixed(2)}`,
-          `Coeficiente de Variação: ${cv.toFixed(2)}%`,
+          `Coeficiente de Variação: ${cvText}`,
           `Mínimo: ${Math.min(...rol)}`,
           `Máximo: ${Math.max(...rol)}`,
           `Amplitude: ${Math.max(...rol) - Math.min(...rol)}`,
@@ -106,7 +111,7 @@ export function ExportPopup({ isOpen, onClose }: ExportPopupProps) {
           `- Moda: ${modaStr}\n` +
           `- Desvio Padrão: ${desvioPadrao.toFixed(2)}\n` +
           `- Variância: ${variancia.toFixed(2)}\n` +
-          `- CV: ${cv.toFixed(2)}%\n` +
+          `- CV: ${cvText}\n` +
           `- Q1: ${q1.toFixed(2)}\n` +
           `- Q2: ${mediana.toFixed(2)}\n` +
           `- Q3: ${q3.toFixed(2)}\n` +
@@ -127,7 +132,7 @@ export function ExportPopup({ isOpen, onClose }: ExportPopupProps) {
         csv += `"Moda","${modaStr.replace(/"/g, '""')}"\n`;
         csv += `"Desvio Padrão","${desvioPadrao.toFixed(2)}"\n`;
         csv += `"Variância","${variancia.toFixed(2)}"\n`;
-        csv += `"CV","${cv.toFixed(2)}%"\n`;
+        csv += `"CV","${cvText}"\n`;
         csv += `"Q1","${q1.toFixed(2)}"\n`;
         csv += `"Q2","${mediana.toFixed(2)}"\n`;
         csv += `"Q3","${q3.toFixed(2)}"\n`;
@@ -157,7 +162,7 @@ export function ExportPopup({ isOpen, onClose }: ExportPopupProps) {
             dispersion: {
               standardDeviation: desvioPadrao.toFixed(2),
               variance: variancia.toFixed(2),
-              coefficientOfVariation: cv.toFixed(2),
+              coefficientOfVariation: cv === null ? null : cv.toFixed(2),
               range: (Math.max(...rol) - Math.min(...rol)).toFixed(2),
             },
             quartiles: {
@@ -194,7 +199,7 @@ export function ExportPopup({ isOpen, onClose }: ExportPopupProps) {
           ["Moda", modaStr],
           ["Desvio Padrão", desvioPadrao.toFixed(2)],
           ["Variância", variancia.toFixed(2)],
-          ["CV", `${cv.toFixed(2)}%`],
+          ["CV", cvText],
           ["Q1", q1.toFixed(2)],
           ["Q2", mediana.toFixed(2)],
           ["Q3", q3.toFixed(2)],
@@ -212,9 +217,13 @@ export function ExportPopup({ isOpen, onClose }: ExportPopupProps) {
         XLSX.writeFile(wb, `${nomeArquivo}.xlsx`);
         break;
       }
+      }
+      onClose();
+    } catch {
+      toast.error("Não foi possível gerar o arquivo. Tente novamente.");
+    } finally {
+      setIsExporting(false);
     }
-
-    onClose();
   };
 
   const downloadFile = (content: string, filename: string, type: string) => {
@@ -233,16 +242,24 @@ export function ExportPopup({ isOpen, onClose }: ExportPopupProps) {
 
   return (
     <div
-      ref={overlayRef}
       className="fixed inset-0 z-[1060] flex items-center justify-center bg-black/50"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="export-popup-title"
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget && !isExporting) onClose();
+      }}
     >
-      <div className="relative max-h-[90vh] w-full max-w-md overflow-auto rounded-lg bg-white p-6 shadow-xl dark:bg-neutral-900">
+      <div
+        ref={dialogRef}
+        className="relative max-h-[90vh] w-full max-w-md overflow-auto rounded-lg bg-white p-6 shadow-xl dark:bg-neutral-900"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="export-popup-title"
+        aria-describedby="export-popup-description"
+        tabIndex={-1}
+      >
         <button
           type="button"
           onClick={onClose}
+          disabled={isExporting}
           className="absolute right-2 top-2 rounded p-2 text-2xl leading-none text-neutral-500 hover:bg-neutral-100"
           aria-label="Fechar"
         >
@@ -251,7 +268,7 @@ export function ExportPopup({ isOpen, onClose }: ExportPopupProps) {
         <h3 id="export-popup-title" className="mb-4 text-xl font-semibold">
           Exportar Rol
         </h3>
-        <p className="mb-4 text-neutral-600">Escolha o formato de exportação:</p>
+        <p id="export-popup-description" className="mb-4 text-neutral-600">Escolha o formato de exportação:</p>
         <div className="flex flex-wrap gap-2">
           {(
             [
@@ -266,6 +283,7 @@ export function ExportPopup({ isOpen, onClose }: ExportPopupProps) {
               key={fmt}
               type="button"
               onClick={() => exportData(fmt)}
+              disabled={isExporting}
               className={`inline-flex items-center gap-2 rounded-lg bg-gradient-to-r ${gradient} px-4 py-2.5 font-medium text-white transition-all duration-300 hover:opacity-90`}
               style={{ boxShadow: shadow }}
               aria-label={`Exportar como ${label}`}
@@ -275,6 +293,11 @@ export function ExportPopup({ isOpen, onClose }: ExportPopupProps) {
             </button>
           ))}
         </div>
+        {isExporting && (
+          <p className="mt-4 text-sm text-neutral-500" role="status" aria-live="polite">
+            Gerando arquivo...
+          </p>
+        )}
       </div>
     </div>
   );

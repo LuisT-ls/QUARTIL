@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Sparkles } from "lucide-react";
 import { toast } from "sonner";
+import { useDialogAccessibility } from "@/hooks/useDialogAccessibility";
+import { trackEvent } from "@/lib/analytics";
 
 interface RandomPopupProps {
   isOpen: boolean;
@@ -19,15 +21,9 @@ export function RandomPopup({
   const [min, setMin] = useState(1);
   const [max, setMax] = useState(100);
   const [apenasInteiros, setApenasInteiros] = useState(true);
-  const overlayRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      if (e.target === overlayRef.current) onClose();
-    };
-    document.addEventListener("click", handleClick);
-    return () => document.removeEventListener("click", handleClick);
-  }, [onClose]);
+  useDialogAccessibility(isOpen, onClose, dialogRef);
 
   const handleGenerate = () => {
     if (quantidade < 5 || quantidade > 100) {
@@ -51,6 +47,10 @@ export function RandomPopup({
       }
     }
 
+    trackEvent("random_data_generated", {
+      count: quantidade,
+      integers: apenasInteiros,
+    });
     onGenerate(numeros);
     onClose();
   };
@@ -59,13 +59,19 @@ export function RandomPopup({
 
   return (
     <div
-      ref={overlayRef}
       className="fixed inset-0 z-[1060] flex items-center justify-center bg-black/50"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="random-popup-title"
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
     >
-      <div className="relative max-h-[90vh] w-full max-w-md overflow-auto rounded-lg bg-white p-6 shadow-xl dark:bg-neutral-900">
+      <div
+        ref={dialogRef}
+        className="relative max-h-[90vh] w-full max-w-md overflow-auto rounded-lg bg-white p-6 shadow-xl dark:bg-neutral-900"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="random-popup-title"
+        tabIndex={-1}
+      >
         <button
           type="button"
           onClick={onClose}

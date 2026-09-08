@@ -3,3 +3,4 @@ export { Footer } from "./Footer";
 export { Watermark } from "./Watermark";
 export { ScrollToTop } from "./ScrollToTop";
 export { OfflineModal } from "./OfflineModal";
+export { PrivacyNotice } from "./PrivacyNotice";

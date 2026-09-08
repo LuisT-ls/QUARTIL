@@ -17,6 +17,12 @@ export function Footer() {
             >
               Conteúdo educativo
             </Link>
+            <a
+              href="mailto:luishg213@outlook.com?subject=Feedback%20sobre%20a%20Calculadora%20Quartil"
+              className="text-sm text-slate-400 underline-offset-2 transition-colors hover:text-slate-200"
+            >
+              Enviar feedback
+            </a>
           </div>
           <p className="text-center text-sm text-slate-400">
             &copy; <time dateTime="2026">2026</time> Calculadora de Estatística.

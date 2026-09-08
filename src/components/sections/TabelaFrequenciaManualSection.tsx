@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Plus, Calculator, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import {
@@ -8,7 +8,6 @@ import {
   calcularMediana,
   calcularModa,
 } from "@/lib/stats";
-import { useCalculator } from "@/context/CalculatorContext";
 
 interface TableRow {
   limiteInferior: string;
@@ -35,7 +34,6 @@ const emptyRow = (): TableRow => ({
 });
 
 export function TabelaFrequenciaManualSection() {
-  const { clearVersion } = useCalculator();
   const [rows, setRows] = useState<TableRow[]>([emptyRow()]);
   const [result, setResult] = useState<{
     table: TableRow[];
@@ -44,11 +42,6 @@ export function TabelaFrequenciaManualSection() {
     mediana: number;
     moda: string | number | number[];
   } | null>(null);
-
-  useEffect(() => {
-    setRows([emptyRow()]);
-    setResult(null);
-  }, [clearVersion]);
 
   const addRow = () => setRows((r) => [...r, emptyRow()]);
 

@@ -14,7 +14,7 @@ import { AnalysisSummary } from "@/components/sections/AnalysisSummary";
 import { FadeInView } from "@/components/ui/FadeInView";
 
 function MainContent() {
-  const { isCalculated } = useCalculator();
+  const { isCalculated, calculationVersion, clearVersion } = useCalculator();
 
   return (
     <div className="container mx-auto max-w-6xl space-y-6 px-4 pb-8">
@@ -46,11 +46,11 @@ function MainContent() {
 
       {/* Exibimos as tabelas e seções contínuas com outro delay isolado ou de forma padrão */}
       <FadeInView delay={isCalculated ? 0.5 : 0.1}>
-        <TabelaFrequenciaSection />
+        <TabelaFrequenciaSection key={`${calculationVersion}-${clearVersion}`} />
       </FadeInView>
 
       <FadeInView delay={isCalculated ? 0.6 : 0.2}>
-        <TabelaFrequenciaManualSection />
+        <TabelaFrequenciaManualSection key={clearVersion} />
       </FadeInView>
 
       <FadeInView delay={isCalculated ? 0.7 : 0.3}>

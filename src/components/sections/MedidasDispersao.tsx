@@ -71,7 +71,7 @@ export function MedidasDispersao() {
   const media = calcularMedia(currentData);
   const variancia = calcularVariancia(currentData, media);
   const desvioPadrao = Math.sqrt(variancia);
-  const cv = (desvioPadrao / media) * 100;
+  const cv = media === 0 ? null : (desvioPadrao / media) * 100;
   const assimetria = calcularAssimetria(currentData, media);
   const curtose = calcularCurtose(currentData, media);
 
@@ -105,12 +105,12 @@ export function MedidasDispersao() {
         <div>
           <h3 className="mb-3 text-xs font-medium uppercase tracking-wider text-slate-400">Coeficiente de Variação (CV)</h3>
           <ResultCard
-            value={`${cv.toFixed(2)}%`}
+            value={cv === null ? "Indefinido" : `${cv.toFixed(2)}%`}
             formula="<strong>Fórmula:</strong> CV = (σ/μ) × 100%"
           >
             <p>σ = {desvioPadrao.toFixed(2)}, μ = {media.toFixed(2)}</p>
-            <p>CV = {cv.toFixed(2)}%</p>
-            <p>Interpretação: {interpretarCV(cv)}</p>
+            <p>CV = {cv === null ? "não definido para média igual a zero" : `${cv.toFixed(2)}%`}</p>
+            <p>Interpretação: {cv === null ? "Não aplicável neste conjunto" : interpretarCV(cv)}</p>
           </ResultCard>
         </div>
         <div>

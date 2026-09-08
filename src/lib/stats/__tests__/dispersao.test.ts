@@ -28,10 +28,14 @@ describe('Medidas de Dispersão', () => {
     });
 
     describe('calcularCV', () => {
-        it('deve calcular o coeficiente de variação corretamente', () => {
-            const cv = (Math.sqrt(2) / 3) * 100;
-            expect(calcularCV(data)).toBeCloseTo(cv);
-        });
+    it('deve calcular o coeficiente de variação corretamente', () => {
+        const cv = (Math.sqrt(2) / 3) * 100;
+        expect(calcularCV(data)).toBeCloseTo(cv);
+    });
+
+    it('deve evitar divisão por zero quando a média é zero', () => {
+        expect(calcularCV([-1, 1])).toBe(0);
+    });
     });
 
     describe('calcularAssimetria', () => {

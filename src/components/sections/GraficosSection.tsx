@@ -295,13 +295,20 @@ export function GraficosSection() {
           <p className="mb-3 text-sm text-slate-400">
             Distribuição de frequência dos dados
           </p>
+          <p id="histograma-descricao" className="sr-only">
+            {detalhesHistograma
+              ? `Histograma com ${detalhesHistograma.numClasses} classes, variando de ${detalhesHistograma.min.toFixed(2)} a ${detalhesHistograma.max.toFixed(2)}. A tabela abaixo contém as frequências de cada classe.`
+              : "Histograma da distribuição de frequência. A tabela de classes e frequências aparece abaixo do gráfico."}
+          </p>
           <div className="relative h-64">
             <canvas
               ref={histogramRef}
               id="histogramaChart"
-              className="max-h-full w-full"
+              className="max-h-full w-full rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
               role="img"
               aria-label="Histograma da distribuição de frequência"
+              aria-describedby="histograma-descricao"
+              tabIndex={0}
             />
           </div>
           {detalhesHistograma && (
@@ -336,6 +343,7 @@ export function GraficosSection() {
               </p>
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[280px] border-collapse text-xs">
+                  <caption className="sr-only">Frequência de cada classe do histograma</caption>
                   <thead>
                     <tr className="border-b border-white/5">
                       <th className="py-2 text-left font-medium text-slate-400">Classe</th>
@@ -373,13 +381,20 @@ export function GraficosSection() {
           <p className="mb-3 text-sm text-slate-400">
             Visualização dos quartis e outliers
           </p>
+          <p id="boxplot-descricao" className="sr-only">
+            {detalhesBoxplot
+              ? `Boxplot com mínimo ${detalhesBoxplot.whiskerMin.toFixed(2)}, Q1 ${detalhesBoxplot.q1.toFixed(2)}, mediana ${detalhesBoxplot.mediana.toFixed(2)}, Q3 ${detalhesBoxplot.q3.toFixed(2)} e máximo ${detalhesBoxplot.whiskerMax.toFixed(2)}.`
+              : "Boxplot dos quartis, mediana, bigodes e possíveis outliers. Os detalhes aparecem abaixo do gráfico."}
+          </p>
           <div className="relative h-64">
             <canvas
               ref={boxplotRef}
               id="boxplotChart"
-              className="max-h-full w-full"
+              className="max-h-full w-full rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
               role="img"
               aria-label="Boxplot dos quartis"
+              aria-describedby="boxplot-descricao"
+              tabIndex={0}
             />
           </div>
           {detalhesBoxplot && (

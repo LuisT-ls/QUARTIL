@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { Table, Eraser } from "lucide-react";
 import { toast } from "sonner";
 import { useCalculator } from "@/context/CalculatorContext";
@@ -12,21 +12,9 @@ import {
 } from "@/lib/stats";
 
 export function TabelaFrequenciaSection() {
-  const { currentData, isCalculated, clearVersion } = useCalculator();
+  const { currentData, isCalculated } = useCalculator();
   const [inputNumbers, setInputNumbers] = useState<number[]>([]);
   const [tableData, setTableData] = useState<number[] | null>(null);
-
-  useEffect(() => {
-    setInputNumbers([]);
-    setTableData(null);
-  }, [clearVersion]);
-
-  useEffect(() => {
-    if (isCalculated && currentData.length > 0) {
-      setInputNumbers([]);
-      setTableData(null);
-    }
-  }, [currentData, isCalculated]);
 
   const derivedTableData = isCalculated && currentData.length > 0 ? currentData : null;
   const activeTableData = tableData ?? derivedTableData;

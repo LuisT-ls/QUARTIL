@@ -1,12 +1,15 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { Calculator, Eraser, Download, Dices } from "lucide-react";
+import { Calculator, Eraser, Download, Dices, Lightbulb } from "lucide-react";
 import { toast } from "sonner";
 import { useCalculator } from "@/context/CalculatorContext";
 import { NumberInputChips } from "@/components/ui/NumberInputChips";
 import { RandomPopup } from "./RandomPopup";
 import { ExportPopup } from "./ExportPopup";
+import { trackEvent } from "@/lib/analytics";
+
+const EXAMPLE_DATA = [5, 8, 10, 12, 15, 18, 20, 22, 25, 30];
 
 export function CalculatorSection() {
   const [showRandomPopup, setShowRandomPopup] = useState(false);
@@ -28,6 +31,10 @@ export function CalculatorSection() {
       toast.error("Por favor, insira alguns números.");
       return;
     }
+    trackEvent("calculate_data", {
+      count: inputData.length,
+      source: "manual",
+    });
     calculateData(inputData);
   }, [calculateData, inputData]);
 
@@ -42,6 +49,15 @@ export function CalculatorSection() {
     },
     [calculateData, setInputData]
   );
+
+  const handleExample = useCallback(() => {
+    setInputData(EXAMPLE_DATA);
+    calculateData(EXAMPLE_DATA);
+    trackEvent("calculate_data", {
+      count: EXAMPLE_DATA.length,
+      source: "example",
+    });
+  }, [calculateData, setInputData]);
 
   const handleExportClick = () => {
     if (isCalculated && currentData.length > 0) {
@@ -64,6 +80,9 @@ export function CalculatorSection() {
             onCalculate={handleCalculate}
             placeholder="Ex: 10, 20, 30... (decimais: 1,5; 2,75)"
           />
+          <p className="mt-2 text-xs text-slate-500">
+            Cole uma coluna do Excel ou use <strong className="text-slate-400">Usar exemplo</strong> para experimentar a análise.
+          </p>
         </div>
         {isDirty && (
           <p className="mb-4 text-sm text-amber-300" role="status">
@@ -106,6 +125,15 @@ export function CalculatorSection() {
           >
             <Dices className="h-4 w-4" aria-hidden />
             Gerar Dados
+          </button>
+          <button
+            type="button"
+            onClick={handleExample}
+            className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-4 py-2.5 font-medium text-slate-200 transition-all duration-300 hover:border-blue-400/50 hover:bg-blue-500/10 hover:text-white"
+            aria-label="Testar com dados de exemplo"
+          >
+            <Lightbulb className="h-4 w-4 text-amber-300" aria-hidden />
+            Usar exemplo
           </button>
         </div>
 
