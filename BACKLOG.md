@@ -292,7 +292,7 @@ Cobrir automaticamente cálculo, configurações estatísticas, importação CSV
 **Impacto:** alto
 **Esforço:** médio
 **Prioridade:** 3
-**Status:** implementado; verificação do Google Search Console pendente de token
+**Status:** implementado; propriedade verificada e sitemap enviado ao Google Search Console
 
 Corrigir diretivas de rastreamento, canonical da rota de relatório, hierarquia de headings, FAQ estruturado e criar páginas educativas específicas para buscas de quartis e tabela de frequência.
 
