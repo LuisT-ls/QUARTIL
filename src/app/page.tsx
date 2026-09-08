@@ -10,6 +10,7 @@ import { TabelaFrequenciaSection } from "@/components/sections/TabelaFrequenciaS
 import { TabelaFrequenciaManualSection } from "@/components/sections/TabelaFrequenciaManualSection";
 import { CasosUsoSection } from "@/components/sections/CasosUsoSection";
 import { EducativoSection } from "@/components/sections/EducativoSection";
+import { AnalysisSummary } from "@/components/sections/AnalysisSummary";
 import { FadeInView } from "@/components/ui/FadeInView";
 
 function MainContent() {
@@ -22,18 +23,22 @@ function MainContent() {
       {isCalculated && (
         <>
           <FadeInView delay={0.1}>
-            <MedidasPosicao />
+            <AnalysisSummary />
           </FadeInView>
 
           <FadeInView delay={0.2}>
-            <MedidasDispersao />
+            <MedidasPosicao />
           </FadeInView>
 
           <FadeInView delay={0.3}>
-            <QuartisSection />
+            <MedidasDispersao />
           </FadeInView>
 
           <FadeInView delay={0.4}>
+            <QuartisSection />
+          </FadeInView>
+
+          <FadeInView delay={0.5}>
             <GraficosSection />
           </FadeInView>
         </>

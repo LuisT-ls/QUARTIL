@@ -2,6 +2,7 @@
 
 import { useState, KeyboardEvent, ClipboardEvent, useRef } from "react";
 import { X } from "lucide-react";
+import { parseNumberInput } from "@/lib/numberParser";
 
 interface NumberInputChipsProps {
     values: number[];
@@ -19,18 +20,16 @@ export function NumberInputChips({
     className = "",
 }: NumberInputChipsProps) {
     const [inputValue, setInputValue] = useState("");
+    const [invalidValues, setInvalidValues] = useState<string[]>([]);
     const inputRef = useRef<HTMLInputElement>(null);
 
     const processInputString = (raw: string) => {
-        const parts = raw.split(/[,\s\n\t;]+/);
-        const newNums = parts
-            .map((n) => parseFloat(n.replace(",", ".")))
-            .filter((n) => !Number.isNaN(n));
-        return newNums;
+        return parseNumberInput(raw);
     };
 
     const handleCreateChips = (raw: string) => {
-        const newNums = processInputString(raw);
+        const { values: newNums, invalidTokens } = processInputString(raw);
+        setInvalidValues(invalidTokens);
         if (newNums.length > 0) {
             onChange([...values, ...newNums]);
             setInputValue("");
@@ -38,12 +37,14 @@ export function NumberInputChips({
     };
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Enter" || e.key === "," || e.key === " " || e.key === ";") {
+        if (e.key === "Enter" || e.key === " " || e.key === ";") {
             e.preventDefault();
             const val = inputValue.trim();
 
             if (val) {
-                handleCreateChips(val);
+                // The semicolon explicitly opts into Brazilian decimal comma:
+                // typing "1,5;" creates the value 1.5.
+                handleCreateChips(e.key === ";" ? `${val};` : val);
             } else if (e.key === "Enter" && onCalculate) {
                 onCalculate();
             }
@@ -71,9 +72,13 @@ export function NumberInputChips({
 
     return (
         <div
-            className={`flex min-h-[50px] w-full flex-wrap items-center gap-2 rounded-lg border border-white/20 bg-slate-800/50 p-2 backdrop-blur-sm transition-colors duration-200 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/50 ${className}`}
+            className="space-y-2"
             onClick={() => inputRef.current?.focus()}
         >
+            <div
+                className={`flex min-h-[50px] w-full flex-wrap items-center gap-2 rounded-lg border border-white/20 bg-slate-800/50 p-2 backdrop-blur-sm transition-colors duration-200 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/50 ${className}`}
+                aria-invalid={invalidValues.length > 0}
+            >
             {values.map((val, i) => (
                 <span
                     key={i}
@@ -97,13 +102,22 @@ export function NumberInputChips({
                 ref={inputRef}
                 type="text"
                 value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
+                onChange={(e) => {
+                    setInputValue(e.target.value);
+                    if (invalidValues.length > 0) setInvalidValues([]);
+                }}
                 onKeyDown={handleKeyDown}
                 onPaste={handlePaste}
                 onBlur={handleBlur}
                 placeholder={values.length === 0 ? placeholder : ""}
                 className="flex-1 min-w-[150px] bg-transparent pb-1 pt-1 text-slate-100 placeholder-slate-500 focus:outline-none"
             />
+            </div>
+            {invalidValues.length > 0 && (
+                <p className="text-sm text-amber-300" role="alert">
+                    Não reconhecido: {invalidValues.join(", ")}. Verifique o formato dos números.
+                </p>
+            )}
         </div>
     );
 }

@@ -7,12 +7,17 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { parseNumberInput } from "@/lib/numberParser";
 
 interface CalculatorContextType {
+  inputData: number[];
   currentData: number[];
   isCalculated: boolean;
-  setCurrentData: (data: number[]) => void;
-  setIsCalculated: (value: boolean) => void;
+  isDirty: boolean;
+  calculationTimeMs: number | null;
+  clearVersion: number;
+  setInputData: (data: number[]) => void;
+  calculateData: (data?: number[]) => void;
   processData: (rawInput: string) => number[] | null;
   clearAll: () => void;
 }
@@ -20,34 +25,74 @@ interface CalculatorContextType {
 const CalculatorContext = createContext<CalculatorContextType | null>(null);
 
 export function CalculatorProvider({ children }: { children: ReactNode }) {
+  const [inputData, setInputDataState] = useState<number[]>([]);
   const [currentData, setCurrentData] = useState<number[]>([]);
   const [isCalculated, setIsCalculated] = useState(false);
+  const [isDirty, setIsDirty] = useState(false);
+  const [calculationTimeMs, setCalculationTimeMs] = useState<number | null>(null);
+  const [clearVersion, setClearVersion] = useState(0);
+
+  const setInputData = useCallback(
+    (data: number[]) => {
+      const nextData = [...data];
+      setInputDataState(nextData);
+
+      if (!isCalculated) {
+        setIsDirty(false);
+        return;
+      }
+
+      const isSameData =
+        nextData.length === currentData.length &&
+        nextData.every((value, index) => value === currentData[index]);
+
+      setIsDirty(!isSameData);
+    },
+    [currentData, isCalculated]
+  );
+
+  const calculateData = useCallback(
+    (data: number[] = inputData) => {
+      if (data.length === 0) return;
+
+      const start = performance.now();
+      const rol = [...data].sort((a, b) => a - b);
+
+      setInputDataState([...data]);
+      setCurrentData(rol);
+      setIsCalculated(true);
+      setIsDirty(false);
+      setCalculationTimeMs(performance.now() - start);
+    },
+    [inputData]
+  );
 
   const processData = useCallback((rawInput: string): number[] | null => {
-    const trimmed = rawInput.trim();
-    if (!trimmed) return null;
-
-    const parts = trimmed.split(/[,\s]+/);
-    const numeros = parts
-      .map((n) => parseFloat(n.replace(",", ".")))
-      .filter((n) => !Number.isNaN(n));
-
-    if (numeros.length === 0) return null;
-    return [...numeros].sort((a, b) => a - b);
+    const { values } = parseNumberInput(rawInput);
+    if (values.length === 0) return null;
+    return [...values].sort((a, b) => a - b);
   }, []);
 
   const clearAll = useCallback(() => {
+    setInputDataState([]);
     setCurrentData([]);
     setIsCalculated(false);
+    setIsDirty(false);
+    setCalculationTimeMs(null);
+    setClearVersion((version) => version + 1);
   }, []);
 
   return (
     <CalculatorContext.Provider
       value={{
+        inputData,
         currentData,
         isCalculated,
-        setCurrentData,
-        setIsCalculated,
+        isDirty,
+        calculationTimeMs,
+        clearVersion,
+        setInputData,
+        calculateData,
         processData,
         clearAll,
       }}

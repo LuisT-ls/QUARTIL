@@ -70,7 +70,7 @@ export function QuartisSection() {
         Quartis - Análise de Distribuição
       </h2>
       <p className="mb-6 text-slate-400">
-        Os quartis são essenciais para entender a distribuição dos dados.
+        Os quartis são essenciais para entender a distribuição dos dados. Este cálculo usa percentis interpolados pela posição (n − 1) × p.
       </p>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         <div>
@@ -78,7 +78,7 @@ export function QuartisSection() {
           <p className="mb-3 text-sm text-slate-400">25% dos dados abaixo</p>
           <ResultCard
             value={q1.toFixed(2)}
-            formula="<strong>Fórmula:</strong> Q₁ = posição n×0,25"
+            formula="<strong>Fórmula:</strong> posição = (n − 1) × 0,25"
           >
             <p>Dados: [{ordenado.join(", ")}]</p>
             <p>Q₁ = {q1.toFixed(2)}</p>
@@ -99,7 +99,7 @@ export function QuartisSection() {
           <p className="mb-3 text-sm text-slate-400">75% dos dados abaixo</p>
           <ResultCard
             value={q3.toFixed(2)}
-            formula="<strong>Fórmula:</strong> Q₃ = posição n×0,75"
+            formula="<strong>Fórmula:</strong> posição = (n − 1) × 0,75"
           >
             <p>Q₃ = {q3.toFixed(2)}</p>
           </ResultCard>

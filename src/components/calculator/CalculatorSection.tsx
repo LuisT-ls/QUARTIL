@@ -9,56 +9,38 @@ import { RandomPopup } from "./RandomPopup";
 import { ExportPopup } from "./ExportPopup";
 
 export function CalculatorSection() {
-  const [inputNumbers, setInputNumbers] = useState<number[]>([]);
-  const [rolResult, setRolResult] = useState<{
-    rol: number[];
-    tempo: number;
-  } | null>(null);
   const [showRandomPopup, setShowRandomPopup] = useState(false);
   const [showExportPopup, setShowExportPopup] = useState(false);
 
   const {
-    setCurrentData,
-    setIsCalculated,
+    inputData,
     clearAll,
+    setInputData,
+    calculateData,
     currentData,
     isCalculated,
+    isDirty,
+    calculationTimeMs,
   } = useCalculator();
 
-  const processWithData = useCallback(
-    (numeros: number[]) => {
-      const start = performance.now();
-      const rol = [...numeros].sort((a, b) => a - b);
-      setCurrentData(rol);
-      setIsCalculated(true);
-      setRolResult({
-        rol,
-        tempo: performance.now() - start,
-      });
-    },
-    [setCurrentData, setIsCalculated]
-  );
-
   const handleCalculate = useCallback(() => {
-    if (inputNumbers.length === 0) {
+    if (inputData.length === 0) {
       toast.error("Por favor, insira alguns números.");
       return;
     }
-    processWithData(inputNumbers);
-  }, [inputNumbers, processWithData]);
+    calculateData(inputData);
+  }, [calculateData, inputData]);
 
   const handleClear = useCallback(() => {
-    setInputNumbers([]);
-    setRolResult(null);
     clearAll();
   }, [clearAll]);
 
   const handleRandomGenerate = useCallback(
     (numbers: number[]) => {
-      setInputNumbers(numbers);
-      processWithData(numbers);
+      setInputData(numbers);
+      calculateData(numbers);
     },
-    [processWithData]
+    [calculateData, setInputData]
   );
 
   const handleExportClick = () => {
@@ -77,12 +59,17 @@ export function CalculatorSection() {
         </h2>
         <div className="mb-4">
           <NumberInputChips
-            values={inputNumbers}
-            onChange={setInputNumbers}
+            values={inputData}
+            onChange={setInputData}
             onCalculate={handleCalculate}
-            placeholder="Ex: 10, 20, 30... (Cole do Excel, ou use Espaço e Enter)"
+            placeholder="Ex: 10, 20, 30... (decimais: 1,5; 2,75)"
           />
         </div>
+        {isDirty && (
+          <p className="mb-4 text-sm text-amber-300" role="status">
+            Os dados foram alterados. Clique em <strong>Calcular</strong> para atualizar os resultados.
+          </p>
+        )}
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
@@ -122,26 +109,26 @@ export function CalculatorSection() {
           </button>
         </div>
 
-        {rolResult && (
+        {isCalculated && currentData.length > 0 && (
           <div className="mt-4 rounded-2xl border border-white/10 border-t border-l border-t-white/15 border-l-white/15 bg-gradient-to-br from-slate-800/50 to-slate-900/80 p-6 backdrop-blur-md transition-all duration-300 hover:border-blue-500/50">
             <h3 className="mb-2 font-semibold text-slate-100">Rol Ordenado</h3>
-            <p className="mb-2 text-sm text-slate-300">{rolResult.rol.join(" - ")}</p>
+            <p className="mb-2 text-sm text-slate-300">{currentData.join(" - ")}</p>
             <div className="flex flex-wrap gap-4 text-sm text-slate-400">
               <span>
-                <strong>n =</strong> {rolResult.rol.length}
+                <strong>n =</strong> {currentData.length}
               </span>
               <span>
-                <strong>Mínimo:</strong> {Math.min(...rolResult.rol)}
+                <strong>Mínimo:</strong> {Math.min(...currentData)}
               </span>
               <span>
-                <strong>Máximo:</strong> {Math.max(...rolResult.rol)}
+                <strong>Máximo:</strong> {Math.max(...currentData)}
               </span>
               <span>
                 <strong>Amplitude:</strong>{" "}
-                {Math.max(...rolResult.rol) - Math.min(...rolResult.rol)}
+                {Math.max(...currentData) - Math.min(...currentData)}
               </span>
               <span>
-                <strong>Tempo:</strong> {rolResult.tempo.toFixed(2)}ms
+                <strong>Tempo:</strong> {calculationTimeMs?.toFixed(2) ?? "0.00"}ms
               </span>
             </div>
           </div>

@@ -159,15 +159,15 @@ export default function AprenderPage() {
             <div>
               <h3 className="mb-2 font-medium text-blue-300">Como calcular quartis</h3>
               <p className="mb-2 leading-relaxed">
-                Para dados ordenados, usa-se a posição: <code className="rounded bg-slate-700/50 px-1.5 py-0.5 font-mono text-sm text-cyan-300">posição = (n + 1) × p</code>, onde <em>p</em> é a fração (0,25 para Q1; 0,5 para mediana; 0,75 para Q3).
+                Para dados ordenados, esta calculadora usa a posição interpolada: <code className="rounded bg-slate-700/50 px-1.5 py-0.5 font-mono text-sm text-cyan-300">posição = (n − 1) × p</code>, onde <em>p</em> é a fração (0,25 para Q1; 0,5 para mediana; 0,75 para Q3).
               </p>
               <p className="mb-2 leading-relaxed">
-                Se a posição for inteira, o valor é o dado nessa posição. Se for decimal, interpola-se entre os dois valores vizinhos.
+                A posição é calculada internamente a partir do índice zero. Se ela for inteira, o valor é o dado correspondente. Se for decimal, interpola-se entre os dois valores vizinhos.
               </p>
               <div className="mt-4 rounded-xl border border-white/5 bg-black/20 p-4">
                 <p className="mb-2 text-sm font-medium text-slate-200">Exemplo:</p>
                 <p className="text-sm text-slate-400">
-                  Dados: 5, 10, 15, 20, 25 (n=5). Q1: pos = 6×0,25 = 1,5 → valor entre 5 e 10 = 7,5. Q2: pos = 3 → 15. Q3: pos = 6×0,75 = 4,5 → entre 20 e 25 = 22,5.
+                  Dados: 5, 10, 15, 20, 25 (n=5). Q1: pos = 4×0,25 = 1 → 10. Q2: pos = 4×0,5 = 2 → 15. Q3: pos = 4×0,75 = 3 → 20.
                 </p>
               </div>
             </div>

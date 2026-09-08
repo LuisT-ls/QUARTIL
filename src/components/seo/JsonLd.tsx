@@ -10,7 +10,7 @@ const faqJsonLd = {
       name: "Como calcular quartis Q1, Q2 e Q3?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Use a fórmula: posição = (n + 1) × p, onde p é 0,25 para Q1, 0,5 para Q2 (mediana) e 0,75 para Q3. Se a posição for inteira, o valor é o dado nessa posição. Se for decimal, interpole entre os dois valores vizinhos. Use nossa calculadora de quartil online para resultados instantâneos.",
+        text: "Use a fórmula de percentil interpolado: posição = (n − 1) × p, onde p é 0,25 para Q1, 0,5 para Q2 (mediana) e 0,75 para Q3. Se a posição for inteira, o valor é o dado correspondente. Se for decimal, interpole entre os dois valores vizinhos. Use nossa calculadora de quartil online para resultados instantâneos.",
       },
     },
     {

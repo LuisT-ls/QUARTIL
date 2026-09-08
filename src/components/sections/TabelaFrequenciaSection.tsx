@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Table, Eraser } from "lucide-react";
 import { toast } from "sonner";
 import { useCalculator } from "@/context/CalculatorContext";
@@ -12,9 +12,21 @@ import {
 } from "@/lib/stats";
 
 export function TabelaFrequenciaSection() {
-  const { currentData, isCalculated } = useCalculator();
+  const { currentData, isCalculated, clearVersion } = useCalculator();
   const [inputNumbers, setInputNumbers] = useState<number[]>([]);
   const [tableData, setTableData] = useState<number[] | null>(null);
+
+  useEffect(() => {
+    setInputNumbers([]);
+    setTableData(null);
+  }, [clearVersion]);
+
+  useEffect(() => {
+    if (isCalculated && currentData.length > 0) {
+      setInputNumbers([]);
+      setTableData(null);
+    }
+  }, [currentData, isCalculated]);
 
   const derivedTableData = isCalculated && currentData.length > 0 ? currentData : null;
   const activeTableData = tableData ?? derivedTableData;
@@ -111,7 +123,7 @@ export function TabelaFrequenciaSection() {
             values={inputNumbers}
             onChange={setInputNumbers}
             onCalculate={handleCalculate}
-            placeholder="Ex: 1, 2, 3... (Cole do Excel, ou use Espaço e Enter)"
+            placeholder="Ex: 1, 2, 3... (decimais: 1,5; 2,75)"
           />
         </div>
         <div className="flex flex-wrap gap-2">
@@ -149,7 +161,7 @@ export function TabelaFrequenciaSection() {
           values={inputNumbers}
           onChange={setInputNumbers}
           onCalculate={handleCalculate}
-          placeholder="Ex: 1, 2, 3... (Cole do Excel, ou use Espaço e Enter)"
+          placeholder="Ex: 1, 2, 3... (decimais: 1,5; 2,75)"
         />
       </div>
       <div className="mb-4 flex flex-wrap gap-2">
