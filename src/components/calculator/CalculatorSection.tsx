@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { Calculator, Eraser, Download, Dices, Lightbulb, FileUp } from "lucide-react";
+import { Calculator, Eraser, Download, Dices, Lightbulb, FileUp, Share2 } from "lucide-react";
 import { toast } from "sonner";
 import { useCalculator } from "@/context/CalculatorContext";
 import { NumberInputChips } from "@/components/ui/NumberInputChips";
@@ -9,6 +9,7 @@ import { RandomPopup } from "./RandomPopup";
 import { ExportPopup } from "./ExportPopup";
 import { ImportPopup, type ImportedData } from "./ImportPopup";
 import { trackEvent } from "@/lib/analytics";
+import { createReportShareUrl } from "@/lib/analysisSnapshot";
 
 const EXAMPLE_DATA = [5, 8, 10, 12, 15, 18, 20, 22, 25, 30];
 
@@ -68,6 +69,31 @@ export function CalculatorSection() {
       toast.warning("Por favor, calcule os dados primeiro.");
     }
   };
+
+  const handleShareReport = useCallback(async () => {
+    if (!isCalculated || currentData.length === 0) {
+      toast.warning("Por favor, calcule os dados primeiro.");
+      return;
+    }
+
+    try {
+      const url = createReportShareUrl(currentData);
+      if (navigator.share) {
+        await navigator.share({
+          title: "Relatório de análise estatística",
+          text: "Confira este relatório estatístico.",
+          url,
+        });
+      } else {
+        await navigator.clipboard.writeText(url);
+        toast.success("Link do relatório copiado. Ele contém os valores da análise.");
+      }
+      trackEvent("share_report", { count: currentData.length });
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") return;
+      toast.error(error instanceof Error ? error.message : "Não foi possível compartilhar o relatório.");
+    }
+  }, [currentData, isCalculated]);
 
   const handleImportedData = useCallback(
     ({ values, fileName }: ImportedData) => {
@@ -132,6 +158,15 @@ export function CalculatorSection() {
           >
             <Download className="h-4 w-4" aria-hidden />
             Exportar
+          </button>
+          <button
+            type="button"
+            onClick={handleShareReport}
+            className="inline-flex items-center gap-2 rounded-lg border border-blue-400/30 bg-blue-500/10 px-4 py-2.5 font-medium text-blue-100 transition-all duration-300 hover:border-blue-300/60 hover:bg-blue-500/20"
+            aria-label="Compartilhar relatório"
+          >
+            <Share2 className="h-4 w-4" aria-hidden />
+            Compartilhar
           </button>
           <button
             type="button"

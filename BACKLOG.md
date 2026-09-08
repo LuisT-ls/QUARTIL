@@ -158,6 +158,7 @@ Salvar análises no navegador, permitir nomear, duplicar, favoritar e comparar d
 **Impacto:** alto
 **Esforço:** alto
 **Prioridade:** 2
+**Status:** implementado; validação local concluída
 
 Gerar relatório com dados, metodologia, tabelas, gráficos, fórmulas e explicações, além de permitir um link reproduzível.
 
