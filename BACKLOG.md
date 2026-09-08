@@ -276,6 +276,17 @@ Ajustar a comunicação offline para não prometer recursos que não estejam rea
 
 **Justificativa técnica:** o modal já existe; inicialmente basta alterar o texto e diferenciar “a página já carregada continua utilizável” de “a aplicação é totalmente offline”.
 
+### P3-09 — Automatizar o smoke test E2E
+
+**Impacto:** médio
+**Esforço:** baixo/médio
+**Prioridade:** 3
+**Status:** implementado; validado localmente e em produção (5 cenários aprovados)
+
+Cobrir automaticamente cálculo, configurações estatísticas, importação CSV, histórico, compartilhamento e navegação educativa.
+
+**Justificativa técnica:** o Playwright foi integrado como uma suíte independente do Vitest, com servidor local automático e suporte a `BASE_URL` para validar a implantação publicada. Não exige alteração no modelo client-side nem backend.
+
 ## 4. 🔴 Mais Difícil & Baixo Impacto
 
 ### P4-01 — Autenticação, dashboard e sincronização em nuvem
@@ -333,6 +344,7 @@ Prioridade 3:
 - P3-06 — Acessibilidade dos gráficos.
 - P3-07 — Casos extremos.
 - P3-08 — Mensagem offline.
+- P3-09 — Smoke test E2E.
 
 **Objetivo:** melhorar a primeira experiência, reduzir dúvidas e criar visibilidade sobre o uso real.
 
@@ -357,11 +369,11 @@ Prioridade 4:
 
 **Objetivo:** só investir após evidências de demanda, retenção e necessidade de uso multiusuário.
 
-## Próxima etapa recomendada — Validação orientada por evidências
+## Próxima etapa recomendada — Monitoramento orientado por evidências
 
-Com as quatro entregas P2 concluídas, a próxima etapa não deve ser adicionar infraestrutura de contas imediatamente. O foco recomendado é um ciclo curto de validação em produção:
+Com as quatro entregas P2 concluídas e o smoke test automatizado, a próxima etapa não deve ser adicionar infraestrutura de contas imediatamente. O foco recomendado é um ciclo curto de validação em produção:
 
-- executar smoke test dos fluxos de importação, histórico, compartilhamento e configurações;
+- executar `npm run test:e2e` localmente e `BASE_URL=https://quartil.vercel.app npm run test:e2e` contra a produção;
 - observar os eventos de uso já instrumentados e identificar onde usuários abandonam a jornada;
 - coletar feedback sobre convenções estatísticas e necessidade real de persistência na nuvem;
 - decidir, com base nesses sinais, entre aprofundar exportações/feedback ou iniciar P4-01 (contas e nuvem).
@@ -386,6 +398,7 @@ Com as quatro entregas P2 concluídas, a próxima etapa não deve ser adicionar 
 | Acessibilidade alternativa dos gráficos | Médio | Baixo | 3 |
 | Tratamento de casos extremos | Médio | Baixo | 3 |
 | Revisão da mensagem offline | Médio | Baixo | 3 |
+| Smoke test E2E automatizado | Médio | Baixo/médio | 3 |
 | Autenticação e dashboard em nuvem | Médio | Alto | 4 |
 | PWA/offline completo | Médio | Alto | 4 |
 | Colaboração em tempo real | Baixo | Muito alto | 4 |

@@ -110,6 +110,9 @@ Acesse [http://localhost:3000](http://localhost:3000).
 | `npm run build` | Build de produção |
 | `npm run start` | Inicia o servidor de produção |
 | `npm run lint` | Executa o ESLint |
+| `npm test` | Executa os testes unitários |
+| `npm run test:e2e` | Executa o smoke test E2E localmente |
+| `BASE_URL=https://quartil.vercel.app npm run test:e2e` | Executa o smoke test contra a produção |
 
 ---
 
