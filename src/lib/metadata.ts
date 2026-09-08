@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 
 export const baseUrl = "https://quartil.vercel.app";
 
-/** Código do Google Search Console. Configure GOOGLE_SITE_VERIFICATION no .env.local */
-const googleVerification = process.env.GOOGLE_SITE_VERIFICATION;
+/** Token público do Google Search Console; a variável de ambiente permite substituí-lo por ambiente. */
+const googleVerification =
+  process.env.GOOGLE_SITE_VERIFICATION ?? "zVObuejTkL9v5-ZBm_K_PwiUjGMb44Izc26S9YgEnUw";
 
 /** Título otimizado para SEO/Bing: inclui "calculadora de quartil" (keyword de conversão) e "como calcular" */
 const seoTitle = "Calculadora de Quartil Online | Como Calcular Quartis Q1 Q2 Q3 Grátis";
