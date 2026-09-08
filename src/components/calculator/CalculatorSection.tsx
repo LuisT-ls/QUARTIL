@@ -1,7 +1,17 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { Calculator, Eraser, Download, Dices, Lightbulb, FileUp, Share2 } from "lucide-react";
+import { useState, useCallback, type MouseEvent } from "react";
+import {
+  Calculator,
+  ChevronDown,
+  Dices,
+  Download,
+  Eraser,
+  FileUp,
+  Lightbulb,
+  MoreHorizontal,
+  Share2,
+} from "lucide-react";
 import { toast } from "sonner";
 import { useCalculator } from "@/context/CalculatorContext";
 import { NumberInputChips } from "@/components/ui/NumberInputChips";
@@ -13,6 +23,10 @@ import { createReportShareUrl } from "@/lib/analysisSnapshot";
 import { StatisticsSettingsPanel } from "./StatisticsSettingsPanel";
 
 const EXAMPLE_DATA = [5, 8, 10, 12, 15, 18, 20, 22, 25, 30];
+
+const closeActionMenu = (event: MouseEvent<HTMLButtonElement>) => {
+  event.currentTarget.closest("details")?.removeAttribute("open");
+};
 
 export function CalculatorSection() {
   const [showRandomPopup, setShowRandomPopup] = useState(false);
@@ -133,7 +147,7 @@ export function CalculatorSection() {
             Os dados foram alterados. Clique em <strong>Calcular</strong> para atualizar os resultados.
           </p>
         )}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <button
             type="button"
             onClick={handleCalculate}
@@ -142,33 +156,6 @@ export function CalculatorSection() {
           >
             <Calculator className="h-4 w-4" aria-hidden />
             Calcular
-          </button>
-          <button
-            type="button"
-            onClick={handleClear}
-            className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 px-4 py-2.5 font-medium text-white shadow-[0_0_15px_rgba(245,158,11,0.25)] transition-all duration-300 hover:from-amber-400 hover:to-amber-500 hover:shadow-[0_0_20px_rgba(245,158,11,0.35)]"
-            aria-label="Limpar"
-          >
-            <Eraser className="h-4 w-4" aria-hidden />
-            Limpar
-          </button>
-          <button
-            type="button"
-            onClick={handleExportClick}
-            className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-emerald-500 to-emerald-600 px-4 py-2.5 font-medium text-white shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all duration-300 hover:from-emerald-400 hover:to-emerald-500 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)]"
-            aria-label="Exportar"
-          >
-            <Download className="h-4 w-4" aria-hidden />
-            Exportar
-          </button>
-          <button
-            type="button"
-            onClick={handleShareReport}
-            className="inline-flex items-center gap-2 rounded-lg border border-blue-400/30 bg-blue-500/10 px-4 py-2.5 font-medium text-blue-100 transition-all duration-300 hover:border-blue-300/60 hover:bg-blue-500/20"
-            aria-label="Compartilhar relatório"
-          >
-            <Share2 className="h-4 w-4" aria-hidden />
-            Compartilhar
           </button>
           <button
             type="button"
@@ -181,15 +168,6 @@ export function CalculatorSection() {
           </button>
           <button
             type="button"
-            onClick={() => setShowRandomPopup(true)}
-            className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-sky-500 to-cyan-500 px-4 py-2.5 font-medium text-white shadow-[0_0_15px_rgba(14,165,233,0.3)] transition-all duration-300 hover:from-sky-400 hover:to-cyan-400 hover:shadow-[0_0_20px_rgba(14,165,233,0.4)]"
-            aria-label="Gerar Dados"
-          >
-            <Dices className="h-4 w-4" aria-hidden />
-            Gerar Dados
-          </button>
-          <button
-            type="button"
             onClick={handleExample}
             className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-4 py-2.5 font-medium text-slate-200 transition-all duration-300 hover:border-blue-400/50 hover:bg-blue-500/10 hover:text-white"
             aria-label="Testar com dados de exemplo"
@@ -197,6 +175,63 @@ export function CalculatorSection() {
             <Lightbulb className="h-4 w-4 text-amber-300" aria-hidden />
             Usar exemplo
           </button>
+          <details className="group relative">
+            <summary className="inline-flex min-h-[42px] cursor-pointer list-none items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-4 py-2.5 font-medium text-slate-200 transition-all duration-300 hover:border-white/25 hover:bg-white/10 hover:text-white [&::-webkit-details-marker]:hidden">
+              <MoreHorizontal className="h-4 w-4" aria-hidden />
+              Mais ações
+              <ChevronDown className="h-4 w-4 text-slate-400 transition-transform duration-200 group-open:rotate-180" aria-hidden />
+            </summary>
+            <div className="absolute left-0 top-full z-30 mt-2 w-64 rounded-xl border border-white/10 bg-slate-900/95 p-2 shadow-xl shadow-slate-950/40 backdrop-blur-xl">
+              <button
+                type="button"
+                onClick={(event) => {
+                  closeActionMenu(event);
+                  handleClear();
+                }}
+                className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-slate-200 transition-colors hover:bg-white/10 hover:text-white"
+                aria-label="Limpar"
+              >
+                <Eraser className="h-4 w-4 text-amber-300" aria-hidden />
+                Limpar
+              </button>
+              <button
+                type="button"
+                onClick={(event) => {
+                  closeActionMenu(event);
+                  handleExportClick();
+                }}
+                className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-slate-200 transition-colors hover:bg-white/10 hover:text-white"
+                aria-label="Exportar"
+              >
+                <Download className="h-4 w-4 text-emerald-300" aria-hidden />
+                Exportar
+              </button>
+              <button
+                type="button"
+                onClick={(event) => {
+                  closeActionMenu(event);
+                  void handleShareReport();
+                }}
+                className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-slate-200 transition-colors hover:bg-white/10 hover:text-white"
+                aria-label="Compartilhar relatório"
+              >
+                <Share2 className="h-4 w-4 text-blue-300" aria-hidden />
+                Compartilhar
+              </button>
+              <button
+                type="button"
+                onClick={(event) => {
+                  closeActionMenu(event);
+                  setShowRandomPopup(true);
+                }}
+                className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-slate-200 transition-colors hover:bg-white/10 hover:text-white"
+                aria-label="Gerar Dados"
+              >
+                <Dices className="h-4 w-4 text-cyan-300" aria-hidden />
+                Gerar dados
+              </button>
+            </div>
+          </details>
         </div>
 
         {isCalculated && currentData.length > 0 && (

@@ -6,6 +6,11 @@ test.beforeEach(async ({ page }) => {
 });
 
 test("calcula dados de exemplo e renderiza resultados, gráficos e tabelas", async ({ page }) => {
+  await expect(page.getByRole("button", { name: "Calcular", exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Importar arquivo" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Testar com dados de exemplo" })).toBeVisible();
+  await expect(page.getByText("Mais ações", { exact: true })).toBeVisible();
+
   await page.getByRole("button", { name: "Testar com dados de exemplo" }).click();
 
   await expect(page).toHaveTitle(/Calculadora de Quartil/);
@@ -58,6 +63,7 @@ test("salva e remove uma análise do histórico local", async ({ page }) => {
 
 test("copia o link do relatório e navega para o conteúdo educativo", async ({ page }) => {
   await page.getByRole("button", { name: "Testar com dados de exemplo" }).click();
+  await page.getByText("Mais ações", { exact: true }).click();
   await page.getByRole("button", { name: "Compartilhar relatório" }).click();
   await expect(page.getByText("Link do relatório copiado.")).toBeVisible();
 
