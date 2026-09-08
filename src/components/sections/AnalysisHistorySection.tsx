@@ -13,6 +13,7 @@ import {
   calcularQuartil,
 } from "@/lib/stats";
 import { trackEvent } from "@/lib/analytics";
+import { normalizeStatisticsSettings } from "@/lib/statisticsSettings";
 
 interface AnalysisSummary {
   count: number;
@@ -24,16 +25,22 @@ interface AnalysisSummary {
   outliers: number;
 }
 
-function summarize(values: number[]): AnalysisSummary {
-  const outlierResult = calcularOutliers(values);
+function summarize(values: number[], settings = normalizeStatisticsSettings(null)): AnalysisSummary {
+  const analysisValues = settings.outlierPolicy === "exclude"
+    ? values.filter((value) => {
+      const result = calcularOutliers(values, settings.quartileMethod);
+      return value >= result.limiteInferior && value <= result.limiteSuperior;
+    })
+    : values;
+  const outlierResult = calcularOutliers(analysisValues, settings.quartileMethod);
 
   return {
-    count: values.length,
-    mean: calcularMedia(values),
-    median: calcularMediana(values),
-    q1: calcularQuartil(values, 0.25),
-    q3: calcularQuartil(values, 0.75),
-    standardDeviation: calcularDesvioPadrao(values),
+    count: analysisValues.length,
+    mean: calcularMedia(analysisValues),
+    median: calcularMediana(analysisValues),
+    q1: calcularQuartil(analysisValues, 0.25, settings.quartileMethod),
+    q3: calcularQuartil(analysisValues, 0.75, settings.quartileMethod),
+    standardDeviation: calcularDesvioPadrao(analysisValues, null, settings.varianceMethod),
     outliers: outlierResult.inferior.length + outlierResult.superior.length,
   };
 }
@@ -62,7 +69,7 @@ function metricRows(first: AnalysisSummary, second: AnalysisSummary) {
 }
 
 export function AnalysisHistorySection() {
-  const { currentData, isCalculated, calculateData } = useCalculator();
+  const { currentData, isCalculated, calculateData, statisticsSettings, setStatisticsSettings } = useCalculator();
   const history = useAnalysisHistory();
   const [name, setName] = useState("Minha análise");
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -76,7 +83,10 @@ export function AnalysisHistorySection() {
 
   const comparison = useMemo(() => {
     if (selectedAnalyses.length !== 2) return null;
-    return [summarize(selectedAnalyses[0].values), summarize(selectedAnalyses[1].values)] as const;
+    return [
+      summarize(selectedAnalyses[0].values, normalizeStatisticsSettings(selectedAnalyses[0].settings)),
+      summarize(selectedAnalyses[1].values, normalizeStatisticsSettings(selectedAnalyses[1].settings)),
+    ] as const;
   }, [selectedAnalyses]);
 
   if (!isCalculated && history.length === 0) return null;
@@ -87,7 +97,7 @@ export function AnalysisHistorySection() {
       return;
     }
 
-    const record = analysisHistoryStore.save({ name, values: currentData });
+    const record = analysisHistoryStore.save({ name, values: currentData, settings: statisticsSettings });
     if (!record) {
       toast.error("Informe um nome válido para salvar a análise.");
       return;
@@ -110,6 +120,7 @@ export function AnalysisHistorySection() {
   };
 
   const loadAnalysis = (record: AnalysisRecord) => {
+    setStatisticsSettings(normalizeStatisticsSettings(record.settings));
     calculateData(record.values);
     toast.success(`“${record.name}” carregada na calculadora.`);
     trackEvent("load_analysis_history", { count: record.values.length });

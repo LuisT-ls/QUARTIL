@@ -48,7 +48,7 @@ function ResultCard({
 }
 
 export function MedidasDispersao() {
-  const { currentData, isCalculated } = useCalculator();
+  const { analysisData: currentData, isCalculated, statisticsSettings } = useCalculator();
 
   if (!isCalculated || currentData.length === 0) {
     return (
@@ -69,7 +69,7 @@ export function MedidasDispersao() {
   }
 
   const media = calcularMedia(currentData);
-  const variancia = calcularVariancia(currentData, media);
+  const variancia = calcularVariancia(currentData, media, statisticsSettings.varianceMethod);
   const desvioPadrao = Math.sqrt(variancia);
   const cv = media === 0 ? null : (desvioPadrao / media) * 100;
   const assimetria = calcularAssimetria(currentData, media);
@@ -85,7 +85,7 @@ export function MedidasDispersao() {
           <h3 className="mb-3 text-xs font-medium uppercase tracking-wider text-slate-400">Desvio Padrão</h3>
           <ResultCard
             value={desvioPadrao.toFixed(2)}
-            formula="<strong>Fórmula:</strong> σ = √(∑(xᵢ - μ)²/n)"
+            formula={`<strong>Fórmula:</strong> ${statisticsSettings.varianceMethod === "population" ? "σ = √(∑(xᵢ - μ)²/n)" : "s = √(∑(xᵢ - x̄)²/(n − 1))"}`}
           >
             <p>μ = {media.toFixed(2)}</p>
             <p>n = {currentData.length}</p>
@@ -96,9 +96,9 @@ export function MedidasDispersao() {
           <h3 className="mb-3 text-xs font-medium uppercase tracking-wider text-slate-400">Variância</h3>
           <ResultCard
             value={variancia.toFixed(2)}
-            formula="<strong>Fórmula:</strong> σ² = ∑(xᵢ - μ)²/n"
+            formula={`<strong>Fórmula:</strong> ${statisticsSettings.varianceMethod === "population" ? "σ² = ∑(xᵢ - μ)²/n" : "s² = ∑(xᵢ - x̄)²/(n − 1)"}`}
           >
-            <p>∑(xᵢ - μ)² = {(variancia * currentData.length).toFixed(2)}</p>
+            <p>∑(xᵢ - μ)² = {(variancia * (statisticsSettings.varianceMethod === "sample" ? Math.max(currentData.length - 1, 1) : currentData.length)).toFixed(2)}</p>
             <p>σ² = {variancia.toFixed(2)}</p>
           </ResultCard>
         </div>

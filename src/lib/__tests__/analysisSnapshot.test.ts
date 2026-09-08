@@ -26,6 +26,21 @@ describe("analysisSnapshot", () => {
     expect(metrics.upperOutliers).toEqual([100]);
   });
 
+  it("preserva a metodologia escolhida no relatório compartilhado", () => {
+    const snapshot = createAnalysisSnapshot([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 100], {
+      quartileMethod: "median-halves",
+      varianceMethod: "sample",
+      invalidDataPolicy: "block",
+      outlierPolicy: "exclude",
+    });
+    const metrics = calculateSnapshotMetrics(snapshot);
+
+    expect(snapshot.settings.varianceMethod).toBe("sample");
+    expect(snapshot.methodology.quartiles).toContain("Tukey");
+    expect(metrics.excludedOutlierCount).toBe(1);
+    expect(metrics.count).toBe(12);
+  });
+
   it("rejeita tokens inválidos", () => {
     expect(deserializeAnalysisSnapshot("token-invalido")).toBeNull();
   });

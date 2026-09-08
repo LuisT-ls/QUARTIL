@@ -171,6 +171,7 @@ Gerar relatório com dados, metodologia, tabelas, gráficos, fórmulas e explica
 **Impacto:** alto
 **Esforço:** alto
 **Prioridade:** 2
+**Status:** implementado; validado (lint, testes e build)
 
 Permitir escolher:
 
@@ -182,6 +183,8 @@ Permitir escolher:
 **Justificativa técnica:** as configurações precisam ser propagadas pelo contexto, funções estatísticas, gráficos, tabelas, textos explicativos e exportações.
 
 **Resultado esperado:** atender melhor usuários acadêmicos e profissionais com diferentes convenções metodológicas.
+
+**Implementação concluída:** painel de configurações na calculadora, quartis interpolados ou pela mediana das metades (Tukey), variância populacional ou amostral, bloqueio opcional de células inválidas na importação, exclusão confirmada de outliers das métricas e propagação da metodologia para gráficos, tabelas, histórico e relatórios compartilhados.
 
 ## 3. 🔵 Rápido de Implementar & Baixo/Médio Impacto
 
@@ -353,6 +356,15 @@ Prioridade 4:
 - P4-03 — Colaboração em tempo real.
 
 **Objetivo:** só investir após evidências de demanda, retenção e necessidade de uso multiusuário.
+
+## Próxima etapa recomendada — Validação orientada por evidências
+
+Com as quatro entregas P2 concluídas, a próxima etapa não deve ser adicionar infraestrutura de contas imediatamente. O foco recomendado é um ciclo curto de validação em produção:
+
+- executar smoke test dos fluxos de importação, histórico, compartilhamento e configurações;
+- observar os eventos de uso já instrumentados e identificar onde usuários abandonam a jornada;
+- coletar feedback sobre convenções estatísticas e necessidade real de persistência na nuvem;
+- decidir, com base nesses sinais, entre aprofundar exportações/feedback ou iniciar P4-01 (contas e nuvem).
 
 # Resumo executivo
 

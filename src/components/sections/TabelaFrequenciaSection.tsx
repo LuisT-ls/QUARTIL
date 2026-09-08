@@ -12,7 +12,7 @@ import {
 } from "@/lib/stats";
 
 export function TabelaFrequenciaSection() {
-  const { currentData, isCalculated } = useCalculator();
+  const { analysisData: currentData, isCalculated } = useCalculator();
   const [inputNumbers, setInputNumbers] = useState<number[]>([]);
   const [tableData, setTableData] = useState<number[] | null>(null);
 

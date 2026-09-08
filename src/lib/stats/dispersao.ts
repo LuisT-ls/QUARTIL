@@ -1,30 +1,35 @@
 import { calcularMedia } from "./media";
+import type { VarianceMethod } from "../statisticsSettings";
 
 export function calcularVariancia(
   array: number[],
-  media: number | null = null
+  media: number | null = null,
+  method: VarianceMethod = "population"
 ): number {
   if (!array?.length) return 0;
+  if (method === "sample" && array.length < 2) return 0;
   const m = media ?? calcularMedia(array);
   const soma = array.reduce((sum, val) => sum + (val - m) ** 2, 0);
-  return soma / array.length;
+  return soma / (method === "sample" ? array.length - 1 : array.length);
 }
 
 export function calcularDesvioPadrao(
   array: number[],
-  media: number | null = null
+  media: number | null = null,
+  method: VarianceMethod = "population"
 ): number {
-  return Math.sqrt(calcularVariancia(array, media));
+  return Math.sqrt(calcularVariancia(array, media, method));
 }
 
 export function calcularCV(
   array: number[],
   media: number | null = null,
-  desvioPadrao: number | null = null
+  desvioPadrao: number | null = null,
+  method: VarianceMethod = "population"
 ): number {
   if (!array?.length) return 0;
   const m = media ?? calcularMedia(array);
-  const dp = desvioPadrao ?? calcularDesvioPadrao(array, m);
+  const dp = desvioPadrao ?? calcularDesvioPadrao(array, m, method);
   if (m === 0) return 0;
   return (dp / m) * 100;
 }

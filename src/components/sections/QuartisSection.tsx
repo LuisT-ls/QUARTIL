@@ -30,7 +30,7 @@ function ResultCard({
 }
 
 export function QuartisSection() {
-  const { currentData, isCalculated } = useCalculator();
+  const { analysisData: currentData, isCalculated, statisticsSettings } = useCalculator();
 
   if (!isCalculated || currentData.length === 0) {
     return (
@@ -55,12 +55,12 @@ export function QuartisSection() {
   }
 
   const ordenado = [...currentData].sort((a, b) => a - b);
-  const q1 = calcularQuartil(currentData, 0.25);
+  const q1 = calcularQuartil(currentData, 0.25, statisticsSettings.quartileMethod);
   const q2 = calcularMediana(currentData);
-  const q3 = calcularQuartil(currentData, 0.75);
+  const q3 = calcularQuartil(currentData, 0.75, statisticsSettings.quartileMethod);
   const iqr = q3 - q1;
   const mediaJuntas = (q1 + q2 + q3) / 3;
-  const outliers = calcularOutliers(currentData);
+  const outliers = calcularOutliers(currentData, statisticsSettings.quartileMethod);
   const totalOutliers = outliers.inferior.length + outliers.superior.length;
 
   return (
@@ -70,7 +70,7 @@ export function QuartisSection() {
         Quartis - Análise de Distribuição
       </h2>
       <p className="mb-6 text-slate-400">
-        Os quartis são essenciais para entender a distribuição dos dados. Este cálculo usa percentis interpolados pela posição (n − 1) × p.
+        Os quartis são essenciais para entender a distribuição dos dados. Método atual: {statisticsSettings.quartileMethod === "interpolated" ? "percentis interpolados pela posição (n − 1) × p" : "mediana das metades (Tukey)"}.
       </p>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         <div>
@@ -78,7 +78,7 @@ export function QuartisSection() {
           <p className="mb-3 text-sm text-slate-400">25% dos dados abaixo</p>
           <ResultCard
             value={q1.toFixed(2)}
-            formula="<strong>Fórmula:</strong> posição = (n − 1) × 0,25"
+            formula={`<strong>Fórmula:</strong> ${statisticsSettings.quartileMethod === "interpolated" ? "posição = (n − 1) × 0,25" : "mediana da metade inferior"}`}
           >
             <p>Dados: [{ordenado.join(", ")}]</p>
             <p>Q₁ = {q1.toFixed(2)}</p>
@@ -99,7 +99,7 @@ export function QuartisSection() {
           <p className="mb-3 text-sm text-slate-400">75% dos dados abaixo</p>
           <ResultCard
             value={q3.toFixed(2)}
-            formula="<strong>Fórmula:</strong> posição = (n − 1) × 0,75"
+            formula={`<strong>Fórmula:</strong> ${statisticsSettings.quartileMethod === "interpolated" ? "posição = (n − 1) × 0,75" : "mediana da metade superior"}`}
           >
             <p>Q₃ = {q3.toFixed(2)}</p>
           </ResultCard>
@@ -149,7 +149,7 @@ export function QuartisSection() {
           </ResultCard>
         </div>
       </div>
-      <PassoAPassoQuartis dados={currentData} />
+      <PassoAPassoQuartis dados={currentData} method={statisticsSettings.quartileMethod} />
     </section>
   );
 }

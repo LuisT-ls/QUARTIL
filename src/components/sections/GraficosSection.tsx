@@ -36,7 +36,7 @@ interface DetalhesBoxplot {
 }
 
 export function GraficosSection() {
-  const { currentData, isCalculated } = useCalculator();
+  const { analysisData: currentData, isCalculated, statisticsSettings } = useCalculator();
   const [detalhesHistograma, setDetalhesHistograma] = useState<DetalhesHistograma | null>(null);
   const [detalhesBoxplot, setDetalhesBoxplot] = useState<DetalhesBoxplot | null>(null);
   const histogramRef = useRef<HTMLCanvasElement>(null);
@@ -152,10 +152,10 @@ export function GraficosSection() {
 
         const min = Math.min(...currentData);
         const max = Math.max(...currentData);
-        const q1 = calcularQuartil(currentData, 0.25);
-        const mediana = calcularQuartil(currentData, 0.5);
-        const q3 = calcularQuartil(currentData, 0.75);
-        const res = calcularOutliers(currentData);
+        const q1 = calcularQuartil(currentData, 0.25, statisticsSettings.quartileMethod);
+        const mediana = calcularQuartil(currentData, 0.5, statisticsSettings.quartileMethod);
+        const q3 = calcularQuartil(currentData, 0.75, statisticsSettings.quartileMethod);
+        const res = calcularOutliers(currentData, statisticsSettings.quartileMethod);
         const whiskerMin =
           res.inferior.length > 0
             ? Math.min(...currentData.filter((v) => v >= res.limiteInferior))
@@ -278,7 +278,7 @@ export function GraficosSection() {
         (boxplotChartRef.current as { destroy: () => void }).destroy();
       }
     };
-  }, [currentData, isCalculated]);
+  }, [currentData, isCalculated, statisticsSettings.quartileMethod]);
 
   return (
       <section id="graficos" className="py-6" aria-labelledby="graficos-title" suppressHydrationWarning>

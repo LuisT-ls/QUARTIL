@@ -22,16 +22,16 @@ function SummaryItem({ label, value }: { label: string; value: string }) {
 }
 
 export function AnalysisSummary() {
-  const { currentData, isCalculated, isDirty } = useCalculator();
+  const { analysisData, currentData, excludedOutlierCount, isCalculated, isDirty, statisticsSettings } = useCalculator();
 
-  if (!isCalculated || currentData.length === 0) return null;
+  if (!isCalculated || analysisData.length === 0) return null;
 
-  const media = calcularMedia(currentData);
-  const desvioPadrao = calcularDesvioPadrao(currentData, media);
-  const q1 = calcularQuartil(currentData, 0.25);
-  const mediana = calcularMediana(currentData);
-  const q3 = calcularQuartil(currentData, 0.75);
-  const outliers = calcularOutliers(currentData);
+  const media = calcularMedia(analysisData);
+  const desvioPadrao = calcularDesvioPadrao(analysisData, media, statisticsSettings.varianceMethod);
+  const q1 = calcularQuartil(analysisData, 0.25, statisticsSettings.quartileMethod);
+  const mediana = calcularMediana(analysisData);
+  const q3 = calcularQuartil(analysisData, 0.75, statisticsSettings.quartileMethod);
+  const outliers = calcularOutliers(currentData, statisticsSettings.quartileMethod);
   const totalOutliers = outliers.inferior.length + outliers.superior.length;
 
   return (
@@ -47,7 +47,7 @@ export function AnalysisSummary() {
             Resumo da análise
           </h2>
           <p className="mt-1 text-sm text-slate-400">
-            Visão rápida dos principais resultados para {currentData.length} valores.
+            Visão rápida dos principais resultados para {analysisData.length} valores.
           </p>
         </div>
         {isDirty && (
@@ -68,8 +68,11 @@ export function AnalysisSummary() {
 
       <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-slate-300">
         <span><strong>Outliers:</strong> {totalOutliers}</span>
-        <span><strong>Mínimo:</strong> {Math.min(...currentData)}</span>
-        <span><strong>Máximo:</strong> {Math.max(...currentData)}</span>
+        <span><strong>Mínimo:</strong> {Math.min(...analysisData)}</span>
+        <span><strong>Máximo:</strong> {Math.max(...analysisData)}</span>
+        {excludedOutlierCount > 0 && (
+          <span className="text-amber-200"><strong>Excluídos:</strong> {excludedOutlierCount} outlier(s)</span>
+        )}
       </div>
 
       <nav className="mt-5 flex flex-wrap gap-2 border-t border-white/10 pt-4" aria-label="Navegação da análise">

@@ -36,6 +36,12 @@ describe('Quartis e Outliers', () => {
             const q3 = calcularQuartil(dataImpares, 0.75);
             expect(q3).toBe(35);
         });
+
+        it('deve suportar quartis pela mediana das metades', () => {
+            expect(calcularQuartil(dataPares, 0.25, 'median-halves')).toBe(16.5);
+            expect(calcularQuartil(dataPares, 0.75, 'median-halves')).toBe(26.5);
+            expect(calcularQuartil([42], 0.25, 'median-halves')).toBe(42);
+        });
     });
 
     describe('calcularOutliers', () => {

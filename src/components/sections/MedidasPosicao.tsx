@@ -28,7 +28,7 @@ function ResultCard({
 }
 
 export function MedidasPosicao() {
-  const { currentData, isCalculated } = useCalculator();
+  const { analysisData: currentData, isCalculated } = useCalculator();
 
   if (!isCalculated || currentData.length === 0) {
     return (

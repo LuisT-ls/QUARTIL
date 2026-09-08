@@ -4,14 +4,23 @@ import {
   createContext,
   useCallback,
   useContext,
+  useMemo,
   useState,
   type ReactNode,
 } from "react";
 import { parseNumberInput } from "@/lib/numberParser";
+import { calcularOutliers } from "@/lib/stats";
+import {
+  DEFAULT_STATISTICS_SETTINGS,
+  type StatisticsSettings,
+} from "@/lib/statisticsSettings";
 
 interface CalculatorContextType {
   inputData: number[];
   currentData: number[];
+  analysisData: number[];
+  excludedOutlierCount: number;
+  statisticsSettings: StatisticsSettings;
   isCalculated: boolean;
   isDirty: boolean;
   calculationTimeMs: number | null;
@@ -20,6 +29,7 @@ interface CalculatorContextType {
   setInputData: (data: number[]) => void;
   calculateData: (data?: number[]) => void;
   processData: (rawInput: string) => number[] | null;
+  setStatisticsSettings: (settings: Partial<StatisticsSettings>) => void;
   clearAll: () => void;
 }
 
@@ -33,6 +43,20 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
   const [calculationTimeMs, setCalculationTimeMs] = useState<number | null>(null);
   const [calculationVersion, setCalculationVersion] = useState(0);
   const [clearVersion, setClearVersion] = useState(0);
+  const [statisticsSettings, setStatisticsSettingsState] = useState<StatisticsSettings>(DEFAULT_STATISTICS_SETTINGS);
+
+  const analysisData = useMemo(() => {
+    if (statisticsSettings.outlierPolicy !== "exclude" || currentData.length === 0) {
+      return currentData;
+    }
+
+    const outliers = calcularOutliers(currentData, statisticsSettings.quartileMethod);
+    const lowerLimit = outliers.limiteInferior;
+    const upperLimit = outliers.limiteSuperior;
+    return currentData.filter((value) => value >= lowerLimit && value <= upperLimit);
+  }, [currentData, statisticsSettings.outlierPolicy, statisticsSettings.quartileMethod]);
+
+  const excludedOutlierCount = currentData.length - analysisData.length;
 
   const setInputData = useCallback(
     (data: number[]) => {
@@ -76,6 +100,11 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
     return [...values].sort((a, b) => a - b);
   }, []);
 
+  const setStatisticsSettings = useCallback((changes: Partial<StatisticsSettings>) => {
+    setStatisticsSettingsState((current) => ({ ...current, ...changes }));
+    setCalculationVersion((version) => version + 1);
+  }, []);
+
   const clearAll = useCallback(() => {
     setInputDataState([]);
     setCurrentData([]);
@@ -90,6 +119,9 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
       value={{
         inputData,
         currentData,
+        analysisData,
+        excludedOutlierCount,
+        statisticsSettings,
         isCalculated,
         isDirty,
         calculationTimeMs,
@@ -98,6 +130,7 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
         setInputData,
         calculateData,
         processData,
+        setStatisticsSettings,
         clearAll,
       }}
     >

@@ -10,6 +10,7 @@ import { ExportPopup } from "./ExportPopup";
 import { ImportPopup, type ImportedData } from "./ImportPopup";
 import { trackEvent } from "@/lib/analytics";
 import { createReportShareUrl } from "@/lib/analysisSnapshot";
+import { StatisticsSettingsPanel } from "./StatisticsSettingsPanel";
 
 const EXAMPLE_DATA = [5, 8, 10, 12, 15, 18, 20, 22, 25, 30];
 
@@ -27,6 +28,7 @@ export function CalculatorSection() {
     isCalculated,
     isDirty,
     calculationTimeMs,
+    statisticsSettings,
   } = useCalculator();
 
   const handleCalculate = useCallback(() => {
@@ -77,7 +79,7 @@ export function CalculatorSection() {
     }
 
     try {
-      const url = createReportShareUrl(currentData);
+      const url = createReportShareUrl(currentData, statisticsSettings);
       if (navigator.share) {
         await navigator.share({
           title: "Relatório de análise estatística",
@@ -93,7 +95,7 @@ export function CalculatorSection() {
       if (error instanceof DOMException && error.name === "AbortError") return;
       toast.error(error instanceof Error ? error.message : "Não foi possível compartilhar o relatório.");
     }
-  }, [currentData, isCalculated]);
+  }, [currentData, isCalculated, statisticsSettings]);
 
   const handleImportedData = useCallback(
     ({ values, fileName }: ImportedData) => {
@@ -221,6 +223,7 @@ export function CalculatorSection() {
             </div>
           </div>
         )}
+        <StatisticsSettingsPanel />
       </section>
 
       <RandomPopup

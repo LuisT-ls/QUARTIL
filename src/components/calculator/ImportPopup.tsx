@@ -4,6 +4,7 @@ import { useMemo, useRef, useState } from "react";
 import { FileSpreadsheet, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { useDialogAccessibility } from "@/hooks/useDialogAccessibility";
+import { useCalculator } from "@/context/CalculatorContext";
 import {
   analyzeSpreadsheetRows,
   detectHeaderRow,
@@ -26,6 +27,7 @@ interface ImportPopupProps {
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
 export function ImportPopup({ isOpen, onClose, onImport }: ImportPopupProps) {
+  const { statisticsSettings } = useCalculator();
   const [rawRows, setRawRows] = useState<SpreadsheetCell[][]>([]);
   const [fileName, setFileName] = useState("");
   const [sheetName, setSheetName] = useState("");
@@ -45,6 +47,7 @@ export function ImportPopup({ isOpen, onClose, onImport }: ImportPopupProps) {
   const selectedSummary = effectiveColumn === null
     ? null
     : analysis?.columns.find((column) => column.index === effectiveColumn) ?? null;
+  const hasBlockedInvalidValues = statisticsSettings.invalidDataPolicy === "block" && (selectedSummary?.invalidCount ?? 0) > 0;
 
   const reset = () => {
     setRawRows([]);
@@ -122,6 +125,11 @@ export function ImportPopup({ isOpen, onClose, onImport }: ImportPopupProps) {
   const handleImport = () => {
     if (!selectedSummary || selectedSummary.values.length === 0) {
       toast.error("Selecione uma coluna com valores numéricos válidos.");
+      return;
+    }
+
+    if (hasBlockedInvalidValues) {
+      toast.error("Revise as células inválidas ou escolha 'Ignorar e avisar' nas configurações estatísticas.");
       return;
     }
 
@@ -239,7 +247,9 @@ export function ImportPopup({ isOpen, onClose, onImport }: ImportPopupProps) {
                   <strong>{selectedSummary.values.length}</strong> número(s) válido(s), {selectedSummary.emptyCount} célula(s) vazia(s) e {selectedSummary.invalidCount} inválida(s).
                 </p>
                 <p className="mt-1 text-slate-500 dark:text-slate-400">
-                  Células vazias e inválidas serão ignoradas na importação.
+                  {hasBlockedInvalidValues
+                    ? "Há células inválidas. A importação está bloqueada pela configuração atual."
+                    : "Células vazias e inválidas serão ignoradas na importação."}
                 </p>
               </div>
             )}
@@ -276,7 +286,7 @@ export function ImportPopup({ isOpen, onClose, onImport }: ImportPopupProps) {
               <button
                 type="button"
                 onClick={handleImport}
-                disabled={!selectedSummary || selectedSummary.values.length === 0 || isLoading}
+                disabled={!selectedSummary || selectedSummary.values.length === 0 || hasBlockedInvalidValues || isLoading}
                 className="rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-2.5 font-medium text-white transition-all hover:from-blue-400 hover:to-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Carregar na calculadora

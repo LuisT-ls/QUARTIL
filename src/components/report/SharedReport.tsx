@@ -65,7 +65,7 @@ export function SharedReport() {
     ["Média", formatNumber(metrics.mean)],
     ["Mediana (Q2)", formatNumber(metrics.median)],
     ["Moda", metrics.mode],
-    ["Variância populacional", formatNumber(metrics.variance)],
+    [snapshot.settings.varianceMethod === "population" ? "Variância populacional" : "Variância amostral", formatNumber(metrics.variance)],
     ["Desvio padrão", formatNumber(metrics.standardDeviation)],
     ["Coeficiente de variação", metrics.coefficientOfVariation === null ? "Indefinido (média igual a zero)" : `${formatNumber(metrics.coefficientOfVariation)}%`],
     ["Q1", formatNumber(metrics.q1)],
@@ -126,6 +126,10 @@ export function SharedReport() {
             <li><strong className="text-slate-100">Quartis:</strong> {snapshot.methodology.quartiles}</li>
             <li><strong className="text-slate-100">Variância:</strong> {snapshot.methodology.variance}</li>
             <li><strong className="text-slate-100">Outliers:</strong> {snapshot.methodology.outliers}</li>
+            <li><strong className="text-slate-100">Dados inválidos:</strong> {snapshot.methodology.invalidData ?? "O relatório contém apenas os valores numéricos válidos presentes no link."}</li>
+            {metrics.excludedOutlierCount > 0 && (
+              <li><strong className="text-slate-100">Valores excluídos:</strong> {metrics.excludedOutlierCount} outlier(s) removido(s) das métricas.</li>
+            )}
           </ul>
         </section>
 

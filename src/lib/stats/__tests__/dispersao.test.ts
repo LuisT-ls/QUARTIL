@@ -18,6 +18,10 @@ describe('Medidas de Dispersão', () => {
         it('deve retornar a variância populacional correta', () => {
             expect(calcularVariancia(data)).toBeCloseTo(2);
         });
+
+        it('deve calcular a variância amostral dividindo por n - 1', () => {
+            expect(calcularVariancia(data, null, 'sample')).toBeCloseTo(2.5);
+        });
     });
 
     describe('calcularDesvioPadrao', () => {

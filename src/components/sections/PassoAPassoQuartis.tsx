@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ChevronDown, ChevronUp, Calculator } from "lucide-react";
 import type { PassoQuartil } from "@/lib/stats";
 import { obterPassosQuartis } from "@/lib/stats";
+import type { QuartileMethod } from "@/lib/statisticsSettings";
 import { MathDisplay } from "@/components/ui/MathDisplayLazy";
 
 function PassoCard({ passo }: { passo: PassoQuartil }) {
@@ -41,9 +42,9 @@ function PassoCard({ passo }: { passo: PassoQuartil }) {
   );
 }
 
-export function PassoAPassoQuartis({ dados }: { dados: number[] }) {
+export function PassoAPassoQuartis({ dados, method = "interpolated" }: { dados: number[]; method?: QuartileMethod }) {
   const [expandido, setExpandido] = useState(false);
-  const passos = obterPassosQuartis(dados);
+  const passos = obterPassosQuartis(dados, method);
 
   if (!passos || dados.length === 0) return null;
 

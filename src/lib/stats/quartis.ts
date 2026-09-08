@@ -1,4 +1,4 @@
-
+import type { QuartileMethod } from "../statisticsSettings";
 
 export interface PassoQuartil {
   titulo: string;
@@ -11,7 +11,10 @@ export interface PassoQuartil {
   substituicaoLatex?: string;
 }
 
-export function obterPassosQuartis(array: number[]): {
+export function obterPassosQuartis(
+  array: number[],
+  method: QuartileMethod = "interpolated"
+): {
   q1: PassoQuartil;
   q2: PassoQuartil;
   q3: PassoQuartil;
@@ -21,9 +24,9 @@ export function obterPassosQuartis(array: number[]): {
   const ordenado = [...array].sort((a, b) => a - b);
   const n = ordenado.length;
 
-  const q1Result = passoQ1(ordenado, n);
+  const q1Result = passoQ1(ordenado, n, method);
   const q2Result = passoQ2(ordenado, n);
-  const q3Result = passoQ3(ordenado, n);
+  const q3Result = passoQ3(ordenado, n, method);
   const iqrResult = passoIQR(
     parseFloat(q1Result.resultado),
     parseFloat(q3Result.resultado)
@@ -45,7 +48,8 @@ function passoIQR(q1: number, q3: number): PassoQuartil {
   };
 }
 
-function passoQ1(ordenado: number[], n: number): PassoQuartil {
+function passoQ1(ordenado: number[], n: number, method: QuartileMethod): PassoQuartil {
+  if (method === "median-halves") return passoMedianaDasMetades(ordenado, false);
   const percentil = 0.25;
   const posicao = percentil * (n - 1);
   const base = Math.floor(posicao);
@@ -124,7 +128,8 @@ function passoQ2(ordenado: number[], n: number): PassoQuartil {
   };
 }
 
-function passoQ3(ordenado: number[], n: number): PassoQuartil {
+function passoQ3(ordenado: number[], n: number, method: QuartileMethod): PassoQuartil {
+  if (method === "median-halves") return passoMedianaDasMetades(ordenado, true);
   const percentil = 0.75;
   const posicao = percentil * (n - 1);
   const base = Math.floor(posicao);
@@ -160,9 +165,54 @@ function passoQ3(ordenado: number[], n: number): PassoQuartil {
   };
 }
 
-export function calcularQuartil(array: number[], percentil: number): number {
+function passoMedianaDasMetades(ordenado: number[], superior: boolean): PassoQuartil {
+  if (ordenado.length === 1) {
+    const quartil = superior ? "Q₃" : "Q₁";
+    return {
+      titulo: `Calcular ${quartil} (mediana das metades)`,
+      formula: `${quartil} = único valor observado`,
+      substituicao: `${quartil} = ${ordenado[0]}`,
+      resultado: (ordenado[0] ?? 0).toFixed(2),
+      explicacao: "Com apenas um valor, os quartis coincidem com o único valor observado.",
+    };
+  }
+  const meio = Math.floor(ordenado.length / 2);
+  const metade = superior
+    ? ordenado.slice(ordenado.length % 2 === 0 ? meio : meio + 1)
+    : ordenado.slice(0, meio);
+  const centro = Math.floor(metade.length / 2);
+  const valor = metade.length % 2 === 0
+    ? (metade[centro - 1]! + metade[centro]!) / 2
+    : metade[centro]!;
+  const quartil = superior ? "Q₃" : "Q₁";
+  return {
+    titulo: `Calcular ${quartil} (mediana das metades)`,
+    formula: `${quartil} = mediana da metade ${superior ? "superior" : "inferior"}`,
+    substituicao: `Valores considerados: [${metade.join(", ")}]`,
+    resultado: valor.toFixed(2),
+    explicacao: "O método de Tukey divide os dados ordenados em duas metades e calcula a mediana da metade correspondente.",
+    formulaLatex: `${quartil.replace("₁", "_1").replace("₃", "_3")} = \\operatorname{mediana}(\\text{metade ${superior ? "superior" : "inferior"}})`,
+    substituicaoLatex: `\\operatorname{mediana}([${metade.join(", ")}])`,
+  };
+}
+
+export function calcularQuartil(
+  array: number[],
+  percentil: number,
+  method: QuartileMethod = "interpolated"
+): number {
   if (!array?.length) return 0;
   const ordenado = [...array].sort((a, b) => a - b);
+
+  if (method === "median-halves" && percentil !== 0.5) {
+    if (ordenado.length === 1) return ordenado[0] ?? 0;
+    const meio = Math.floor(ordenado.length / 2);
+    const metade = percentil < 0.5
+      ? ordenado.slice(0, meio)
+      : ordenado.slice(ordenado.length % 2 === 0 ? meio : meio + 1);
+    return calcularMedianaSimples(metade);
+  }
+
   const posicao = percentil * (ordenado.length - 1);
   const base = Math.floor(posicao);
   const resto = posicao - base;
@@ -173,6 +223,14 @@ export function calcularQuartil(array: number[], percentil: number): number {
   return ordenado[base] ?? 0;
 }
 
+function calcularMedianaSimples(array: number[]): number {
+  if (array.length === 0) return 0;
+  const meio = Math.floor(array.length / 2);
+  return array.length % 2 === 0
+    ? (array[meio - 1]! + array[meio]!) / 2
+    : array[meio]!;
+}
+
 export interface OutliersResult {
   inferior: number[];
   superior: number[];
@@ -180,12 +238,15 @@ export interface OutliersResult {
   limiteSuperior: number;
 }
 
-export function calcularOutliers(array: number[]): OutliersResult {
+export function calcularOutliers(
+  array: number[],
+  method: QuartileMethod = "interpolated"
+): OutliersResult {
   if (!array?.length) {
     return { inferior: [], superior: [], limiteInferior: 0, limiteSuperior: 0 };
   }
-  const q1 = calcularQuartil(array, 0.25);
-  const q3 = calcularQuartil(array, 0.75);
+  const q1 = calcularQuartil(array, 0.25, method);
+  const q3 = calcularQuartil(array, 0.75, method);
   const iqr = q3 - q1;
   const limiteInferior = q1 - 1.5 * iqr;
   const limiteSuperior = q3 + 1.5 * iqr;

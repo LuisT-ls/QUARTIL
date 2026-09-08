@@ -7,6 +7,11 @@ import {
   calcularQuartil,
   calcularVariancia,
 } from "@/lib/stats";
+import {
+  DEFAULT_STATISTICS_SETTINGS,
+  normalizeStatisticsSettings,
+  type StatisticsSettings,
+} from "@/lib/statisticsSettings";
 
 export const REPORT_ROUTE = "/relatorio";
 export const MAX_SHARED_VALUES = 2000;
@@ -16,6 +21,7 @@ export interface AnalysisMethodology {
   quartiles: string;
   variance: string;
   outliers: string;
+  invalidData: string;
 }
 
 export interface AnalysisSnapshot {
@@ -23,6 +29,7 @@ export interface AnalysisSnapshot {
   values: number[];
   generatedAt: string;
   methodology: AnalysisMethodology;
+  settings: StatisticsSettings;
 }
 
 export interface AnalysisSnapshotMetrics {
@@ -46,31 +53,48 @@ export interface AnalysisSnapshotMetrics {
   upperOutliers: number[];
   lowerLimit: number;
   upperLimit: number;
+  excludedOutlierCount: number;
 }
 
-export function createAnalysisSnapshot(values: number[]): AnalysisSnapshot {
+export function createAnalysisSnapshot(
+  values: number[],
+  settings: StatisticsSettings = DEFAULT_STATISTICS_SETTINGS
+): AnalysisSnapshot {
   const sortedValues = [...values].filter(Number.isFinite).sort((a, b) => a - b);
+  const normalizedSettings = normalizeStatisticsSettings(settings);
 
   return {
     version: 1,
     values: sortedValues,
     generatedAt: new Date().toISOString(),
+    settings: normalizedSettings,
     methodology: {
-      quartiles: "Percentis interpolados pela posição (n − 1) × p.",
-      variance: "Variância populacional: soma dos desvios ao quadrado dividida por n.",
-      outliers: "Limites definidos por Q1 − 1,5 × IQR e Q3 + 1,5 × IQR.",
+      quartiles: normalizedSettings.quartileMethod === "interpolated"
+        ? "Percentis interpolados pela posição (n − 1) × p."
+        : "Mediana das metades (método de Tukey).",
+      variance: normalizedSettings.varianceMethod === "population"
+        ? "Variância populacional: soma dos desvios ao quadrado dividida por n."
+        : "Variância amostral: soma dos desvios ao quadrado dividida por n − 1.",
+      outliers: normalizedSettings.outlierPolicy === "exclude"
+        ? "Outliers identificados pelo IQR e excluídos das métricas; os valores originais permanecem no relatório."
+        : "Limites definidos por Q1 − 1,5 × IQR e outliers apenas sinalizados.",
+      invalidData: "O relatório contém somente valores numéricos válidos presentes no link.",
     },
   };
 }
 
 export function calculateSnapshotMetrics(snapshot: AnalysisSnapshot): AnalysisSnapshotMetrics {
-  const values = snapshot.values;
+  const settings = normalizeStatisticsSettings(snapshot.settings);
+  const detectedOutliers = calcularOutliers(snapshot.values, settings.quartileMethod);
+  const values = settings.outlierPolicy === "exclude"
+    ? snapshot.values.filter((value) => value >= detectedOutliers.limiteInferior && value <= detectedOutliers.limiteSuperior)
+    : snapshot.values;
   const mean = calcularMedia(values);
-  const standardDeviation = calcularDesvioPadrao(values);
-  const q1 = calcularQuartil(values, 0.25);
+  const standardDeviation = calcularDesvioPadrao(values, undefined, settings.varianceMethod);
+  const q1 = calcularQuartil(values, 0.25, settings.quartileMethod);
   const q2 = calcularMediana(values);
-  const q3 = calcularQuartil(values, 0.75);
-  const outliers = calcularOutliers(values);
+  const q3 = calcularQuartil(values, 0.75, settings.quartileMethod);
+  const outliers = calcularOutliers(values, settings.quartileMethod);
   const mode = calcularModa(values);
   const modeLabel = typeof mode === "object"
     ? Array.isArray(mode) ? mode.join(", ") : String(mode)
@@ -85,7 +109,7 @@ export function calculateSnapshotMetrics(snapshot: AnalysisSnapshot): AnalysisSn
     mean,
     median: q2,
     mode: modeLabel,
-    variance: calcularVariancia(values, mean),
+    variance: calcularVariancia(values, mean, settings.varianceMethod),
     standardDeviation,
     coefficientOfVariation: mean === 0 ? null : (standardDeviation / mean) * 100,
     q1,
@@ -97,6 +121,7 @@ export function calculateSnapshotMetrics(snapshot: AnalysisSnapshot): AnalysisSn
     upperOutliers: outliers.superior,
     lowerLimit: outliers.limiteInferior,
     upperLimit: outliers.limiteSuperior,
+    excludedOutlierCount: snapshot.values.length - values.length,
   };
 }
 
@@ -147,13 +172,17 @@ export function deserializeAnalysisSnapshot(token: string): AnalysisSnapshot | n
       values: [...snapshot.values].sort((a, b) => a - b),
       generatedAt: snapshot.generatedAt,
       methodology: snapshot.methodology as AnalysisMethodology,
+      settings: normalizeStatisticsSettings(snapshot.settings),
     };
   } catch {
     return null;
   }
 }
 
-export function createReportShareUrl(values: number[]): string {
+export function createReportShareUrl(
+  values: number[],
+  settings: StatisticsSettings = DEFAULT_STATISTICS_SETTINGS
+): string {
   if (typeof window === "undefined") {
     throw new Error("Links compartilháveis só podem ser criados no navegador.");
   }
@@ -164,6 +193,6 @@ export function createReportShareUrl(values: number[]): string {
     throw new Error(`Compartilhamento limitado a ${MAX_SHARED_VALUES} valores. Use a exportação para conjuntos maiores.`);
   }
 
-  const snapshot = createAnalysisSnapshot(values);
+  const snapshot = createAnalysisSnapshot(values, settings);
   return `${window.location.origin}${REPORT_ROUTE}?data=${serializeAnalysisSnapshot(snapshot)}`;
 }

@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from "react";
+import type { StatisticsSettings } from "@/lib/statisticsSettings";
 
 export interface AnalysisRecord {
   id: string;
@@ -6,11 +7,13 @@ export interface AnalysisRecord {
   values: number[];
   createdAt: string;
   updatedAt: string;
+  settings?: StatisticsSettings;
 }
 
 export interface SaveAnalysisInput {
   name: string;
   values: number[];
+  settings?: StatisticsSettings;
 }
 
 const STORAGE_KEY = "quartil:analysis-history:v1";
@@ -103,7 +106,7 @@ function persist(records: AnalysisRecord[]) {
 }
 
 export const analysisHistoryStore = {
-  save({ name, values }: SaveAnalysisInput): AnalysisRecord | null {
+  save({ name, values, settings }: SaveAnalysisInput): AnalysisRecord | null {
     const normalizedName = normalizeAnalysisName(name);
     const validValues = values.filter((value) => Number.isFinite(value));
     if (!normalizedName || validValues.length === 0) return null;
@@ -115,6 +118,7 @@ export const analysisHistoryStore = {
       values: [...validValues],
       createdAt: now,
       updatedAt: now,
+      settings,
     };
 
     persist([record, ...getSnapshot()].slice(0, MAX_ANALYSES));
@@ -144,6 +148,7 @@ export const analysisHistoryStore = {
     return this.save({
       name: `${source.name} (cópia)`,
       values: source.values,
+      settings: source.settings,
     });
   },
 };
