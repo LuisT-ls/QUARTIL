@@ -145,6 +145,7 @@ Permitir upload de arquivos, seleção de coluna numérica, pré-visualização,
 **Impacto:** alto
 **Esforço:** médio/alto
 **Prioridade:** 2
+**Status:** implementado; validação local concluída
 
 Salvar análises no navegador, permitir nomear, duplicar, favoritar e comparar dois conjuntos.
 

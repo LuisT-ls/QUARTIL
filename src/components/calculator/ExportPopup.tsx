@@ -260,7 +260,7 @@ export function ExportPopup({ isOpen, onClose }: ExportPopupProps) {
           type="button"
           onClick={onClose}
           disabled={isExporting}
-          className="absolute right-2 top-2 rounded p-2 text-2xl leading-none text-neutral-500 hover:bg-neutral-100"
+          className="absolute right-2 top-2 rounded p-2 text-2xl leading-none text-neutral-500 hover:bg-neutral-100 hover:text-neutral-700 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-white"
           aria-label="Fechar"
         >
           &times;

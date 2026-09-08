@@ -47,7 +47,8 @@ export function PrivacyNotice() {
       <p>
         Os números inseridos são processados no seu navegador. Usamos métricas
         do Google Analytics para entender o uso da aplicação, sem enviar seus
-        valores nos eventos de produto.
+        valores nos eventos de produto. O histórico de análises permanece no
+        navegador.
       </p>
       <button
         type="button"

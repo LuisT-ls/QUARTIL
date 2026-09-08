@@ -11,6 +11,7 @@ import { TabelaFrequenciaManualSection } from "@/components/sections/TabelaFrequ
 import { CasosUsoSection } from "@/components/sections/CasosUsoSection";
 import { EducativoSection } from "@/components/sections/EducativoSection";
 import { AnalysisSummary } from "@/components/sections/AnalysisSummary";
+import { AnalysisHistorySection } from "@/components/sections/AnalysisHistorySection";
 import { FadeInView } from "@/components/ui/FadeInView";
 
 function MainContent() {
@@ -19,6 +20,8 @@ function MainContent() {
   return (
     <div className="container mx-auto max-w-6xl space-y-6 px-4 pb-8">
       <CalculatorSection />
+
+      <AnalysisHistorySection />
 
       {isCalculated && (
         <>
